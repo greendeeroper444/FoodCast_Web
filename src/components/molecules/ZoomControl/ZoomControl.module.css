@@ -1,0 +1,67 @@
+.controlsContainer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+.controlButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    /* background-color: #3333; */
+    color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.controlButton:hover {
+    background-color: #3333;
+    transform: scale(1.05);
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+}
+
+.buttonText {
+    color: black;
+}
+
+@media (max-width: 768px) {
+    .buttonText {
+        display: none;
+    }
+
+    .controlButton {
+        width: 45px;
+        height: 45px;
+        padding: 10px;
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,114 @@
+/* .collectedPage {
+  
+} */
+  
+.calendarContainer {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+.filterContainer {
+
+}
+  
+.filterContainer select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    background: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filterContainer select:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(0, 255, 170, 0.418);
+}
+
+.monthNavigation,
+.yearNavigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+  
+.navButton {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+.navButton:hover {
+    background: var(--primary-hover-color);
+}
+  
+.calendarTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+  
+.calendarTable th,
+.calendarTable td {
+    border: 1px solid #ddd;
+    /* padding: 10px;
+    text-align: center;
+    width: 14.28%; */
+}
+
+.calendarTableMonth {
+    width: 100%;
+    border-collapse: collapse;
+}
+  
+.calendarTableMonth th,
+.calendarTableMonth td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    width: 14.28%;
+}
+
+.calendarDay {
+    position: relative;
+    height: 80px;
+    vertical-align: top;
+}
+
+.dateNumber {
+    /* font-weight: bold; */
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+  
+.calendarTable th {
+    background: #f4f4f4;
+}
+  
+.cell {
+    height: 80px;
+    vertical-align: top;
+    position: relative;
+}
+  
+.date {
+    font-weight: bold;
+}
+  
+.event {
+    font-size: 12px;
+    margin-top: 5px;
+    #fff-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+  

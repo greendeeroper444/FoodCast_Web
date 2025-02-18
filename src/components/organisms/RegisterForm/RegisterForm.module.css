@@ -1,0 +1,71 @@
+.registerForm {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: var(--background-color-default);
+    margin-top: 20px;
+}
+
+.registerForm h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: var(--color-text-dark);
+    text-align: start;
+}
+
+.formGroup {
+    position: relative;
+}
+
+.eyeIcon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px;
+    color: #ccc;
+}
+
+.passwordStrength {
+    position: absolute;
+    top: 50%;
+    right: 35px;
+    transform: translateY(-50%);
+    font-size: 12px;
+}
+
+
+.passwordStrength--weak {
+    color: red;
+}
+
+.passwordStrength--medium {
+    color: orange;
+}
+
+.passwordStrength--strong {
+    color: green;
+}
+
+.orDriver {
+    margin: 10px 0;
+    font-size: 14px;
+    color: var(--color-text-grey);
+}
+  
+.signupLink {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--color-text-grey);
+}
+  
+.signupLink a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}

@@ -1,0 +1,39 @@
+.mainLayout{
+    display: flex;
+    /* height: 100vh; */
+}
+  
+.mainContent{
+    flex-grow: 1;
+    margin-left: 230px;
+    /* margin-top: 60px; */
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.pageContent{
+    padding: 1rem;
+    flex-grow: 1;
+    max-width: 1200px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.menuContainer {
+    position: fixed;
+    background-color: var(--primary-color);
+    border: 1px solid var(--secondary-hover-color);
+    padding: 10px;
+    margin-top: 13px;
+    margin-left: -10px;
+    z-index: 1000;
+    border-radius: 10px;
+}
+
+
+@media (max-width: 768px){
+    .mainContent{
+        margin-left: 0;
+    }
+}

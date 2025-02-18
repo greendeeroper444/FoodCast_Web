@@ -1,0 +1,79 @@
+.usersManagementPage {
+    display: flex;
+    padding: 20px;
+    background-color: var(--bacground-color-default-hover);
+    border-radius: 20px;
+    margin-top: 2rem;
+    height: 83vh;
+}
+
+.sidebar {
+    width: 180px;
+    padding-right: 20px;
+    border-right: 2px solid var(--background-green-light);
+}
+
+.sidebarTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.menuList {
+    list-style: none;
+    padding: 0;
+}
+
+.menuItem {
+    padding: 10px 0;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding-left: 10px;
+}
+
+.menuItem:hover {
+    color: var(--color-text-dark);
+    background-color: var(--background-green-light);
+    border-radius: 5px;
+}
+
+/* active state */
+.active {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 5px;
+}
+
+.componentContainer {
+    flex: 1;
+    padding: 0;
+    border-radius: 10px;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.componentContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+.componentContainer::-webkit-scrollbar-thumb {
+    background-color: #c2c2c2;
+    border-radius: 10px;
+}
+
+.componentContainer::-webkit-scrollbar-thumb:hover {
+    background-color: #c2c2c2;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .sidebarOpen {
+        transform: translateX(0);
+    }
+}

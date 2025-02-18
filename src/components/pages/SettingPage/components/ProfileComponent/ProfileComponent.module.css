@@ -1,0 +1,76 @@
+
+.profileContent {
+    flex: 1;
+    padding: 0 40px;
+    max-width: 400px;
+    margin: auto;
+}
+  
+.profileHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    line-height: 5px;
+}
+  
+.profileImage {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+    object-fit: cover;
+}
+  
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+  
+.profileName {
+    font-size: 20px;
+    margin: 0;
+    line-height: 20px;
+}
+  
+.profileRole {
+    color: var(--primary-color);
+    font-size: 16px;
+    text-align: center;
+}
+  
+.profileForm {
+    display: grid;
+    gap: 15px;
+    max-width: 400px;
+}
+  
+.formGroup label {
+    font-size: 14px;
+    color: var(--color-text-grey);
+}
+  
+.formGroup input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+  
+.editButton {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+  
+.editButton:hover {
+    background-color: var(--primary-hover-color);
+}

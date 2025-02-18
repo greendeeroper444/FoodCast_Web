@@ -1,0 +1,111 @@
+.modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* modal content */
+
+.modalBackdrop ::-webkit-scrollbar {
+    width: 10px;
+    display: none; 
+}
+  
+.modalBackdrop ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+  
+
+.modalBackdrop ::-webkit-scrollbar-thumb {
+    background: #888;
+}
+  
+.modalBackdrop ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.modalContent {
+    background: #fff;
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    transform: translateY(-100%);
+    transition: transform 0.4s ease-in-out;
+}
+
+/* modal shown state */
+.modalBackdrop.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modalBackdrop.show .modalContent {
+    transform: translateY(0);
+}
+
+.submitButton {
+    background-color: var(--secondary-hover-color);
+    border: 1px solid var(--secondary-hover-color);
+    color: #fff;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.submitButton:hover {
+    background-color: #fff;
+    border: 1px solid var(--secondary-hover-color);
+    color: var(--secondary-hover-color);
+}
+
+.cancelButton {
+    background-color: #fff;
+    border: 1px solid var(--secondary-hover-color);
+    color: var(--secondary-hover-color);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.cancelButton:hover {
+    background-color: var(--secondary-hover-color);
+    border: 1px solid var(--secondary-hover-color);
+    color: #fff;
+}
+
+.bodyAndFooter {
+    padding: 20px 50px;
+}
+
+
+/* modal body */
+.modalBody {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 300px;
+}
+
+.modalBody label {
+    font-size: 14px;
+    color: var(--color-text-dark);
+    margin-bottom: 5px;
+}
+
+.modalBody input {
+    margin-bottom: 15px;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    width: 100%;
+}

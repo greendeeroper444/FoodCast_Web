@@ -1,0 +1,57 @@
+.seasonalForecastPage {
+    
+}
+
+.seasonalForecastPage h2 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.seasonalForecastPage .selection {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px;
+}
+
+.seasonalForecastPage .formGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.seasonalForecastPage label {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.seasonalForecastPage select {
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.seasonalForecastPage select:hover {
+    border-color: var(--primary-hover-color);
+}
+
+.linechartTable {
+    margin-top: 10px;
+}
+.lineChartSeasonalForecasted {
+    padding: 20px;
+}
+
+.rainySeason {
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 10px;
+}
+.drySeason {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}

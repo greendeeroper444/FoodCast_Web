@@ -1,0 +1,19 @@
+.supplyButton {
+    margin-right: 10px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    background-color: #fff;
+    color: var(--secondary-hover-color);
+}
+  
+.supplyButton:hover {
+    background-color: var(--secondary-hover-color);
+    color: #fff;
+}
+  
+.supplyButton.active {
+    background-color: var(--secondary-hover-color);
+    color: #fff;
+    transform: scale(1.05);
+}
+  

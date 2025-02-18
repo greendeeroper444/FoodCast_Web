@@ -1,0 +1,119 @@
+.mapPage {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.mainContainer {
+    display: flex;
+    height: 80vh;
+    position: relative;
+    gap: 20px;
+    overflow: hidden;
+}
+
+.mapContainer {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    height: 100%;
+}
+
+.map {
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+}
+
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContent {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 300px;
+    width: 90%;
+    animation: fadeIn 0.3s ease-in-out;
+    position: relative;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 24px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+
+/* popup */
+.popupContent {
+    max-height: 150px;
+    width: 150px;
+    overflow-y: auto;
+}
+
+.popupContent::-webkit-scrollbar {
+    width: 6px;
+}
+
+.popupContent::-webkit-scrollbar-thumb {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+}
+
+.popupContent::-webkit-scrollbar-thumb:hover {
+    background-color: #f0f0f0;
+}
+
+.supplierName ul li {
+    /* background-color: #f0f0f0; */
+    cursor: pointer;
+}
+
+/* modal */
+.modalContent {
+    position: relative;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modalContent::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.modalContent::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

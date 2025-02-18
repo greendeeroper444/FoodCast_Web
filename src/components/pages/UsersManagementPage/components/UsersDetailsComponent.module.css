@@ -1,0 +1,127 @@
+.usersDetails {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 900px;
+    margin: 0 auto;
+}
+  
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+  
+.backButton {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
+  
+.detailsContainer {
+    background-color: #fff;
+    color: var(--color-text-dark);
+    padding: 20px;
+    border-radius: 10px;
+}
+  
+.usersInfo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+  
+.profilePic {
+    width: 50px;
+    height: 50px;
+    background-color: var(--background-green-light);
+    border-radius: 50%;
+}
+
+.position {
+    line-height: 1px;
+}
+  
+.position p:nth-child(1) {
+    font-size: 16px;
+    font-weight: bold;
+}
+.dataSection {
+    display: flex;
+    gap: 20px;
+}
+  
+.dataTable {
+    width: 60%;
+    border-collapse: collapse;
+}
+
+.dataTable th,
+.dataTable td {
+    border: 1px solid var(--border-color);
+    padding: 8px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.dataTable th {
+    background-color: var(--background-color-default-hover);
+}
+
+.scrollableTableBody {
+    display: block;
+    max-height: 265px;
+    overflow-y: auto;
+}
+
+.scrollableTableBody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.dataTable thead,
+.dataTable tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+  
+.chartSection {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+  
+.chartPlaceholder {
+    width: 100%;
+    height: 150px;
+    background-color: var(--background-green-light);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 16px;
+}
+  
+.monthSelector {
+    font-size: 14px;
+    color: var(--color-text-dark);
+    cursor: pointer;
+}
+  

@@ -1,0 +1,100 @@
+.supplyTableTemplate{
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.renderTable {
+    background-color: #fff;
+}
+  
+.supplyTableTemplate h2{
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+  
+.supplyTableTemplate table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* .tableContainer{
+    padding: 20px 0;
+} */
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+  
+.pagination button {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+  
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+  
+/* .pagination button:hover {
+    background-color: var(--primary-hover-color);
+} */
+  
+.searchDaterangeContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+  
+.formatDateRange {
+    font-size: 16px;
+    font: 600;
+}
+/* .dateRange {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+  
+.dateRange span {
+    font-weight: 600;
+    font-size: 20px;
+} */
+
+.downloadButton {
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+}
+  
+@media (max-width: 768px) {
+    .pagination {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .pagination button {
+        margin-bottom: 10px;
+    }
+    
+    .dateRange {
+        margin: 10px 0;
+    }
+}
+  

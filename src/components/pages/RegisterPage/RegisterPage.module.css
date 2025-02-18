@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.registerPage {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--secondary-color);
+}
+
+.registerLeft {
+    flex: 1;
+    background-color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebarBg {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+    left: 0;
+}
+
+
+.registerRight {
+    flex: 2.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+    background-color: var(--secondary-color);
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-top: 20px;
+    gap: 10px;
+    padding: 20px;
+    border-bottom: 0.5px solid var(--primary-hover-color);
+}
+
+.logoImage {
+    max-width: 100px;
+}
+
+.logoText {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 3px 3px 4px rgba(223, 223, 223, 0.3);
+}
+
+.registerForm {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 1rem;
+}
+
+@media (max-width: 1075px) {
+    .registerLeft {
+        display: none;
+    }
+
+    .registerRight {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}

@@ -1,0 +1,99 @@
+.loginSecurityContent {
+    flex: 1;
+    padding: 0 40px;
+    max-width: 400px;
+    margin: auto;
+}
+
+.loginSecurityHeader {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: left;
+    color: var(--color-text-dark);
+}
+
+.loginSecurityForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup label {
+    font-size: 14px;
+    color: var(--color-text-grey);
+    margin-bottom: 5px;
+}
+
+.passwordField {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.passwordField input {
+    width: 100%;
+    padding: 8px;
+    padding-right: 35px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+.icon {
+    position: absolute;
+    right: 10px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.strengthIndicator {
+    position: absolute;
+    right: 35px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.strongIcon {
+    margin-right: 5px;
+}
+
+.passwordRequirements {
+    font-size: 12px;
+    color: var(--color-text-grey);
+}
+
+.passwordRequirements ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--primary-color);
+}
+
+.passwordRequirements li {
+    margin-bottom: 5px;
+}
+
+.saveButton {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.saveButton:hover {
+    background-color: var(--primary-hover-color);
+}

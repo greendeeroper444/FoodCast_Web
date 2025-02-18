@@ -1,0 +1,18 @@
+
+.formGroup {
+    z-index: 1000;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+  
+/* .formGroup .label {
+    margin-bottom: 8px;
+} */
+/*   
+.formGroup .input-field {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+} */

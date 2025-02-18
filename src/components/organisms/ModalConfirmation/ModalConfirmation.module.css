@@ -1,0 +1,67 @@
+.modalBackdrop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 5000;
+}
+  
+.show{
+    opacity: 1;
+}
+  
+.modalContent{
+    background: #fff;
+    border-radius: 10px;
+    width: 350px;
+    max-width: 80%;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    text-align: center;
+    transition: transform 0.4s ease;
+    transform: translateY(-30px);
+}
+  
+.show .modalContent{
+    transform: translateY(0);
+}
+
+.modalBackdrop p{
+    font-size: 16px;
+}
+
+.yesButton{
+    background-color: #fff;  
+    color: #333;
+    border: 1px solid #333;
+    font-size: 14px !important;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.yesButton:hover{
+    background-color: #e74c3c;
+    border: 1px solid #e74c3c;
+    color: #fff;
+}
+  
+.noButton{
+    background-color: #e74c3c;
+    border: 1px solid #e74c3c;
+    color: #fff;
+    font-size: 14px !important;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.noButton:hover{
+    background-color: #fff;  
+    color: #333;
+    border: 1px solid #333;
+}

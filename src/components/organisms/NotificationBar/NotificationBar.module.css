@@ -1,0 +1,8 @@
+.notificationBar {
+    position: absolute;
+    top: 60px;
+    right: 60px;
+    width: 270px;
+    border-radius: 8px;
+    padding: 10px;
+}

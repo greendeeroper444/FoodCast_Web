@@ -1,0 +1,22 @@
+.userNamePositionContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.userNamePosition {
+    padding-left: 10px;
+    color: #fff;
+}
+
+.userNamePosition p {
+    line-height: 15px;
+}
+.userProfile img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}

@@ -1,0 +1,203 @@
+.manageUsersComponent {
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    color: var(--color-text-dart);
+}
+
+.manageUsersContainer {
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    margin: auto;
+}
+  
+.manageUsersComponent h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--color-text-dark);
+}
+  
+.tabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+  
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #666;
+}
+  
+.active {
+    font-weight: bold;
+    color: green;
+    border-bottom: 3px solid green;
+}
+  
+.filterContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+  
+.filterLabel {
+    margin-right: 10px;
+    font-weight: 500;
+    color: var(--color-text-dark);
+}
+  
+.filterSelect {
+    padding: 5px 10px;    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+  
+.tableContainer {
+    overflow-x: auto;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.tableContainer::-webkit-scrollbar {
+    height: 10px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+    background-color: #c2c2c2;
+    border-radius: 10px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb:hover {
+    background-color: #c2c2c2;
+}
+
+.userTable {
+    /* width: 100%; */
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    /* min-width: 800px; */
+}
+
+.userTable th, .userTable td {
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+}
+
+.userTable th {
+    background-color: #f0f0f0;
+}
+
+.userTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.userTable tr td:nth-child(1) span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.actionsCell {
+    white-space: nowrap;
+}
+
+.actionsCell button {
+    margin-right: 8px;
+}
+
+.profilePicture{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.noDataYet {
+    color: #666;
+    text-align: end;
+}
+
+.offline {
+    color: red;
+}
+  
+.online {
+    color: green;
+}
+  
+.viewButton {
+    background-color: #e0f0ff;
+    color: #007bff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+.approveButton {
+    background-color: #d4edda;
+    color: green;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+.declineButton {
+    background-color: #f8d7da;
+    color: red;
+    padding: 5px 10px;    
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.editButton {
+    background-color: #f8f5d7;
+    color: orange;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.deleteButton {
+    background-color: #f8d7da;
+    color: red;
+    padding: 5px 10px;    
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+  
+.userTable td span {
+    /* margin-right: 5px; */
+    font-size: 12px;
+}
+  
+
+.statusCell {
+    display: flex;
+    align-items: center;
+}
+  
+.onlineDot,
+.offlineDot {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+  
+.onlineDot {
+    background-color: green;
+}
+  
+.offlineDot {
+    background-color: red;
+}
+  

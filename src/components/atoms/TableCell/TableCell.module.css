@@ -1,0 +1,5 @@
+.tableCell {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}

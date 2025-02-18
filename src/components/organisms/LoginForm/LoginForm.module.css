@@ -1,0 +1,54 @@
+.loginForm {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-align: center;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    box-sizing: border-box;
+    background-color: var(--background-color-default);
+    margin-top: 20px;
+}
+  
+.loginForm h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: var(--color-text-dark);
+    text-align: start;
+}
+  
+.forgotPassword {
+    text-align: right;
+    margin-bottom: 20px;
+}
+  
+.forgotPassword a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+  
+.orDriver {
+    margin: 10px 0;
+    font-size: 14px;
+    color: var(--color-text-grey);
+}
+  
+.signupLink {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--color-text-grey);
+}
+  
+.signupLink a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+.error {
+    color: red;
+    margin-bottom: 20px;
+    text-align: start;
+}

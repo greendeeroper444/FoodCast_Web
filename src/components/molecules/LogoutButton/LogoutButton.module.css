@@ -1,0 +1,17 @@
+.logoutButton {
+    justify-content: space-between;
+    width: 100%;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: transparent;
+}
+  
+.logoutButton:hover {
+    background-color: var(--secondary-hover-color);
+    border-radius: 5px;
+}
+  
+.logoutButton:hover .icon {
+    filter: brightness(0);
+}
+  

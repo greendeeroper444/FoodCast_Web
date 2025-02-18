@@ -1,0 +1,13 @@
+.menuButton {
+    position: relative;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+  
+.icon {
+    height: 30px;
+    width: 30px;
+}
+  

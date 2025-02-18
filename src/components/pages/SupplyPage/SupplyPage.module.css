@@ -1,0 +1,41 @@
+.supplyPageContainer {
+    background-color: var(--primary-color);
+    padding: 20px;
+    color: #fff;
+}
+  
+.title {
+    font-size: 1.5em;
+    color: #fff;
+    margin-bottom: 20px;
+}
+  
+.cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+  
+.card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    color: var(--color-text-dark);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+  
+.supplierName {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+    color: var(--color-text-dark);
+}
+  
+.person,
+.category,
+.role {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: var(--color-text-grey);
+}
+  

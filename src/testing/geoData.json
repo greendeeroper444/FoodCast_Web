@@ -1,0 +1,27 @@
+{
+    "cities": [
+      { "id": 1, "name": "Davao City", "province": "Davao del Sur", "latitude": 7.1907, "longitude": 125.4553 },
+      { "id": 2, "name": "Cagayan de Oro City", "province": "Misamis Oriental", "latitude": 8.4824, "longitude": 124.6468 },
+      { "id": 3, "name": "Zamboanga City", "province": "Zamboanga del Sur", "latitude": 6.9128, "longitude": 122.0796 },
+      { "id": 4, "name": "Iligan City", "province": "Lanao del Norte", "latitude": 8.2160, "longitude": 124.2450 },
+      { "id": 5, "name": "General Santos City", "province": "South Cotabato", "latitude": 6.1167, "longitude": 125.1710 },
+      { "id": 6, "name": "Butuan City", "province": "Agusan del Norte", "latitude": 8.9465, "longitude": 125.5433 },
+      { "id": 7, "name": "Tagum City", "province": "Davao del Norte", "latitude": 7.4582, "longitude": 125.7743 },
+      { "id": 8, "name": "Surigao City", "province": "Surigao del Norte", "latitude": 9.7807, "longitude": 125.5000 },
+      { "id": 9, "name": "Koronadal City", "province": "South Cotabato", "latitude": 6.5000, "longitude": 124.8500 },
+      { "id": 10, "name": "Mati City", "province": "Davao Oriental", "latitude": 6.9667, "longitude": 126.2500 },
+      { "id": 11, "name": "Tandag City", "province": "Surigao del Sur", "latitude": 9.0751, "longitude": 125.5310 },
+      { "id": 12, "name": "Malaybalay City", "province": "Bukidnon", "latitude": 8.1264, "longitude": 125.1404 },
+      { "id": 13, "name": "Dapitan City", "province": "Zamboanga del Norte", "latitude": 8.6333, "longitude": 123.3833 },
+      { "id": 14, "name": "Pagadian City", "province": "Zamboanga del Sur", "latitude": 7.9189, "longitude": 123.4347 },
+      { "id": 15, "name": "Gingoog City", "province": "Misamis Oriental", "latitude": 8.9686, "longitude": 125.1668 },
+      { "id": 16, "name": "Lianga", "province": "Surigao del Sur", "latitude": 9.3930, "longitude": 125.3770 },
+      { "id": 17, "name": "Sultan Kudarat", "province": "Sultan Kudarat", "latitude": 6.4714, "longitude": 124.4540 },
+      { "id": 18, "name": "Tawi-Tawi", "province": "Tawi-Tawi", "latitude": 5.0532, "longitude": 119.8620 },
+      { "id": 19, "name": "Jolo", "province": "Sulu", "latitude": 6.0476, "longitude": 121.0020 },
+      { "id": 20, "name": "Marawi City", "province": "Lanao del Sur", "latitude": 7.9984, "longitude": 124.1944 },
+      { "id": 21, "name": "Maguindanao", "province": "Maguindanao", "latitude": 7.0951, "longitude": 124.5310 },
+      { "id": 22, "name": "Cotabato City", "province": "Cotabato", "latitude": 7.2167, "longitude": 124.8500 }
+    ]
+  }
+  

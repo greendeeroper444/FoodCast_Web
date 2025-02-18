@@ -1,0 +1,118 @@
+
+.selection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.selection .selectionLeft{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+.selection .selectionRight {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+}
+
+.selection .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.selection .formGroup label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+}
+
+.selection .formGroup select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    background: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.selection .formGroup select:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(0, 255, 170, 0.418);
+}
+
+.selection .periodicalOption {
+    background: #ffff;
+    color: #258548;
+    border: 1px solid #258548;
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: border-radius 0.3s ease-in-out;;
+}
+
+.selection .periodicalOption:hover {
+    /* background: var(--primary-color); */
+    color: #258548;
+    /* border-color: var(--primary-color); */
+    background-color: #DCFAE8;
+}
+
+
+.selection .activeButton {
+    background-color: var(--background-green-light);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+
+.selection label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: var(--color-text-dark);
+}
+
+.selection select {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+    /* margin-bottom: 20px; */
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--background-color-default);
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 1080px) {
+    .selection {
+        display: block;
+    }
+    .selectionRight {
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+}
+
+
+@media (max-width: 768px) {
+    .selectionLeft {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
+  

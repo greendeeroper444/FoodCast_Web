@@ -1,0 +1,98 @@
+.card {
+    flex: 1 1 calc(25% - 20px);
+    padding: 20px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: left;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.actualAndForecastedDemand {
+    background: linear-gradient(135deg, #f56a79, #f89d96);
+}
+
+.actualAndForecastedSupply {
+    background: linear-gradient(135deg, #4c8ddf, #6aa1f4);
+}
+
+.overAndUnderSupply {
+    background: linear-gradient(135deg, #2cc49d, #6ee5c6);
+}
+
+/* .forecastedDemandAndSupply {
+    background: linear-gradient(135deg, #c2c42c, #dde56e);
+} */
+
+.card h2 {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.amount {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.percentage {
+    font-size: 14px;
+    color: var(--color-text-grey);
+}
+
+/* circle background design */
+.iconCircle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    opacity: 0.7;
+}
+
+.card::before,
+.card::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.card::before {
+    width: 150px;
+    height: 150px;
+    top: -30px;
+    right: -30px;
+}
+
+.card::after {
+    width: 100px;
+    height: 100px;
+    bottom: -20px;
+    left: -40px;
+}
+
+.card:hover {
+    /* transform: scale(1.1); */
+}
+
+
+
+
+
+/* responsive */
+
+
+@media (max-width: 768px){
+    .card{
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px){
+    .card{
+        flex: 1 1 100%;
+    }
+}

@@ -1,0 +1,187 @@
+.cropsManagementPage {
+    display: flex;
+    padding: 20px;
+    background-color: var(--bacground-color-default-hover);
+    border-radius: 20px;
+    margin-top: 2rem;
+    height: 83vh;
+}
+
+.sidebar {
+    width: 150px;
+    padding-right: 20px;
+    border-right: 2px solid var(--background-green-light);
+}
+
+.sidebarTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.menuList {
+    list-style: none;
+    padding: 0;
+}
+
+.menuItem {
+    padding: 10px 0;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding-left: 10px;
+}
+
+.menuItem:hover {
+    color: var(--color-text-dark);
+    background-color: var(--background-green-light);
+    border-radius: 5px;
+}
+
+/* active state */
+.active {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 5px;
+}
+
+.componentContainer {
+    flex: 1;
+    padding: 0;
+    border-radius: 10px;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.componentContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+.componentContainer::-webkit-scrollbar-thumb {
+    background-color: #c2c2c2;
+    border-radius: 10px;
+}
+
+.componentContainer::-webkit-scrollbar-thumb:hover {
+    background-color: #c2c2c2;
+}
+
+
+
+
+
+.supplyListComponent{
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    color: var(--color-text-dart);
+}
+
+.heading {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.recordList {
+    margin-bottom: 24px;
+}
+
+.supplyListComponent h3 {
+    color: var(--primary-color);
+}
+.supplyGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.supplyItem {
+    padding: 8px 12px;
+    font-size: 16px;
+    color: var(--color-text-dark);
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-align: center;
+}
+.newSupplyForm {
+    margin-top: 16px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    outline: none;
+}
+
+.input:hover,
+.input:focus {
+    border: 1px solid var(--border-color);
+}
+
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.cancelButton {
+    padding: 8px 16px;
+    background: var(--color-text-grey);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.addButton {
+    padding: 8px 16px;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancelButton:hover {
+    /* background: #b3b3b3; */
+}
+
+.addButton:hover {
+    background: var(--primary-hover-color);
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .sidebarOpen {
+        transform: translateX(0);
+    }
+    .supplyGrid {
+        grid-template-columns: 1fr;
+    }
+}

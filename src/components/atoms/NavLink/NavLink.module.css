@@ -1,0 +1,56 @@
+.navLink {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: #dadada;
+    text-decoration: none;
+    gap: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    outline: none;
+}
+
+.navLink:hover {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+
+.navLinkActive {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.navLinkContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navLinkIconLabel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navIcon {
+    width: 20px;
+    height: 20px;
+    transition: filter 0.3s ease;
+}
+
+.navLinkActive .navIcon,
+.navLinkActive .rightAngleIcon {
+    filter: brightness(0) invert(1);
+    display: block;
+}
+
+.rightAngleIcon {
+    width: 12px;
+    height: 12px;
+    margin-left: auto;
+    display: none;
+}
+/* end navlink */

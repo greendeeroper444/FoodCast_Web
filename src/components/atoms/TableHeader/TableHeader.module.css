@@ -1,0 +1,7 @@
+.tableHeader {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+    background-color: var(--primary-color); /*rgb(48,132,92)*/
+    color: #fff;
+}

@@ -1,0 +1,19 @@
+.header {
+    color: var(--color-text-best-dark);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+  
+.title {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+}

@@ -1,0 +1,12 @@
+.searchBar {
+    border: 1px solid var(--border-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: 300px;
+    outline: none;
+}
+
+.searchBar:hover,
+.searchBar:focus {
+    border: 1px solid var(--primary-color);
+}
