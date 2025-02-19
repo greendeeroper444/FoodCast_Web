@@ -8,15 +8,12 @@ export default defineConfig({
     react(), 
     svgr()
   ],
-  base: '/',
   server: {
     historyApiFallback: true,
   },
   build: {
+    outDir: 'dist',
     rollupOptions: {
-        output: {
-            manualChunks: undefined,
-        },
       external: ['babel-runtime/regenerator']
     }
   },
