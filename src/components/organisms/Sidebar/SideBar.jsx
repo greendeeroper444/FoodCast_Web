@@ -8,7 +8,6 @@ import NavLink from '../../atoms/NavLink/NavLink';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { closeLogoutModal, openLogoutModal } from '../../../redux/slices/LogoutSlice';
-// import { handleClickOutside } from '../../../utils/handleClickOutside';
 import ModalConfirmation from '../ModalConfirmation/ModalConfirmation';
 import { logoutAdmin } from '../../../redux/actions/AdminActions/AdminAuthAction';
 import { toggleSidebar } from '../../../redux/slices/SidebarSlice';
@@ -21,6 +20,14 @@ function Sidebar() {
     const fullName = useSelector((state) => state.admin?.admin?.fullName);
     const sidebarRef = useRef(null);
 
+    const handleClickOutside = (ref, callback) => {
+        return (event) => {
+            if (ref.current && !ref.current.contains(event.target)) {
+                callback();
+            }
+        };
+    };
+
     //logout
     const handleLogout = () => {
         dispatch(logoutAdmin());
@@ -29,15 +36,15 @@ function Sidebar() {
     };
 
     //handle closing the sudebar when clicking outside
-    // useEffect(() => {
-    //     if (isSidebarOpen) {
-    //         const outsideClickHandler = handleClickOutside(sidebarRef, () => dispatch(toggleSidebar()));
-    //         document.addEventListener('mousedown', outsideClickHandler);
-    //         return () => {
-    //             document.removeEventListener('mousedown', outsideClickHandler);
-    //         };
-    //     }
-    // }, [isSidebarOpen, dispatch]);
+    useEffect(() => {
+        if (isSidebarOpen) {
+            const outsideClickHandler = handleClickOutside(sidebarRef, () => dispatch(toggleSidebar()));
+            document.addEventListener('mousedown', outsideClickHandler);
+            return () => {
+                document.removeEventListener('mousedown', outsideClickHandler);
+            };
+        }
+    }, [isSidebarOpen, dispatch]);
 
 
   return (
