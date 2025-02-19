@@ -3,5 +3,5 @@
 }
   
 .tableRow:hover {
-    background-color: var(--bacground-color-default-hover);
+    background-color: var(--background-color-default-hover);
 }
