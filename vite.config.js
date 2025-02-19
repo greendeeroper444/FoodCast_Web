@@ -8,14 +8,15 @@ export default defineConfig({
     react(), 
     svgr()
   ],
-  targets: [
-    {
-      src: 'public/_redirects', // Path to _redirects file
-      dest: '.' // Copy to dist/
-    }
-  ],
+  base: '/',
+  server: {
+    historyApiFallback: true,
+  },
   build: {
     rollupOptions: {
+        output: {
+            manualChunks: undefined,
+        },
       external: ['babel-runtime/regenerator']
     }
   },
