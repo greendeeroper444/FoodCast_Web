@@ -5,9 +5,10 @@ import api from '../../../api/api';
 import io from 'socket.io-client';
 import bellSound from '../../../assets/mp3/bell.mp3';
 
-function Notification({onClick}) {
+function Notification({ onClick }) {
     const [unreadCount, setUnreadCount] = useState(0);
-    const socket = io('https://foodcast-server.onrender.com');
+    // const socket = io('http://localhost:8080');
+    const socket = io(import.meta.env.BASE_URL);
 
     useEffect(() => {
         //fetch initial unread count

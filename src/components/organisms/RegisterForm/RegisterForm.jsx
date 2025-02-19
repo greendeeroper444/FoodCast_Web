@@ -67,7 +67,7 @@ function RegisterForm() {
         }
     
 
-        const adminData = {fullName, password, emailAddress};
+        const adminData = {fullName, password, emailAddress, contactNumber};
         try {
             dispatch(registerAdmin(adminData));
 
@@ -113,7 +113,7 @@ function RegisterForm() {
             value={contactNumber}
             onChange={(e) => setContactNumber(e.target.value)}
             placeholder='Enter your contact number'
-            autoComplete='email'
+            autoComplete='tel'
         />
         <div className={styles.formGroup}>
             <FormGroup

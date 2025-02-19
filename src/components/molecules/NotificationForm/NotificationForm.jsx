@@ -8,7 +8,7 @@ import io from 'socket.io-client';
 function NotificationForm() {
     const [notifications, setNotifications] = useState([]);
     const navigate = useNavigate();
-    const socket = io('https://foodcast-server.onrender.com');
+    const socket = io(import.meta.env.BASE_URL);
 
     useEffect(() => {
         //fetch initial notifications

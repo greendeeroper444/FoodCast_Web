@@ -8,7 +8,7 @@ import NavLink from '../../atoms/NavLink/NavLink';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { closeLogoutModal, openLogoutModal } from '../../../redux/slices/LogoutSlice';
-import handleClickOutside from '../../../utils/handleClickOutside';
+import handleClickOutside from '@/utils/handleClickOutside';
 import ModalConfirmation from '../ModalConfirmation/ModalConfirmation';
 import { logoutAdmin } from '../../../redux/actions/AdminActions/AdminAuthAction';
 import { toggleSidebar } from '../../../redux/slices/SidebarSlice';

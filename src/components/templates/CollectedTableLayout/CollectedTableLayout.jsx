@@ -252,7 +252,7 @@ function CollectedTableLayout({headers, data, isLoading, activeTable}) {
         <div className={styles.tableContainer}>
             {
                 isLoading ? (
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'start', height: '100vh' }}>
                         <Spinner />
                     </div>
                 ) : (
