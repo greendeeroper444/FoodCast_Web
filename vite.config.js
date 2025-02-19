@@ -1,38 +1,19 @@
-// import { defineConfig } from 'vite'
-// import react from '@vitejs/plugin-react';
-// import svgr from 'vite-plugin-svgr';
-
-// // https://vitejs.dev/config/
-// export default defineConfig({
-//   base: '/', 
-//   plugins: [
-//     react(), 
-//     svgr()
-//   ],
-//   server: {
-//     historyApiFallback: true,
-//   },
-//   build: {
-//     outDir: 'dist',
-//     rollupOptions: {
-//       external: ['babel-runtime/regenerator']
-//     }
-//   },
-//   define: {
-//     'process.env': {}, //this ensures compatibility if you're using process.env elsewhere
-//   },
-// })
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  base: '/', // Ensures correct asset paths in production
-  plugins: [react(), svgr()],
+  plugins: [
+    react(), 
+    svgr()
+  ],
   build: {
-    outDir: 'dist',
+    rollupOptions: {
+      external: ['babel-runtime/regenerator']
+    }
   },
   define: {
-    'process.env': {},
-  }
-});
+    'process.env': {}, //this ensures compatibility if you're using process.env elsewhere
+  },
+})
