@@ -8,20 +8,18 @@ export default defineConfig({
     react(), 
     svgr()
   ],
+  targets: [
+    {
+      src: 'public/_redirects', // Path to _redirects file
+      dest: '.' // Copy to dist/
+    }
+  ],
   build: {
     rollupOptions: {
-      external: ['babel-runtime/regenerator'],
-      input: {
-        main: 'index.html'
-      }
+      external: ['babel-runtime/regenerator']
     }
   },
   define: {
     'process.env': {}, //this ensures compatibility if you're using process.env elsewhere
   },
-  server: {
-    fs: {
-      allow: ['public']
-    }
-  }
 })
