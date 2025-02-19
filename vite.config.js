@@ -8,6 +8,11 @@ export default defineConfig({
     react(), 
     svgr()
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
   build: {
     rollupOptions: {
       external: ['babel-runtime/regenerator']
