@@ -15,6 +15,8 @@ export default defineConfig({
     },
   },
   build: {
+    outDir: 'dist',
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       external: ['babel-runtime/regenerator']
     }
