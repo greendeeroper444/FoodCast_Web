@@ -27,10 +27,11 @@ export const registerAdmin = (adminData) => async (dispatch) => {
 };
 
 //login admin action
-export const loginAdmin = (fullName, password) => async (dispatch) => {
+export const loginAdmin = (fullName, emailAddress, password) => async (dispatch) => {
     try {
         const response = await api.post('/admin/login', { 
-            fullName, 
+            fullName,
+            emailAddress, 
             password 
         });
         const {admin} = response.data;
@@ -72,6 +73,10 @@ export const logoutAdmin = () => async (dispatch) => {
         await api.post('/admin/logout', {});
         dispatch(logout());
         // window.location.href = '/';
+
+        //clear localStorage and session storage
+        localStorage.clear();  
+        sessionStorage.clear();  
     } catch (error) {
         dispatch(setError(error.response?.data?.error || 'Failed to log out'));
     }

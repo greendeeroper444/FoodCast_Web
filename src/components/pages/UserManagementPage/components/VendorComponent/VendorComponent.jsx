@@ -4,6 +4,7 @@ import api from '../../../../../api/api';
 import VendorBarChart from './VendorBarChart';
 import VendorTable from './VendorTable';
 import SearchBar from '../../../../atoms/SearchBar/SearchBar';
+import SelectCustomize from '../../../../molecules/SelectCustomize/SelectCustomize';
 
 function VendorComponent() {
     const [vendors, setVendors] = useState([]);
@@ -13,7 +14,7 @@ function VendorComponent() {
     const [selectedSupply, setSelectedSupply] = useState('');
     const [legend, setLegend] = useState([]);
     const [interval, setInterval] = useState('daily'); 
-    const [view, setView] = useState('Table');
+    const [view, setView] = useState('TABLE');
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredVendors, setFilteredVendors] = useState([]);
 
@@ -243,23 +244,17 @@ function VendorComponent() {
                 <SearchBar onChange={(e) => setSearchQuery(e.target.value)} />
             </div>
             <div className={styles.filterRight}>
-                <select
+                <SelectCustomize
                     value={supplyType}
-                    onChange={(e) => setSupplyType(e.target.value)}
-                    className={styles.dropdown}
-                >
-                    <option value="VEGETABLE">Vegetable</option>
-                    <option value="FRUIT">Fruit</option>
-                </select>
+                    onChange={setSupplyType}
+                    options={['VEGETABLE', 'FRUIT']}
+                />
                 {' '}
-                <select
+                <SelectCustomize
                     value={view}
-                    onChange={(e) => setView(e.target.value)}
-                    className={styles.dropdown}
-                >
-                    <option value="Graph">Graph</option>
-                    <option value="Table">Table</option>
-                </select>
+                    onChange={setView}
+                    options={['TABLE', 'GRAPH']}
+                />
             </div>
         </div>
 
@@ -306,7 +301,7 @@ function VendorComponent() {
                                                         </select>
                                                     </div>
                                                 {
-                                                    view === 'Graph' ? (
+                                                    view === 'GRAPH' ? (
                                                         <VendorBarChart
                                                             data={chartData}
                                                             legend={legend}

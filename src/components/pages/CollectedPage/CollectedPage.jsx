@@ -34,35 +34,42 @@ function CollectedPage() {
     <div className={styles.collectedPage}>  
         <HeaderForm icon={CollectedIcon} title='COLLECTED SUPPLY' />
 
-        <div className={styles.toggleButtons}>
-            <button 
-                className={activeTable === 'FRUIT' ? styles.activeButton : styles.inactiveButton}
-                onClick={() => setActiveTable('FRUIT')}
-            >
-                FRUIT
-            </button>
-            <button 
-                className={activeTable === 'VEGETABLE' ? styles.activeButton : styles.inactiveButton}
-                onClick={() => setActiveTable('VEGETABLE')}
-            >
-                VEGETABLE
-            </button>
-        </div>
+        <div className={styles.header}>
+            <div className={styles.toggleButtons}>
+                <button 
+                    className={activeTable === 'FRUIT' ? styles.activeButton : styles.inactiveButton}
+                    onClick={() => setActiveTable('FRUIT')}
+                >
+                    FRUIT
+                </button>
+                <button 
+                    className={activeTable === 'VEGETABLE' ? styles.activeButton : styles.inactiveButton}
+                    onClick={() => setActiveTable('VEGETABLE')}
+                >
+                    VEGETABLE
+                </button>
+            </div>
 
-        <div className={styles.paginationControls}>
-            <button 
-                className={`${styles.pageButton} ${!hasPreviousPage ? styles.disabled : ''}`} 
-                disabled={!hasPreviousPage} onClick={() => setPage(page + 1)}
-            >
-                <FaChevronLeft /> Previous
-            </button>
-            
-            <button 
-                className={`${styles.pageButton} ${page === 1 ? styles.disabled : ''}`} 
-                disabled={page === 1} onClick={() => setPage(page - 1)}
-            >
-                Next <FaChevronRight />
-            </button>
+            {/* <SelectCustomize
+                value={activeTable}
+                onChange={setActiveTable}
+                options={['VEGETABLE', 'FRUIT']}
+            /> */}
+            <div className={styles.paginationControls}>
+                <button 
+                    className={`${styles.pageButton} ${!hasPreviousPage ? styles.disabled : ''}`} 
+                    disabled={!hasPreviousPage} onClick={() => setPage(page + 1)}
+                >
+                    <FaChevronLeft /> Previous
+                </button>
+                
+                <button 
+                    className={`${styles.pageButton} ${page === 1 ? styles.disabled : ''}`} 
+                    disabled={page === 1} onClick={() => setPage(page - 1)}
+                >
+                    Next <FaChevronRight />
+                </button>
+            </div>
         </div>
 
         <br />
@@ -73,6 +80,7 @@ function CollectedPage() {
             activeTable={activeTable}
         />
 
+        <br />
         <div className={styles.paginationControls}>
             <button 
                 className={`${styles.pageButton} ${!hasPreviousPage ? styles.disabled : ''}`} 

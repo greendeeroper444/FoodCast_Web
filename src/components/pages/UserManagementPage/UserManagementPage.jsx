@@ -9,15 +9,31 @@ import { useLocation } from 'react-router-dom';
 
 
 function UserManagementPage() {
-    const [activeComponent, setActiveComponent] = useState('Suppliers');
+    // const [activeComponent, setActiveComponent] = useState('Suppliers');
+    // const location = useLocation();
+    const storedComponent = localStorage.getItem('activeUserComponent') || 'Suppliers';
+    const [activeComponent, setActiveComponent] = useState(storedComponent);
     const location = useLocation();
 
     //displaying component based on notification list clicked
+    // useEffect(() => {
+    //     if (location.state?.activeComponent) {
+    //         setActiveComponent(location.state.activeComponent);
+    //     }
+    // }, [location.state]);
+
+    //set component based on navigation state or stored value
     useEffect(() => {
         if (location.state?.activeComponent) {
             setActiveComponent(location.state.activeComponent);
+            localStorage.setItem('activeUserComponent', location.state.activeComponent);
         }
     }, [location.state]);
+
+    //update localStorage whenever activeComponent changes
+    useEffect(() => {
+        localStorage.setItem('activeUserComponent', activeComponent);
+    }, [activeComponent]);
 
     const renderComponent = () => {
         switch (activeComponent) {

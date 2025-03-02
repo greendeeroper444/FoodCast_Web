@@ -92,4 +92,8 @@
     .sidebarOpen {
         transform: translateX(0);
     }
+    .settingsPage {
+        padding: 0px;
+    }
+    
 }

@@ -1,11 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './ManageUserComponent.module.css';
 import PropTypes from 'prop-types';
 import { formatDate } from '../../../../../utils/dateUtils';
+import api from '../../../../../api/api';
+import Modal from '../../../../organisms/Modal/Modal';
+import InputField from '../../../../atoms/InputField/InputField';
+import UserDetailsForm from '../../../../molecules/UserDetailsForm/UserDetailsForm';
 
 
-function RequestTableComponent({users, onApprove, onDecline}) {
-    
+function RequestTableComponent({
+    users, 
+    onApprove, 
+    onDecline, 
+    onViewUpdate,
+    setSelectedUser, 
+    selectedUser,
+    setIsModalOpen,
+    isModalOpen
+}) {
+    const handleOpenModal = (user) => {
+        setSelectedUser(user);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedUser(null);
+    };
+
+    const handleApproveUser = () => {
+        if (selectedUser) {
+            onApprove(selectedUser._id);
+            handleCloseModal();
+        }
+    };
+
   return (
     <div className={styles.tableContainer}>
         <table className={styles.userTable}>
@@ -30,14 +59,14 @@ function RequestTableComponent({users, onApprove, onDecline}) {
                                     </span>
                                 </td>
                                 <td>{user.position}</td>
-                                {/* <td>{formatDate(user.createdAt)}</td> */}
-                                {/* <td>
-                                    <button className={styles.viewButton}>View</button>
-                                </td> */}
                                 <td>
-                                    <button className={styles.approveButton} onClick={() => onApprove(user._id)}>Approve</button>
+                                    <button className={styles.approveButton} onClick={() => handleOpenModal(user)}>
+                                        Approve
+                                    </button>
                                     {' '}
-                                    <button className={styles.declineButton} onClick={() => onDecline(user._id)}>Decline</button>
+                                    <button className={styles.declineButton} onClick={() => onDecline(user._id)}>
+                                        Decline
+                                    </button>
                                 </td>
                             </tr>
                         ))
@@ -47,6 +76,20 @@ function RequestTableComponent({users, onApprove, onDecline}) {
                 }
             </tbody>
         </table>
+        {
+            isModalOpen && selectedUser && (
+                <Modal
+                    title='Approve User'
+                    onClose={handleCloseModal} 
+                    onSave={() => onViewUpdate(selectedUser)}
+                    onApprove={handleApproveUser}
+                    unHideApproveButton
+                >
+                    <UserDetailsForm user={selectedUser} setUser={setSelectedUser} verified/>
+                </Modal>
+            )
+        }
+        
     </div>
   )
 }

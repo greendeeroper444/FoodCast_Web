@@ -194,3 +194,14 @@
 .noResults{
     text-align: center;
 }
+
+
+
+
+@media (max-width: 768px) {
+    .filter {
+        display: flex;
+        flex-direction: column;
+    }
+    
+}

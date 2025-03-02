@@ -3,8 +3,29 @@ import styles from './ManageUserComponent.module.css';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import api from '../../../../../api/api';
+import Modal from '../../../../organisms/Modal/Modal';
+import InputField from '../../../../atoms/InputField/InputField';
+import UserDetailsForm from '../../../../molecules/UserDetailsForm/UserDetailsForm';
 
-function ApprovedTableComponent({users, setUsers}) {
+function ApprovedTableComponent({
+    users, 
+    setUsers,
+    onViewUpdate,
+    setSelectedUser, 
+    selectedUser,
+    setIsModalOpen,
+    isModalOpen
+}) {
+
+    const handleViewUser = (user) => {
+        setSelectedUser(user);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedUser(null);
+    };
 
     const handleDelete = async (userId) => {
         const toastId = toast.loading('Deleting user...');
@@ -23,33 +44,6 @@ function ApprovedTableComponent({users, setUsers}) {
             console.error('Error deleting user:', error);
             toast.update(toastId, { 
                 render: 'Failed to delete user.', 
-                type: 'error', 
-                isLoading: false, 
-                autoClose: 3000 
-            });
-        }
-    };
-    
-    const handleEdit = async (userId) => {
-        const newFullName = prompt('Enter new name:');
-        if (!newFullName) return;
-    
-        const toastId = toast.loading('Updating user...');
-    
-        try {
-            const response = await api.put(`/adminUser/updateUser/${userId}`, {fullName: newFullName});
-            setUsers(users.map(user => user._id === userId ? response.data.updatedUser : user));
-    
-            toast.update(toastId, { 
-                render: 'User updated successfully!', 
-                type: 'success', 
-                isLoading: false, 
-                autoClose: 3000 
-            });
-        } catch (error) {
-            console.error('Error updating user:', error);
-            toast.update(toastId, { 
-                render: 'Failed to update user.', 
                 type: 'error', 
                 isLoading: false, 
                 autoClose: 3000 
@@ -91,7 +85,7 @@ function ApprovedTableComponent({users, setUsers}) {
                                     <button className={styles.viewButton}>View</button>
                                 </td> */}
                                <td>
-                                    <button className={styles.editButton} onClick={() => handleEdit(user._id)}>Edit</button>
+                                    <button className={styles.editButton} onClick={() => handleViewUser(user)}>View</button>
                                     {' '}
                                     <button className={styles.deleteButton} onClick={() => handleDelete(user._id)}>Delete</button>
                                 </td>
@@ -103,6 +97,16 @@ function ApprovedTableComponent({users, setUsers}) {
                 }
             </tbody>
         </table>
+        {
+            isModalOpen && selectedUser && (
+                <Modal 
+                    title='User Details/Update' 
+                    onClose={handleCloseModal} onSave={() => onViewUpdate(selectedUser)}
+                    >
+                    <UserDetailsForm user={selectedUser} setUser={setSelectedUser} />
+                </Modal>
+            )
+        }
     </div>
   )
 }

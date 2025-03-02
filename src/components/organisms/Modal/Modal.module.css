@@ -82,6 +82,19 @@
     color: #fff;
 }
 
+.approveButton {
+    background-color: var(--secondary-hover-color);
+    border: 1px solid var(--secondary-hover-color);
+    color: #fff;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.approveButton:hover {
+    background-color: #fff;
+    border: 1px solid var(--secondary-hover-color);
+    color: var(--secondary-hover-color);
+}
+
 .bodyAndFooter {
     padding: 20px 50px;
 }

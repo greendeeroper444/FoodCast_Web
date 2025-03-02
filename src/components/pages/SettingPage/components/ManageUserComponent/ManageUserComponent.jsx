@@ -10,6 +10,8 @@ function ManageUserComponent({setHasNotification}) {
     const [approvedUsers, setApprovedUsers] = useState([]);
     const [pendingUsers, setPendingUsers] = useState([]);
     const [positionFilter, setPositionFilter] = useState('All');
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     
 
     //fetch users on component mount and position filter change
@@ -51,8 +53,10 @@ function ManageUserComponent({setHasNotification}) {
             fetchUsers() //refresh approved users
         } catch (error) {
             console.error('Error approving user:', error);
+            const errorMessage = error.response?.data?.message || 'Failed to approve user.';
+
             toast.update(loadingToast, {
-                render: 'Failed to approve user.',
+                render: errorMessage,
                 type: 'error',
                 isLoading: false,
                 autoClose: 5000
@@ -85,6 +89,63 @@ function ManageUserComponent({setHasNotification}) {
         }
     };
 
+    const onViewUpdateApprovedUser = async (updatedUserData) => {
+
+        const toastId = toast.loading('Updating user...');
+        
+        try {
+            const response = await api.put(`/adminUser/viewAndUpdateApprovedUser/${selectedUser._id}`, updatedUserData);
+            console.log(response.data.message);
+            setIsModalOpen(false);
+
+            toast.update(toastId, { 
+                render: 'User updated successfully!', 
+                type: 'success', 
+                isLoading: false, 
+                autoClose: 3000 
+            });
+
+            fetchUsers() //refresh approved users
+        } catch (error) {
+            console.error('Error updating user:', error);
+            toast.update(toastId, { 
+                render: 'Failed to update user.', 
+                type: 'error', 
+                isLoading: false, 
+                autoClose: 3000 
+            });
+        }
+    };
+
+    //view and update pending user
+    const onViewUpdatePendingUser = async (updatedUserData) => {
+
+        const toastId = toast.loading('Updating user...');
+        
+        try {
+            const response = await api.put(`/adminUser/viewAndUpdatePendingUser/${selectedUser._id}`, updatedUserData);
+            console.log(response.data.message);
+            setIsModalOpen(false);
+
+            toast.update(toastId, { 
+                render: 'User updated successfully!', 
+                type: 'success', 
+                isLoading: false, 
+                autoClose: 3000 
+            });
+
+            fetchUsers() //refresh approved users
+        } catch (error) {
+            console.error('Error updating user:', error);
+            toast.update(toastId, { 
+                render: 'Failed to updated user.', 
+                type: 'error', 
+                isLoading: false, 
+                autoClose: 3000 
+            });
+        }
+    };
+
   return (
     <div className={styles.manageUsersComponent}>
         <h1>User&apos;s Approval</h1>
@@ -100,7 +161,7 @@ function ManageUserComponent({setHasNotification}) {
                     className={`${styles.tab} ${activeTab === 'approved' ? styles.active : ''}`}
                     onClick={() => setActiveTab('approved')}
                 >
-                    Approved Users
+                    Users
                 </span>
             </div>
 
@@ -126,6 +187,12 @@ function ManageUserComponent({setHasNotification}) {
                         users={pendingUsers} 
                         onApprove={onApprove} 
                         onDecline={onDecline}
+                        onViewUpdate={onViewUpdatePendingUser}
+                        setSelectedUser={setSelectedUser}
+                        selectedUser={selectedUser}
+                        setIsModalOpen={setIsModalOpen}
+                        isModalOpen={isModalOpen}
+
                     />
                 }
                 {
@@ -133,6 +200,11 @@ function ManageUserComponent({setHasNotification}) {
                     <ApprovedTableComponent 
                         users={approvedUsers} 
                         setUsers={setApprovedUsers} 
+                        onViewUpdate={onViewUpdateApprovedUser}
+                        setSelectedUser={setSelectedUser}
+                        selectedUser={selectedUser}
+                        setIsModalOpen={setIsModalOpen}
+                        isModalOpen={isModalOpen}
                     />
                 }
             </div>

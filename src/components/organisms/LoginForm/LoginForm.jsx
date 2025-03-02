@@ -11,6 +11,7 @@ import { loginAdmin } from '../../../redux/actions/AdminActions/AdminAuthAction'
 
 function LoginForm() {
     const [fullName, setFullName] = useState('');
+    const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -18,10 +19,10 @@ function LoginForm() {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        if (!fullName && !password) {
+        if (!emailAddress && !password) {
             toast.error('User and Email are required.');
             return;
-        } else if (!fullName) {
+        } else if (!emailAddress) {
             toast.error('Username is required.');
             return;
         } else if (!password) {
@@ -31,10 +32,11 @@ function LoginForm() {
     
         try {
             //dispatch login action and get result
-            const result = await dispatch(loginAdmin(fullName, password));
+            const result = await dispatch(loginAdmin(fullName, emailAddress, password));
             
             if (result.success) {
-                toast.success(`Hi ${fullName.split(' ')[0]} 👋, Welcome back!!!`);
+                const userFullName = result.admin.fullName || 'User';
+                toast.success(`Hi ${userFullName .split(' ')[0]} 👋, Welcome back!!!`);
                 navigate('/dashboard');
             } else {
                 //handle the error like incorrect password or any other error
@@ -45,19 +47,33 @@ function LoginForm() {
             toast.error('An unexpected error occurred. Please try again later.');
         }
     };
+
+    const handleEmailChange = (e) => {
+        const email = e.target.value;
+        
+        //regular expression for a valid email format
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+        if(email === '' || emailRegex.test(email)){
+            setEmailAddress(email);
+        } else {
+            toast.error('Invalid email format. Please enter a valid email address.');
+        }
+    };
+    
     
 
   return (
     <form className={styles.loginForm}>
         <h2>Sign In</h2>
         <FormGroup
-            label='Name'
-            type='text'
-            name='name'
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            placeholder='Enter your name'
-            autoComplete='name'
+            label='Email Address'
+            type='email'
+            name='email'
+            value={emailAddress}
+            onChange={handleEmailChange}
+            placeholder='Enter your email'
+            autoComplete='email'
         />
        
         <FormGroup

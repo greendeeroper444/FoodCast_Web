@@ -11,23 +11,32 @@
 }
 
 .filterContainer {
-
-}
-  
-.filterContainer select {
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    outline: none;
-    background: #fff;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    gap: 10px;
 }
 
-.filterContainer select:hover {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 5px rgba(0, 255, 170, 0.418);
+.periodicalOption {
+    background: #ffff;
+    color: #258548;
+    border: 1px solid #258548;
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: border-radius 0.3s ease-in-out;;
 }
+
+.periodicalOption:hover {
+    /* background: var(--primary-color); */
+    color: #258548;
+    /* border-color: var(--primary-color); */
+    background-color: #DCFAE8;
+}
+
 
 .monthNavigation,
 .yearNavigation {
@@ -62,10 +71,16 @@
     text-align: center;
     width: 14.28%; */
 }
+.calendarTable td:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
 
 .calendarTableMonth {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
   
 .calendarTableMonth th,
@@ -75,11 +90,16 @@
     text-align: center;
     width: 14.28%;
 }
+.calendarTableMonth td:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
 
 .calendarDay {
     position: relative;
     height: 80px;
     vertical-align: top;
+    text-align: center;
 }
 
 .dateNumber {

@@ -1,11 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './CropManagementPage.module.css'
 import HeaderForm from '../../molecules/HeaderForm/HeaderForm';
 import CropIcon from '../../../assets/icons/crops-management-light.svg';
 import SupplyListComponent from './components/SupplyListComponent';
 
 function CropManagementPage() {
-    const [activeComponent, setActiveComponent] = useState('VEGETABLE');
+    // const [activeComponent, setActiveComponent] = useState('VEGETABLE');
+
+    const storedCropType = localStorage.getItem('activeCropType') || 'VEGETABLE';
+    const [activeComponent, setActiveComponent] = useState(storedCropType);
+
+    useEffect(() => {
+        localStorage.setItem('activeCropType', activeComponent);
+    }, [activeComponent]);
+
 
   return (
     <div>

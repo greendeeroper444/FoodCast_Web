@@ -84,29 +84,26 @@
 
 .recordList {
     margin-bottom: 24px;
+    padding: 20px;
+}
+.recordList div ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    /* list-style: none; */
+    padding: 0;
+    margin: 0;
 }
 
+.recordList div ul li{
+    font-size: 14px;
+}
+  
 .supplyListComponent h3 {
     color: var(--primary-color);
-}
-.supplyGrid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    background: #f5f5f5;
-    border-radius: 8px;
-    padding: 8px;
+    font-size: 20px;
 }
 
-.supplyItem {
-    padding: 8px 12px;
-    font-size: 16px;
-    color: var(--color-text-dark);
-    background: #fff;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    text-align: center;
-}
 .newSupplyForm {
     margin-top: 16px;
 }
@@ -181,7 +178,13 @@
     .sidebarOpen {
         transform: translateX(0);
     }
-    .supplyGrid {
-        grid-template-columns: 1fr;
+    .recordList div ul {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        /* list-style: none; */
+        padding: 0;
+        margin: 0;
     }
+    
 }

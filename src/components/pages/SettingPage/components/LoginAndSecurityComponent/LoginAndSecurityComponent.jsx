@@ -50,6 +50,10 @@ function LoginAndSecurityComponent() {
         dispatch(changePasswordAdmin(oldPassword, newPassword))
             .then(() => {
                 toast.success('Password changed successfully!');
+
+                setOldPassword('');
+                setNewPassword('');
+                setConfirmPassword('');
             })
             .catch((err) => {
                 toast.error('Failed to change password!');

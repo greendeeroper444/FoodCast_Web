@@ -4,6 +4,7 @@ import api from '../../../../../api/api';
 import CollectorBarChart from './CollectorBarChart';
 import CollectorTable from './CollectorTable';
 import SearchBar from '../../../../atoms/SearchBar/SearchBar';
+import SelectCustomize from '../../../../molecules/SelectCustomize/SelectCustomize';
 
 
 function CollectorComponent() {
@@ -14,7 +15,7 @@ function CollectorComponent() {
     const [selectedSupply, setSelectedSupply] = useState('');
     const [legend, setLegend] = useState([]);
     const [interval, setInterval] = useState('daily'); 
-    const [view, setView] = useState('Table');
+    const [view, setView] = useState('GRAPH');
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredCollectors, setFilteredCollectors] = useState([]);
 
@@ -188,23 +189,17 @@ function CollectorComponent() {
                 <SearchBar onChange={(e) => setSearchQuery(e.target.value)} />
             </div>
             <div className={styles.filterRight}>
-                <select
+                <SelectCustomize
                     value={supplyType}
-                    onChange={(e) => setSupplyType(e.target.value)}
-                    className={styles.dropdown}
-                >
-                    <option value="VEGETABLE">Vegetable</option>
-                    <option value="FRUIT">Fruit</option>
-                </select>
+                    onChange={setSupplyType}
+                    options={['VEGETABLE', 'FRUIT']}
+                />
                 {' '}
-                <select
+                <SelectCustomize
                     value={view}
-                    onChange={(e) => setView(e.target.value)}
-                    className={styles.dropdown}
-                >
-                    <option value="Graph">Graph</option>
-                    <option value="Table">Table</option>
-                </select>
+                    onChange={setView}
+                    options={['TABLE', 'GRAPH']}
+                />
             </div>
         </div>
 
@@ -234,24 +229,25 @@ function CollectorComponent() {
                                     activeRow === index && chartData && chartData.datasets.length > 0 ? (
                                         <tr className={styles.dropdownContent}>
                                             <td colSpan="3">
-                                            <div className={styles.legendWrapper}>
-                                                        <select
-                                                            value={selectedSupply}
-                                                            onChange={handleSupplySelectChange}
-                                                            className={styles.legendList}
-                                                        >
-                                                            <option value="">All</option>
-                                                            {
-                                                                legend.map((item, index) => (
-                                                                    <option key={index} value={item.label}>
-                                                                        {item.label}
-                                                                    </option>
-                                                                ))
-                                                            }
-                                                        </select>
-                                                    </div>
+                                                <div className={styles.legendWrapper}>
+                                                    <select
+                                                        value={selectedSupply}
+                                                        onChange={handleSupplySelectChange}
+                                                        className={styles.legendList}
+                                                    >
+                                                        <option value="">All</option>
+                                                        {
+                                                            legend.map((item, index) => (
+                                                                <option key={index} value={item.label}>
+                                                                    {item.label}
+                                                                </option>
+                                                            ))
+                                                        }
+                                                    </select>
+
+                                                </div>
                                                 {
-                                                    view === 'Graph' ? (
+                                                    view === 'GRAPH' ? (
                                                         <CollectorBarChart
                                                             data={chartData}
                                                             legend={legend}

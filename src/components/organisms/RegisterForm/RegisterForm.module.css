@@ -16,7 +16,11 @@
     color: var(--color-text-dark);
     text-align: start;
 }
-
+.selectFieldForm {
+    z-index: 1000;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
 .formGroup {
     position: relative;
 }

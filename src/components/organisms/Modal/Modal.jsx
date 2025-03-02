@@ -3,7 +3,15 @@ import styles from './Modal.module.css';
 import ModalHeader from '../../molecules/ModalHeader/ModalHeader';
 import ModalFooter from '../../molecules/ModalFooter/ModalFooter';
 
-const Modal = ({title, children, onClose, onSave}) => {
+const Modal = ({
+    title, 
+    children, 
+    onClose, 
+    onSave, 
+    onApprove, 
+    hideFooter = false,
+    unHideApproveButton = false
+}) => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -23,14 +31,22 @@ const Modal = ({title, children, onClose, onSave}) => {
                 <div className={styles.modalBody}>
                     {children}
                 </div>
-                <ModalFooter 
-                    onCancel={handleClose} 
-                    onSave={onSave} 
-                    cancelLabel='Cancel'
-                    saveLabel='Submit' 
-                    cancelClassName={styles.cancelButton}
-                    saveClassName={styles.submitButton}
-                />
+                {
+                    !hideFooter && (
+                        <ModalFooter 
+                            onCancel={handleClose} 
+                            onSave={onSave} 
+                            onApprove={onApprove}
+                            cancelLabel='Cancel'
+                            saveLabel='Save' 
+                            approveLabel='Approve'
+                            cancelClassName={styles.cancelButton}
+                            saveClassName={styles.submitButton}
+                            approveClassName={styles.approveButton}
+                            unHideApproveButton={unHideApproveButton}
+                        />
+                    )
+                }
             </div>
         </div>
     </div>

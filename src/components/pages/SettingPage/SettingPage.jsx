@@ -11,16 +11,35 @@ import { useLocation } from 'react-router-dom';
 
 
 function SettingPage() {
-    const [activeComponent, setActiveComponent] = useState('Profile');
+    // const [activeComponent, setActiveComponent] = useState('Profile');
+    // const [hasNotification, setHasNotification] = useState(false);
+    // const location = useLocation();
+
+    // //displaying component based on notification list clicked
+    // useEffect(() => {
+    //     if (location.state?.activeComponent) {
+    //         setActiveComponent(location.state.activeComponent);
+    //     }
+    // }, [location.state]);
+
+    const storedComponent = localStorage.getItem('activeSettingComponent') || 'Profile';
+    const [activeComponent, setActiveComponent] = useState(storedComponent);
     const [hasNotification, setHasNotification] = useState(false);
     const location = useLocation();
 
-    //displaying component based on notification list clicked
+    //set component based on navigation state or stored value
     useEffect(() => {
         if (location.state?.activeComponent) {
             setActiveComponent(location.state.activeComponent);
+            localStorage.setItem('activeSettingComponent', location.state.activeComponent);
         }
     }, [location.state]);
+
+    //update localStorage whenever activeComponent changes
+    useEffect(() => {
+        localStorage.setItem('activeSettingComponent', activeComponent);
+    }, [activeComponent]);
+
 
     const renderComponent = () => {
         switch (activeComponent) {

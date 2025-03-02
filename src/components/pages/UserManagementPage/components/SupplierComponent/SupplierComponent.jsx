@@ -4,6 +4,7 @@ import api from '../../../../../api/api';
 import SupplierLineChart from './SupplierLineChart';
 import SupplierTable from './SupplierTable';
 import SearchBar from '../../../../atoms/SearchBar/SearchBar';
+import SelectCustomize from '../../../../molecules/SelectCustomize/SelectCustomize';
 
 function SupplierComponent() {
     const [suppliers, setSuppliers] = useState([]);
@@ -12,7 +13,7 @@ function SupplierComponent() {
     const [supplyType, setSupplyType] = useState('VEGETABLE');
     const [legend, setLegend] = useState([]);
     const [interval, setInterval] = useState('daily');
-    const [view, setView] = useState('Table');
+    const [view, setView] = useState('TABLE');
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredSuppliers, setFilteredSuppliers] = useState([]);
 
@@ -215,23 +216,17 @@ function SupplierComponent() {
                     <SearchBar onChange={(e) => setSearchQuery(e.target.value)} />
                 </div>
                 <div className={styles.filterRight}>
-                    <select
+                    <SelectCustomize
                         value={supplyType}
-                        onChange={(e) => setSupplyType(e.target.value)}
-                        className={styles.dropdown}
-                    >
-                        <option value="VEGETABLE">Vegetable</option>
-                        <option value="FRUIT">Fruit</option>
-                    </select>
+                        onChange={setSupplyType}
+                        options={['VEGETABLE', 'FRUIT']}
+                    />
                     {' '}
-                    <select
+                    <SelectCustomize
                         value={view}
-                        onChange={(e) => setView(e.target.value)}
-                        className={styles.dropdown}
-                    >
-                        <option value="Graph">Graph</option>
-                        <option value="Table">Table</option>
-                    </select>
+                        onChange={setView}
+                        options={['TABLE', 'GRAPH']}
+                    />
                 </div>
             </div>
             <table className={styles.table}>
@@ -270,7 +265,7 @@ function SupplierComponent() {
                                             <tr className={styles.dropdownContent}>
                                                 <td colSpan="3">
                                                     {
-                                                        view === 'Graph' ? (
+                                                        view === 'GRAPH' ? (
                                                             <SupplierLineChart
                                                                 data={chartData}
                                                                 legend={legend}

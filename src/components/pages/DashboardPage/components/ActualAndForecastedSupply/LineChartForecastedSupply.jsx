@@ -222,7 +222,7 @@ function LineChartForecastedSupply({
 
   return (
     <div style={{ width: '100%', maxWidth: '1000px', margin: 'auto' }}>
-        <div style={{ position: 'relative', height: '50vh', minHeight: '300px' }}>
+        <div style={{ position: 'relative', height: '65vh', minHeight: '300px' }}>
             <Line
                 ref={chartRef}
                 data={

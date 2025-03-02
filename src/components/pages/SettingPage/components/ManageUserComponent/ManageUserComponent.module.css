@@ -83,7 +83,7 @@
 
 .userTable th, .userTable td {
     padding: 12px;
-    text-align: left;
+    text-align: center;
     font-size: 14px;
     color: #333;
 }
@@ -201,3 +201,13 @@
     background-color: red;
 }
   
+
+@media (max-width: 768px) {
+    .manageUsersComponent {
+        padding: 0px;
+    }
+    
+    .manageUsersContainer {
+        padding: 0px;
+    }
+}

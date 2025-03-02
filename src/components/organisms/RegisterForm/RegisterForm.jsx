@@ -8,13 +8,15 @@ import AuthButton from '../../molecules/AuthButton/AuthButton';
 import GoogleButton from '../../molecules/GoogleButton/GoogleButton';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import SelectField from '../../atoms/SelectField/SelectField';
 
 function RegisterForm() {
     const [fullName, setFullName] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
     const [emailAddress, setEmailAddress] = useState('');
     const [contactNumber, setContactNumber] = useState('');
+    const [position, setPosition] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [passwordStrength, setPasswordStrength] = useState('');
     const dispatch = useDispatch();
@@ -42,6 +44,19 @@ function RegisterForm() {
         setPasswordStrength(strength);
     };
 
+    const handleEmailChange = (e) => {
+        const email = e.target.value;
+        
+        //regular expression for a valid email format
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+        if(email === '' || emailRegex.test(email)){
+            setEmailAddress(email);
+        } else {
+            toast.error('Invalid email format. Please enter a valid email address.');
+        }
+    };
+
     const handleRegister = (e) => {
         e.preventDefault();
         
@@ -57,6 +72,10 @@ function RegisterForm() {
             toast.error('Contact number is required.');
             return;
         }
+        if (!position) {
+            toast.error('Position number is required.');
+            return;
+        }
         if (!password) {
             toast.error('Password is required.');
             return;
@@ -67,7 +86,7 @@ function RegisterForm() {
         }
     
 
-        const adminData = {fullName, password, emailAddress, contactNumber};
+        const adminData = {fullName, emailAddress, contactNumber, position, password};
         try {
             dispatch(registerAdmin(adminData));
 
@@ -98,11 +117,11 @@ function RegisterForm() {
             autoComplete='name'
         />
         <FormGroup
-            label='Email'
+            label='Email Address'
             type='email'
             name='email'
             value={emailAddress}
-            onChange={(e) => setEmailAddress(e.target.value)}
+            onChange={handleEmailChange}
             placeholder='Enter your email'
             autoComplete='email'
         />
@@ -115,6 +134,22 @@ function RegisterForm() {
             placeholder='Enter your contact number'
             autoComplete='tel'
         />
+        {/* select position */}
+        <div className={styles.selectFieldForm}>
+            <SelectField
+                label='Position'
+                name='position'
+                value={position}
+                onChange={(e) => setPosition(e.target.value)}
+                required
+                options={[
+                    {value: 'Admin', label: 'Admin'},
+                    {value: 'Staff', label: 'Staff'},
+                ]}
+            />
+        </div>
+
+
         <div className={styles.formGroup}>
             <FormGroup
                 label='Password'

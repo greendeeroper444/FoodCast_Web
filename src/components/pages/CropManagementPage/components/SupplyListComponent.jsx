@@ -91,18 +91,20 @@ function SupplyListComponent({activeType}) {
 
         <div className={styles.recordList}>
             <h3>Record List:</h3>
-            <div className={styles.supplyGrid}>
-            {
-                filteredSupplies.length > 0 ? (
-                    filteredSupplies.map((supply) => (
-                        <div key={supply._id} className={styles.supplyItem}>
-                        {supply.supplyName}
-                        </div>
-                    ))
-                ) : (
-                    <p>No supply yet.</p>
-                )
-            }
+            <div>
+                <ul>
+                    {
+                        filteredSupplies.length > 0 ? (
+                            filteredSupplies.map((supply) => (
+                                <li key={supply._id}>
+                                    {supply.supplyName}
+                                </li>
+                            ))
+                        ) : (
+                            <p>No supply yet.</p>
+                        )
+                    }
+                </ul>
             </div>
 
         </div>

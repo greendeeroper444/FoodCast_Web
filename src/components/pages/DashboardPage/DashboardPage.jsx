@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './DashboardPage.module.css'
 import HeaderForm from '../../../components/molecules/HeaderForm/HeaderForm';
 import { faChartLine } from '@fortawesome/free-solid-svg-icons';
@@ -7,8 +7,16 @@ import CardContent from '../../organisms/CardContent/CardContent';
 import dashboardIcon from '../../../assets/icons/dashboard-light.svg'
 
 function DashboardPage() {
-    const [selectedContent, setSelectedContent] = useState('actualAndForecastedDemand');
-    const [activeCard, setActiveCard] = useState('actualAndForecastedDemand');
+    // const [selectedContent, setSelectedContent] = useState('actualAndForecastedDemand');
+    // const [activeCard, setActiveCard] = useState('actualAndForecastedDemand');
+    const storedContent = localStorage.getItem('selectedContent') || 'actualAndForecastedDemand';
+    
+    const [selectedContent, setSelectedContent] = useState(storedContent);
+    const [activeCard, setActiveCard] = useState(storedContent);
+
+    useEffect(() => {
+        localStorage.setItem('selectedContent', selectedContent);
+    }, [selectedContent]);
 
     const handleCardClick = (content) => {
         setSelectedContent(content);
