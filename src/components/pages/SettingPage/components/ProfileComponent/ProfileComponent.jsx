@@ -57,6 +57,8 @@ function ProfileComponent() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        const loadingToast = toast.loading("Updating profile...");
     
         //utility function to convert camelCase to proper case
         const formatFieldName = (fieldName) => {
@@ -80,6 +82,7 @@ function ProfileComponent() {
     
         const updatedFormData = new FormData();
         Object.keys(formData).forEach((key) => {
+            if (key === 'profilePictures' && !formData[key]) return; //skip appending null profilePicture
             updatedFormData.append(key, formData[key]);
         });
     
