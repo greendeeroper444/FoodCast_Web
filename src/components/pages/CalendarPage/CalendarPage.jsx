@@ -540,6 +540,7 @@ const CalendarPage = () => {
 
         </div>
 
+        <br />
         <div className={styles.calendarContainer}>
         {
             viewMode === 'DAILY' ? (
@@ -573,7 +574,7 @@ const CalendarPage = () => {
         }
         {
             isModalOpen && (
-                <Modal title={`${selectedData.type === 'day' ? 'Daily' : 'Monthly'} Supply Details`} onClose={handleCloseModal} hideFooter>
+                <Modal title={`${selectedData.type === 'day' ? 'Daily' : 'Monthly'} Demand Details`} onClose={handleCloseModal} hideFooter>
                     <ul>
                         {
                             selectedData.data.length ? (

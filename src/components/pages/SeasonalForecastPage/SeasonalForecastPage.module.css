@@ -2,56 +2,41 @@
     
 }
 
-.seasonalForecastPage h2 {
-    font-size: 2rem;
-    color: #333;
+.filterContainer {
+    display: flex;
+    gap: 10px;
 }
 
-.seasonalForecastPage .selection {
+.periodicalOption {
+    background: #ffff;
+    color: #258548;
+    border: 1px solid #258548;
+    padding: 15px;
+    border-radius: 15px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 0 50px;
+    height: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: border-radius 0.3s ease-in-out;;
 }
 
-.seasonalForecastPage .formGroup {
+.periodicalOption:hover {
+    /* background: var(--primary-color); */
+    color: #258548;
+    /* border-color: var(--primary-color); */
+    background-color: #DCFAE8;
+}
+
+.seasonalForecastContent {
     display: flex;
-    flex-direction: column;
-}
-
-.seasonalForecastPage label {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 8px;
-}
-
-.seasonalForecastPage select {
-    padding: 8px;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-.seasonalForecastPage select:hover {
-    border-color: var(--primary-hover-color);
-}
-
-.linechartTable {
-    margin-top: 10px;
-}
-.lineChartSeasonalForecasted {
-    padding: 20px;
-}
-
-.rainySeason {
-   background-color: #fff;
-   padding: 20px;
-   border-radius: 10px;
-}
-.drySeason {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
+    justify-content: center;
     margin-top: 20px;
 }
+  
+
+
+
+
+/* line chart */
