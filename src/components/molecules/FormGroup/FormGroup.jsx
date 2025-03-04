@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './FormGroup.module.css'
 import InputField from '../../atoms/InputField/InputField';
 
-function FormGroup({label, type, name, value, onChange, placeholder, required, autoComplete}) {
+function FormGroup({label, type, name, value, onChange, onBlur, placeholder, required, autoComplete}) {
   return (
     <div className={styles.formGroup}>
         {/* <Label text={label} /> */}
@@ -11,6 +11,7 @@ function FormGroup({label, type, name, value, onChange, placeholder, required, a
             name={name}
             value={value}
             onChange={onChange}
+            onBlur={onBlur}
             placeholder={placeholder}
             required={required}
             autoComplete={autoComplete}

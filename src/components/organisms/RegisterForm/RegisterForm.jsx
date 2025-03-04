@@ -44,15 +44,25 @@ function RegisterForm() {
         setPasswordStrength(strength);
     };
 
-    const handleEmailChange = (e) => {
-        const email = e.target.value;
+    // const handleEmailChange = (e) => {
+    //     const email = e.target.value;
         
-        //regular expression for a valid email format
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    //     //regular expression for a valid email format
+    //     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     
-        if(email === '' || emailRegex.test(email)){
-            setEmailAddress(email);
-        } else {
+    //     if(email === '' || emailRegex.test(email)){
+    //         setEmailAddress(email);
+    //     } else {
+    //         toast.error('Invalid email format. Please enter a valid email address.');
+    //     }
+    // };
+    const handleEmailChange = (e) => {
+        setEmailAddress(e.target.value);
+    };
+    
+    const handleEmailBlur = () => {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (emailAddress && !emailRegex.test(emailAddress)) {
             toast.error('Invalid email format. Please enter a valid email address.');
         }
     };
@@ -122,6 +132,7 @@ function RegisterForm() {
             name='email'
             value={emailAddress}
             onChange={handleEmailChange}
+            onBlur={handleEmailBlur}
             placeholder='Enter your email'
             autoComplete='email'
         />

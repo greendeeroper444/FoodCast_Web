@@ -49,18 +49,15 @@ function LoginForm() {
     };
 
     const handleEmailChange = (e) => {
-        const email = e.target.value;
-        
-        //regular expression for a valid email format
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        setEmailAddress(e.target.value);
+    };
     
-        if(email === '' || emailRegex.test(email)){
-            setEmailAddress(email);
-        } else {
+    const handleEmailBlur = () => {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (emailAddress && !emailRegex.test(emailAddress)) {
             toast.error('Invalid email format. Please enter a valid email address.');
         }
     };
-    
     
 
   return (
@@ -72,6 +69,7 @@ function LoginForm() {
             name='email'
             value={emailAddress}
             onChange={handleEmailChange}
+            onBlur={handleEmailBlur}
             placeholder='Enter your email'
             autoComplete='email'
         />
