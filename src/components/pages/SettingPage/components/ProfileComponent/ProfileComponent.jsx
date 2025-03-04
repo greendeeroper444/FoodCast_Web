@@ -40,7 +40,7 @@ function ProfileComponent() {
 
     //for updating form field values when the user types or selects new input
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData((prevState) => ({
             ...prevState,
             [name]: value
@@ -49,10 +49,19 @@ function ProfileComponent() {
 
     //for updating the form state when a new file(profile picture) is selected
     const handleFileChange = (e) => {
-        setFormData((prevState) => ({
-            ...prevState,
-            profilePicture: e.target.files[0]
-        }));
+        const file = e.target.files[0];
+
+        if (file) {
+            if (file.size > 10 * 1024 * 1024) {
+                toast.error('File size exceeds 10MB limit.');
+                return;
+            }
+
+            setFormData((prevState) => ({
+                ...prevState,
+                profilePicture: file
+            }));
+        }
     };
 
     const handleSubmit = (e) => {
