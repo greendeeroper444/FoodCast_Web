@@ -57,8 +57,6 @@ function ProfileComponent() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const loadingToast = toast.loading("Updating profile...");
     
         //utility function to convert camelCase to proper case
         const formatFieldName = (fieldName) => {
