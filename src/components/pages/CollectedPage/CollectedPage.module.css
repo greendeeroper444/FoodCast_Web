@@ -13,6 +13,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: row;
 }
 .toggleButtons {
     display: flex;
@@ -29,6 +30,9 @@
     transition: all 0.3s ease-in-out;
     border: 1px solid var(--primary-color);
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .activeButton {
@@ -43,6 +47,17 @@
 
 .inactiveButton:hover {
     background-color: #ddd;
+}
+.collectedIcon {
+    width: 50px;
+    height: 50px;
+    transition: filter 0.3s ease;
+}
+
+.inactiveButton .collectedIcon,
+.inactiveButton .collectedIcon {
+    filter: brightness(10) invert(1);
+    display: block;
 }
 
 .paginationControls {
@@ -76,3 +91,9 @@
 }
 
 
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

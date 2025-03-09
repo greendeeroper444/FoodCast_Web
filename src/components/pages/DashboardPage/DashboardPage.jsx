@@ -34,6 +34,8 @@ function DashboardPage() {
                 return 'ACTUAL AND FORECASTED SUPPLY';
             case 'overAndUnderSupply':
                 return 'OVER AND UNDER SUPPLY';
+            case 'priceTrends':
+                return 'PRICE TRENDS';
             default:
                 return '';
         }
@@ -47,7 +49,7 @@ function DashboardPage() {
             <Card
                 type='actualAndForecastedDemand'
                 title='ACTUAL AND FORECASTED DEMAND'
-                amount='15,000'
+                // amount='15,000'
                 icon={faChartLine}
                 onClick={() => handleCardClick('actualAndForecastedDemand')}
                 className={activeCard === 'actualAndForecastedDemand' ? styles.active : ''}
@@ -55,7 +57,7 @@ function DashboardPage() {
             <Card
                 type='actualAndForecastedSupply'
                 title='ACTUAL AND FORECASTED SUPPLY'
-                amount='45,6334'
+                // amount='45,6334'
                 icon={faChartLine}
                 onClick={() => handleCardClick('actualAndForecastedSupply')}
                 className={activeCard === 'actualAndForecastedSupply' ? styles.active : ''}
@@ -63,10 +65,18 @@ function DashboardPage() {
             <Card
                 type='overAndUnderSupply'
                 title='OVER AND UNDER SUPPLY'
-                amount='95,5741'
-                // icon={faGem}
+                // amount='95,5741'
+                icon={faChartLine}
                 onClick={() => handleCardClick('overAndUnderSupply')}
                 className={activeCard === 'overAndUnderSupply' ? styles.active : ''}
+            />
+            <Card
+                type='priceTrends'
+                title='PRICE TRENDS'
+                // amount='95,5741'
+                icon={faChartLine}
+                onClick={() => handleCardClick('priceTrends')}
+                className={activeCard === 'priceTrends' ? styles.active : ''}
             />
         </div>
 

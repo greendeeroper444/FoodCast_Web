@@ -22,6 +22,9 @@
 .overAndUnderSupply {
     background: linear-gradient(135deg, #2cc49d, #6ee5c6);
 }
+.priceTrends {
+    background: linear-gradient(135deg, #c4a12c, #e5d96e);
+}
 
 /* .forecastedDemandAndSupply {
     background: linear-gradient(135deg, #c2c42c, #dde56e);

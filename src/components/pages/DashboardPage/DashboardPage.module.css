@@ -10,6 +10,7 @@
 
 .cardContainer{
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     gap: 20px;
 }
@@ -20,4 +21,12 @@
     /* transform: scale(1.1); */
     /* box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3); */
     /* transition: all 0.3s ease-in-out; */
+}
+
+
+@media (max-width: 768px) {
+    .cardContainer{
+        flex-direction: column;
+    }
+    
 }

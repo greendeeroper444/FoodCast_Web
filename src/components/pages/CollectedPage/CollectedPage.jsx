@@ -8,15 +8,18 @@ import CollectedIcon from '../../../assets/icons/collected-light.svg';
 import useFetchCollectedSupply from '../../../hooks/useFetchCollectedSupply';
 import usePagination from '../../../hooks/usePagination';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; 
+import SelectCustomize from '../../molecules/SelectCustomize/SelectCustomize';
 
 const DAYS_RANGE = 7;
 
 function CollectedPage() {
     const [page, setPage] = useState(1);
     const [activeTable, setActiveTable] = useState('VEGETABLE');
+    const [collectedType, setCollectedType] = useState('COLLECTED SUPPLY')
 
     const {
         collectedItems, 
+        collectedItemsDemand,
         hasPreviousPage, 
         currentPage, 
         isLoading
@@ -30,31 +33,56 @@ function CollectedPage() {
 
     const formattedCollectedItems = formatItems(collectedItems, pagination.currentPage, DAYS_RANGE, uniqueDates, 'supplyName', 'quantity', 'date');
 
+
+    const uniqueDatesDemand = getUniqueDates(collectedItemsDemand, 'date');
+
+    const paginationDemand = usePagination(uniqueDatesDemand.length, DAYS_RANGE, page - 1);
+
+    const headersDemand = [activeTable, ...uniqueDatesDemand.slice(pagination.currentPage * DAYS_RANGE, (pagination.currentPage + 1) * DAYS_RANGE), 'Total'];
+
+    const formattedCollectedItemsDemand = formatItems(
+        collectedItemsDemand, 
+        pagination.currentPage, 
+        DAYS_RANGE, 
+        uniqueDatesDemand, 
+        'supplyName', 
+        'quantity', 
+        'date'
+    );
+
   return (
     <div className={styles.collectedPage}>  
-        <HeaderForm icon={CollectedIcon} title='COLLECTED SUPPLY' />
+        <HeaderForm 
+            icon={CollectedIcon} 
+            title={`COLLECTED / ${collectedType.includes('COLLECTED SUPPLY') ? 'SUPPLY' : 'DEMAND'}`} 
+        />
 
-        <div className={styles.header}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div className={styles.toggleButtons}>
                 <button 
-                    className={activeTable === 'FRUIT' ? styles.activeButton : styles.inactiveButton}
-                    onClick={() => setActiveTable('FRUIT')}
+                    className={collectedType === 'COLLECTED SUPPLY' ? styles.activeButton : styles.inactiveButton}
+                    onClick={() => setCollectedType('COLLECTED SUPPLY')}
                 >
-                    FRUIT
+                    <img src={CollectedIcon} alt="COLLECTED SUPPLY" className={styles.collectedIcon} />
+                    <span>COLLECTED SUPPLY</span>
                 </button>
                 <button 
-                    className={activeTable === 'VEGETABLE' ? styles.activeButton : styles.inactiveButton}
-                    onClick={() => setActiveTable('VEGETABLE')}
+                    className={collectedType === 'COLLECTED DEMAND' ? styles.activeButton : styles.inactiveButton}
+                    onClick={() => setCollectedType('COLLECTED DEMAND')}
                 >
-                    VEGETABLE
+                    <img src={CollectedIcon} alt="COLLECTED DEMAND" className={styles.collectedIcon} />
+                    COLLECTED DEMAND
                 </button>
             </div>
+        </div>
 
-            {/* <SelectCustomize
+        <br />
+        <div className={styles.header}>
+            <SelectCustomize
                 value={activeTable}
                 onChange={setActiveTable}
                 options={['VEGETABLE', 'FRUIT']}
-            /> */}
+            />
             <div className={styles.paginationControls}>
                 <button 
                     className={`${styles.pageButton} ${!hasPreviousPage ? styles.disabled : ''}`} 
@@ -73,12 +101,23 @@ function CollectedPage() {
         </div>
 
         <br />
-        <CollectedTableLayout 
-            headers={headers} 
-            data={formattedCollectedItems} 
-            isLoading={isLoading}
-            activeTable={activeTable}
-        />
+        {
+            collectedType === 'COLLECTED SUPPLY' ? (
+                <CollectedTableLayout 
+                    headers={headers} 
+                    data={formattedCollectedItems} 
+                    isLoading={isLoading}
+                    activeTable={activeTable}
+                />
+            ) : (
+                <CollectedTableLayout 
+                    headers={headersDemand} 
+                    data={formattedCollectedItemsDemand} 
+                    isLoading={isLoading}
+                    activeTable={activeTable}
+                />
+            )
+        }
 
         <br />
         <div className={styles.paginationControls}>

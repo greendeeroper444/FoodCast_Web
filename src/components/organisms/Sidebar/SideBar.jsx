@@ -91,16 +91,16 @@ function Sidebar() {
                         icon='fa-collected'
                         label='Collected'
                     />
-                    <NavLink 
+                    {/* <NavLink 
                         to='/collected-demand'
                         icon='fa-supply'
                         label='Collected Demand'
-                    />
-                    <NavLink 
+                    /> */}
+                    {/* <NavLink 
                         to='/price-trends'
                         icon='fa-trend'
                         label='Price Trends'
-                    />
+                    /> */}
                     <NavLink 
                         to='/crop-management'
                         icon='fa-crop'

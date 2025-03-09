@@ -1,0 +1,174 @@
+.priceTrends {
+    padding: 20px 50px;
+    background-color: var(--background-light);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.priceTrends h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    text-align: start;
+    margin-bottom: 20px;
+}
+.menuList {
+    list-style: none;
+    padding: 0;
+}
+
+.menuItem {
+    padding: 10px 0;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding-left: 10px;
+}
+
+.menuItem:hover {
+    color: var(--color-text-dark);
+    background-color: var(--background-green-light);
+    border-radius: 5px;
+}
+
+/* active state */
+.active {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 5px;
+}
+
+.componentContainer {
+    flex: 1;
+    padding: 0;
+    border-radius: 10px;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.componentContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+.componentContainer::-webkit-scrollbar-thumb {
+    background-color: #c2c2c2;
+    border-radius: 10px;
+}
+
+.componentContainer::-webkit-scrollbar-thumb:hover {
+    background-color: #c2c2c2;
+}
+
+
+
+
+
+.allSuppliesComponent {
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    color: var(--color-text-dart);
+}
+
+.heading {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 16px;
+}
+
+.supplyGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.supplyItem {
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 5px;
+    text-align: center;
+}
+
+.activeSupply {
+    background-color: var(--background-green-light);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.supplyItem:hover {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.chartContainer {
+    margin-top: 24px;
+    padding: 16px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.selectedSupply {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.filterContainer {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.filterLabel {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Arial', sans-serif;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.filterSelect {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+    transition: border 0.2s ease;
+}
+
+.filterSelect:focus {
+    outline: none;
+    border-color: #FF8800;
+    box-shadow: 0 0 5px rgba(255, 187, 0, 0.5);
+}
+
+
+.linechartTable {
+    background-color: var(--background-color-default);
+    padding: 20px 10px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .sidebarOpen {
+        transform: translateX(0);
+    }
+    .supplyGrid {
+        grid-template-columns: 1fr;
+    }
+}

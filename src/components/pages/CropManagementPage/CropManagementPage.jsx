@@ -17,7 +17,7 @@ function CropManagementPage() {
 
   return (
     <div>
-        <HeaderForm icon={CropIcon} title='CROPS MANAGEMENT' />
+        <HeaderForm icon={CropIcon} title={`CROPS MANAGEMENT / ${activeComponent.includes('VEGETABLE') ? 'VEGETABLES' : 'FRUITS'}`} />
         <div className={styles.cropsManagementPage}>
             <aside className={styles.sidebar}>
                 <h2 className={styles.sidebarTitle}>Crops</h2>
