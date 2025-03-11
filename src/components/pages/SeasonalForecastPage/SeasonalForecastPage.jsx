@@ -14,7 +14,7 @@ function SeasonalForecastPage() {
     const [supplyForecasts, setSupplyForecasts] = useState([]);
     const [viewSeason, setViewSeason] = useState('DRY SEASON');
     // const [year, setYear] = useState(new Date().getFullYear().toString());
-    const [year, setYear] = useState('2023');
+    const [year, setYear] = useState('2025');
     const [forecasts, setForecasts] = useState([]);
      const [loading, setLoading] = useState(false);
      const [viewMode, setViewMode] = useState('TABLE');

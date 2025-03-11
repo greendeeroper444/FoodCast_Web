@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import api from '../../../../../api/api';
 import Modal from '../../../../organisms/Modal/Modal';
-import InputField from '../../../../atoms/InputField/InputField';
 import UserDetailsForm from '../../../../molecules/UserDetailsForm/UserDetailsForm';
 import ModalConfirmation from '../../../../organisms/ModalConfirmation/ModalConfirmation';
 
@@ -91,7 +90,7 @@ function ApprovedTableComponent({
                                         {user.emailAddress}
                                     </span>
                                 </td>
-                                <td className={styles.statusCell}>
+                                <td>
                                     <span
                                         className={user.isOnline ? styles.onlineDot : styles.offlineDot}
                                     ></span>
@@ -101,15 +100,16 @@ function ApprovedTableComponent({
                                 {/* <td>
                                     <button className={styles.viewButton}>View</button>
                                 </td> */}
-                               <td>
+                               <td className={styles.actionsCell}>
                                     <button className={styles.editButton} onClick={() => handleViewUser(user)}>View</button>
-                                    {' '}
                                     <button className={styles.deleteButton} onClick={() => handleDeleteClick(user)}>Delete</button>
                                 </td>
                             </tr>
                         ))
                     ) : (
-                        <p className={styles.noDataYet}>No users approved yet.</p>
+                        <tr>
+                            <td className={styles.noDataYet} colSpan='3'>No users requested yet.</td>
+                        </tr>
                     )
                 }
             </tbody>

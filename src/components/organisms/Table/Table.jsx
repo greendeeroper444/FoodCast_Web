@@ -15,7 +15,7 @@ function Table({headers = [], rows = []}) {
                     ? rows.map((row, index) => (
                             <TableRow key={index} cells={row} />
                         ))
-                    : <tr><td colSpan={headers.length}>No data available</td></tr>
+                    : <tr><td colSpan={headers.length} style={{ textAlign: 'center' }}>No data available</td></tr>
                 }
             </tbody>
       </table>

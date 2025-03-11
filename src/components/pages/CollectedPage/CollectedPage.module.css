@@ -15,6 +15,10 @@
     align-items: center;
     flex-direction: row;
 }
+.headerLeft {
+    display: flex;
+    gap: 5px;
+}
 .toggleButtons {
     display: flex;
     gap: 10px;
@@ -90,6 +94,14 @@
     cursor: not-allowed;
 }
 
+.downloadButton {
+    border: 1px solid var(--primary-color);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 40px;
+}
 
 @media (max-width: 768px) {
     .header {

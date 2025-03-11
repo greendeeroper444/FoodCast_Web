@@ -3,7 +3,7 @@
 // import 'jspdf-autotable';
 // import { getDayName, removeYearFromHeaders } from '../utils/dateUtils';
 
-// export default function useCollectedButtonHandlers(activeTable, filteredFruitData, filteredVegetableData, fruitHeaders, vegetableHeaders) {
+// export default function excel(activeTable, filteredFruitData, filteredVegetableData, fruitHeaders, vegetableHeaders) {
 //     const [leftLogoBase64, setLeftLogoBase64] = useState('');
 //     const [rightLogoBase64, setRightLogoBase64] = useState('');
 
@@ -210,7 +210,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { getDayName, removeYearFromHeaders } from '../utils/dateUtils';
 
-export default function useCollectedButtonHandlers(activeTable, filteredData, headers) {
+export default function downloadPdf(activeTable, filteredData, headers) {
     const [leftLogoBase64, setLeftLogoBase64] = useState('');
     const [rightLogoBase64, setRightLogoBase64] = useState('');
 

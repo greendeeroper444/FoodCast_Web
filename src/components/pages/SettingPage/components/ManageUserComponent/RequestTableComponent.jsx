@@ -104,11 +104,10 @@ function RequestTableComponent({
                                     </span>
                                 </td>
                                 <td>{user.position}</td>
-                                <td>
+                                <td className={styles.actionsCell}>
                                     <button className={styles.approveButton} onClick={() => handleOpenModal(user)}>
                                         Approve
                                     </button>
-                                    {' '}
                                     <button className={styles.declineButton} onClick={() => handleDeclineClick(user)}>
                                         Decline
                                     </button>
@@ -116,7 +115,9 @@ function RequestTableComponent({
                             </tr>
                         ))
                     ) : (
-                        <p className={styles.noDataYet}>No users requested yet.</p>
+                        <tr>
+                            <td className={styles.noDataYet} colSpan='3'>No users requested yet.</td>
+                        </tr>
                     )
                 }
             </tbody>

@@ -89,7 +89,8 @@
 }
 
 .userTable th {
-    background-color: #f0f0f0;
+    background-color: var(--primary-color);
+    color: #fff;
 }
 
 .userTable tr:nth-child(even) {
@@ -103,12 +104,13 @@
 }
 
 .actionsCell {
-    white-space: nowrap;
+    display: flex;
+    gap: 8px;
 }
 
-.actionsCell button {
+/* .actionsCell button {
     margin-right: 8px;
-}
+} */
 
 .profilePicture{
     width: 30px;
@@ -118,7 +120,7 @@
 }
 .noDataYet {
     color: #666;
-    text-align: end;
+    text-align: center;
 }
 
 .offline {

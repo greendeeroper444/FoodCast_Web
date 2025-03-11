@@ -7,7 +7,7 @@ import Selection from '../../../../organisms/Selection/Selection';
 
 function OverAndUnderSupply() {
     const [supplyType, setSupplyType] = useState('VEGETABLE');
-    const [supplyName, setSupplyName] = useState('AMPALAYA');
+    const [supplyName, setSupplyName] = useState('ALUGBATI');
     const [supplyNames, setSupplyNames] = useState([]);
     const [dailyDemandData, setDailyDemandData] = useState([]);
     const [weeklyDemandData, setWeeklyData] = useState([]);

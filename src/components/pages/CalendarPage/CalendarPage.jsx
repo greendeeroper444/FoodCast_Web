@@ -338,7 +338,7 @@ import Button from '../../atoms/Button/Button';
 import Modal from '../../organisms/Modal/Modal';
 
 const CalendarPage = () => {
-    const [currentYear, setCurrentYear] = useState(2023);
+    const [currentYear, setCurrentYear] = useState(2025);
     const [currentMonth, setCurrentMonth] = useState(0);
     const [viewMode, setViewMode] = useState('MONTHLY');
     const [dailySupply, setDailySupply] = useState({});

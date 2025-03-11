@@ -13,7 +13,7 @@ function PriceTrends() {
     const [supplies, setSupplies] = useState([]);
     const [selectedSupply, setSelectedSupply] = useState('');
     const [priceTrendData, setPriceTrendData] = useState([]);
-    const [year, setYear] = useState('2023');
+    const [year, setYear] = useState('2025');
     const [month, setMonth] = useState('');
 
     useEffect(() => {

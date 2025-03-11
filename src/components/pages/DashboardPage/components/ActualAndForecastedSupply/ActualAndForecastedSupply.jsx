@@ -7,7 +7,7 @@ import Selection from '../../../../organisms/Selection/Selection';
 
 function ActualAndForecastedSupply() {
     const [supplyType, setSupplyType] = useState('VEGETABLE');
-    const [supplyName, setSupplyName] = useState('AMPALAYA');
+    const [supplyName, setSupplyName] = useState('ALUGBATI');
     const [supplyNames, setSupplyNames] = useState([]);
     const [dailyData, setDailyData] = useState([]);
     const [weeklyData, setWeeklyData] = useState([]);

@@ -64,6 +64,7 @@ function SupplyListComponent({activeType}) {
             toast.error('Supply name is required');
             return;
         }
+    
         //check if the supply already exists
         const isSupplyExists = supplies.some(supply => 
             supply.supplyName.toLowerCase() === supplyName.toLowerCase() &&
@@ -73,51 +74,48 @@ function SupplyListComponent({activeType}) {
             toast.error('This supply already exists');
             return;
         }
- 
-        if (isEditing && editingSupply) {
-            //update existing supply
-            try {
-                const response = await api.put(`/api/adminSupplyList/updateSupplyList/${editingSupply._id}`, {
+    
+        const loadingToast = toast.loading(isEditing ? 'Updating supply...' : 'Adding supply...');
+    
+        try {
+            let response;
+            if (isEditing && editingSupply) {
+                //update existing supply
+                response = await api.put(`/api/adminSupplyList/updateSupplyList/${editingSupply._id}`, {
                     supplyType: activeType,
                     supplyName,
                 });
-
+    
                 setSupplies((prevSupplies) => 
                     prevSupplies.map(supply => 
                         supply._id === editingSupply._id ? response.data.supplyList : supply
                     )
                 );
-                
-                setSupplyName('');
-                setError('');
+    
                 setIsEditing(false);
                 setEditingSupply(null);
-
                 toast.success(`${response.data.supplyList.supplyName} updated successfully!`);
-            } catch (error) {
-                console.error(error);
-                setError('Failed to update supply.');
-            }
-        } else {
-            //add new supply
-            try {
-                const response = await api.post('/api/adminSupplyList/addSupplyList', {
+            } else {
+                //add new supply
+                response = await api.post('/api/adminSupplyList/addSupplyList', {
                     supplyType: activeType,
                     supplyName,
                 });
-
+    
                 setSupplies((prevSupplies) => [response.data.supplyList, ...prevSupplies]);
-                setSupplyName('');
-                setError('');
-
-                //show success toast with the supply name
                 toast.success(`${response.data.supplyList.supplyName} created successfully!`);
-            } catch (error) {
-                console.error(error);
-                setError('Failed to add supply.');
             }
+    
+            setSupplyName('');
+            setError('');
+        } catch (error) {
+            console.error(error);
+            toast.error('Operation failed!');
+        } finally {
+            toast.dismiss(loadingToast);
         }
     };
+    
 
     //handle edit button click
     const handleEdit = (supply) => {
@@ -148,6 +146,8 @@ function SupplyListComponent({activeType}) {
     };
     //handle delete supply
     const handleDelete = async () => {
+        const loadingToast = toast.loading('Deleting supply...');
+
         try {
             await api.delete(`/api/adminSupplyList/deleteSupplyList/${supplyToDelete._id}`);
             setSupplies((prevSupplies) => prevSupplies.filter(supply => supply._id !== supplyToDelete._id));
@@ -167,6 +167,8 @@ function SupplyListComponent({activeType}) {
             console.error(error);
             toast.error(`Failed to delete ${supplyToDelete.supplyName}.`);
             setShowDeleteModal(false);
+        }finally {
+            toast.dismiss(loadingToast);
         }
     };
 
