@@ -17,7 +17,7 @@ export const setToken = createAction(SET_TOKEN);
 //register admin action
 export const registerAdmin = (adminData) => async (dispatch) => {
     try {
-        const response = await api.post('/admin/register', adminData);
+        const response = await api.post('/api/admin/register', adminData);
         const {admin} = response.data;
         dispatch(setAdmin(admin));
         //redirect or show success notification as needed
@@ -29,7 +29,7 @@ export const registerAdmin = (adminData) => async (dispatch) => {
 //login admin action
 export const loginAdmin = (fullName, emailAddress, password) => async (dispatch) => {
     try {
-        const response = await api.post('/admin/login', { 
+        const response = await api.post('/api/admin/login', { 
             fullName,
             emailAddress, 
             password 
@@ -49,7 +49,7 @@ export const loginAdmin = (fullName, emailAddress, password) => async (dispatch)
 //get/fetch admin data action
 export const fetchAdminData = () => async (dispatch) => {
     try {
-        const response = await api.get('/admin/getDataAdmin');
+        const response = await api.get('/api/admin/getDataAdmin');
         dispatch(setAdmin(response.data));
     } catch (error) {
         dispatch(setError(error.response?.data?.error || 'Failed to fetch admin data'));
@@ -70,13 +70,21 @@ export const fetchAdminData = () => async (dispatch) => {
 //logout action
 export const logoutAdmin = () => async (dispatch) => {
     try {
-        await api.post('/admin/logout', {});
+        await api.post('/api/admin/logout', {});
         dispatch(logout());
         // window.location.href = '/';
 
         //clear localStorage and session storage
-        localStorage.clear();  
-        sessionStorage.clear();  
+        // localStorage.clear();  
+        // sessionStorage.clear();  
+        //preserve termsAcceptedAt while clearing other localStorage data
+        const termsAcceptedAt = localStorage.getItem('termsAcceptedAt');
+        localStorage.clear();
+        if (termsAcceptedAt) {
+            localStorage.setItem('termsAcceptedAt', termsAcceptedAt);
+        }
+
+        sessionStorage.clear(); 
     } catch (error) {
         dispatch(setError(error.response?.data?.error || 'Failed to log out'));
     }
@@ -94,7 +102,7 @@ export const logoutAdmin = () => async (dispatch) => {
 //fetch admin data for update action
 export const fetchAdminDataForUpdate = () => async (dispatch) => {
     try {
-        const response = await api.get('/admin/getDataUpdateAdmin');
+        const response = await api.get('/api/admin/getDataUpdateAdmin');
         dispatch(setAdmin(response.data));
     } catch (error) {
         dispatch(setError(error.response?.data?.error || 'Failed to fetch admin data'));
@@ -104,7 +112,7 @@ export const fetchAdminDataForUpdate = () => async (dispatch) => {
 //update admin profile action
 export const updateAdminProfile = (formData) => async (dispatch) => {
     try {
-        const response = await api.put('/admin/updateProfileAdmin', formData, {
+        const response = await api.put('/api/admin/updateProfileAdmin', formData, {
             headers: { 
                 'Content-Type': 'multipart/form-data' 
             }
@@ -118,7 +126,7 @@ export const updateAdminProfile = (formData) => async (dispatch) => {
 //change password action
 export const changePasswordAdmin = (oldPassword, newPassword) => async (dispatch) => {
     try {
-        await api.put('/admin/changePasswordAdmin', { 
+        await api.put('/api/admin/changePasswordAdmin', { 
             oldPassword, 
             newPassword 
         });

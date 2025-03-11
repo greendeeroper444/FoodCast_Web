@@ -5,6 +5,8 @@ import CollectedTableLayout from '../../../components/templates/CollectedTableLa
 import { getUniqueDates } from '../../../utils/dateUtils';
 import { formatItems } from '../../../utils/dataProcessing';
 import CollectedIcon from '../../../assets/icons/collected-light.svg';
+import DropboxIcon from '../../../assets/icons/drop-box-light.svg';
+import DemandIcon from '../../../assets/icons/demand-light.svg';
 import useFetchCollectedSupply from '../../../hooks/useFetchCollectedSupply';
 import usePagination from '../../../hooks/usePagination';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; 
@@ -63,14 +65,14 @@ function CollectedPage() {
                     className={collectedType === 'COLLECTED SUPPLY' ? styles.activeButton : styles.inactiveButton}
                     onClick={() => setCollectedType('COLLECTED SUPPLY')}
                 >
-                    <img src={CollectedIcon} alt="COLLECTED SUPPLY" className={styles.collectedIcon} />
+                    <img src={DropboxIcon} alt="COLLECTED SUPPLY" className={styles.collectedIcon} />
                     <span>COLLECTED SUPPLY</span>
                 </button>
                 <button 
                     className={collectedType === 'COLLECTED DEMAND' ? styles.activeButton : styles.inactiveButton}
                     onClick={() => setCollectedType('COLLECTED DEMAND')}
                 >
-                    <img src={CollectedIcon} alt="COLLECTED DEMAND" className={styles.collectedIcon} />
+                    <img src={DemandIcon} alt="COLLECTED DEMAND" className={styles.collectedIcon} />
                     COLLECTED DEMAND
                 </button>
             </div>

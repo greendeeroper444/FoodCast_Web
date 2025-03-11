@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './ModalConfirmation.module.css';
 import ModalFooter from '../../molecules/ModalFooter/ModalFooter';
 
-function ModalConfirmation({title = 'Logout', onClose, onLogout}) {
+function ModalConfirmation({title, onClose, onClick}) {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -20,10 +20,10 @@ function ModalConfirmation({title = 'Logout', onClose, onLogout}) {
     <div className={`${styles.modalBackdrop} ${isVisible ? styles.show : ''}`} onClick={handleClose}>
         <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalBody}>
-                <p>Are you sure you want to logout?</p>
+                <p>Are you sure you want to {title} ?</p>
             </div>
             <ModalFooter
-                onSave={onLogout} 
+                onSave={onClick} 
                 onCancel={handleClose} 
                 saveLabel='Yes' 
                 cancelLabel='No'

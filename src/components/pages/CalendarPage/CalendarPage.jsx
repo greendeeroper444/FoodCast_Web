@@ -43,7 +43,7 @@
 
 //     const fetchForecasts = async () => {
 //         try {
-//             const response = await api.get('/supplyDemandForecasted/getAllCollectedDemandsPrediction');
+//             const response = await api.get('/api/supplyDemandForecasted/getAllCollectedDemandsPrediction');
 //             setForecasts(response.data);
 //         } catch (error) {
 //             console.error('Error fetching supply predictions:', error);
@@ -57,7 +57,7 @@
 //     const handleRefresh = async () => {
 //         setLoading(true);
 //         try {
-//             const response = await api.post('/supplyDemandForecasted/runDemandPrediction');
+//             const response = await api.post('/api/supplyDemandForecasted/runDemandPrediction');
 //             setForecasts(response.data);
 //             window.location.reload();
 //         } catch (error) {
@@ -74,7 +74,7 @@
 //     useEffect(() => {
 //         const fetchSupplyData = async () => {
 //             try {
-//                 const response = await api.get(`/adminCalendar/getSupplyDemandCalendar?year=${currentYear}&supplyType=${supplyType}`);
+//                 const response = await api.get(`/api/adminCalendar/getSupplyDemandCalendar?year=${currentYear}&supplyType=${supplyType}`);
 //                 const data = response.data;
     
 //                 setDailySupply(data.dailySupply || {});
@@ -447,7 +447,7 @@ const CalendarPage = () => {
     );
     const fetchForecasts = async () => {
         try {
-            const response = await api.get('/supplyDemandForecasted/getAllCollectedDemandsPrediction');
+            const response = await api.get('/api/supplyDemandForecasted/getAllCollectedDemandsPrediction');
             setForecasts(response.data);
         } catch (error) {
             console.error('Error fetching supply predictions:', error);
@@ -461,7 +461,7 @@ const CalendarPage = () => {
     const handleRefresh = async () => {
         setLoading(true);
         try {
-            const response = await api.post('/supplyDemandForecasted/runDemandPrediction');
+            const response = await api.post('/api/supplyDemandForecasted/runDemandPrediction');
             setForecasts(response.data);
             window.location.reload();
         } catch (error) {
@@ -478,7 +478,7 @@ const CalendarPage = () => {
     useEffect(() => {
         const fetchSupplyData = async () => {
             try {
-                const response = await api.get(`/adminCalendar/getSupplyDemandCalendar?year=${currentYear}&supplyType=${supplyType}`);
+                const response = await api.get(`/api/adminCalendar/getSupplyDemandCalendar?year=${currentYear}&supplyType=${supplyType}`);
                 const data = response.data;
     
                 setDailySupply(data.dailySupply || {});

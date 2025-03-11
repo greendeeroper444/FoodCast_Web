@@ -31,7 +31,7 @@ function ActualAndForecastedDemand() {
     useEffect(() => {
         if (supplyType) {
             api
-                .get('/supplyDemandForecasted/getSupplyDemandNames', {params: {supplyType}})
+                .get('/api/supplyDemandForecasted/getSupplyDemandNames', {params: {supplyType}})
                 .then((response) => {
                     setSupplyNames(response.data);
                 })
@@ -49,7 +49,7 @@ function ActualAndForecastedDemand() {
     const fetchForecastData = async (supplyType, supplyName) => {
         try {
             setIsLoading(true); 
-            const response = await api.get('/supplyDemandForecasted/getSupplyDemandForecasted', {
+            const response = await api.get('/api/supplyDemandForecasted/getSupplyDemandForecasted', {
                 params: { supplyType, supplyName },
             });
             const data = response.data;

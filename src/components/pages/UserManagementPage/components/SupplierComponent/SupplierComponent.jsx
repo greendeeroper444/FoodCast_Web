@@ -42,7 +42,7 @@ function SupplierComponent() {
 
     const fetchSuppliers = async () => {
         try {
-            const response = await api.get(`/adminSupply/getSupplier?supplyType=${supplyType}`);
+            const response = await api.get(`/api/adminSupply/getSupplier?supplyType=${supplyType}`);
             const sortedSuppliers = response.data.sort((a, b) => a.supplierName.localeCompare(b.supplierName));
             setSuppliers(sortedSuppliers);
             setFilteredSuppliers(sortedSuppliers);
@@ -65,7 +65,7 @@ function SupplierComponent() {
     // const fetchSupplierDetails = async (supplierName) => {
     //     try {
     //         const response = await api.get(
-    //             `/adminSupply/getSupplierDetails?supplierName=${supplierName}&interval=${interval}`
+    //             `/api/adminSupply/getSupplierDetails?supplierName=${supplierName}&interval=${interval}`
     //         );
     //         const supplies = response.data;
 
@@ -125,7 +125,7 @@ function SupplierComponent() {
     const fetchSupplierDetails = async (supplierName) => {
         try {
             const response = await api.get(
-                `/adminSupply/getSupplierDetails?supplierName=${supplierName}&interval=${interval}`
+                `/api/adminSupply/getSupplierDetails?supplierName=${supplierName}&interval=${interval}`
             );
             const supplies = response.data;
     
@@ -265,15 +265,15 @@ function SupplierComponent() {
                                             <tr className={styles.dropdownContent}>
                                                 <td colSpan="3">
                                                     {
-                                                        view === 'GRAPH' ? (
-                                                            <SupplierLineChart
+                                                        view === 'TABLE' ? (
+                                                           <SupplierTable
                                                                 data={chartData}
                                                                 legend={legend}
                                                                 interval={interval}
                                                                 onIntervalChange={handleIntervalChange}
                                                             />
                                                         ) : (
-                                                            <SupplierTable
+                                                            <SupplierLineChart
                                                                 data={chartData}
                                                                 legend={legend}
                                                                 interval={interval}

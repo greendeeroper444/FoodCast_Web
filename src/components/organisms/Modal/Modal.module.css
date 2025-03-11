@@ -57,42 +57,39 @@
 }
 
 .submitButton {
-    background-color: var(--secondary-hover-color);
-    border: 1px solid var(--secondary-hover-color);
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
     color: #fff;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
-
 .submitButton:hover {
-    background-color: #fff;
-    border: 1px solid var(--secondary-hover-color);
-    color: var(--secondary-hover-color);
+    border-color: 1px solid var(--primary-color);
+    box-shadow: 0 0 2px 2px var(--primary-color);
 }
 
 .cancelButton {
     background-color: #fff;
-    border: 1px solid var(--secondary-hover-color);
-    color: var(--secondary-hover-color);
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
 .cancelButton:hover {
-    background-color: var(--secondary-hover-color);
-    border: 1px solid var(--secondary-hover-color);
-    color: #fff;
+    box-shadow: 0 0 0 1px var(--primary-color);
 }
 
 .approveButton {
-    background-color: var(--secondary-hover-color);
-    border: 1px solid var(--secondary-hover-color);
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
     color: #fff;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
 .approveButton:hover {
-    background-color: #fff;
-    border: 1px solid var(--secondary-hover-color);
-    color: var(--secondary-hover-color);
+    /* background-color: #fff; */
+    border-color: 1px solid var(--primary-color);
+    box-shadow: 0 0 2px 2px var(--primary-color);
+    /* color: var(--primary-color); */
 }
 
 .bodyAndFooter {

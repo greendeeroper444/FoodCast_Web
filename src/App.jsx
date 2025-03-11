@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import './App.css'
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,7 +14,6 @@ import CollectedPage from './components/pages/CollectedPage/CollectedPage';
 import UserManagementPage from './components/pages/UserManagementPage/UserManagementPage';
 import SettingPage from './components/pages/SettingPage/SettingPage';
 import CropManagementPage from './components/pages/CropManagementPage/CropManagementPage';
-import PriceTrendsPage from './components/pages/PriceTrendsPage/PriceTrendsPage';
 import CollectedDemandPage from './components/pages/CollectedDemandPage/CollectedDemandPage';
 import ForgotPassword from './components/pages/ForgotPasswordPage/ForgotPassword';
 import ProtectedRoute from './ProtectedRoute';
@@ -157,16 +155,6 @@ function App() {
                     <ProtectedRoute>
                         <MainLayout>
                             <UserManagementPage />
-                        </MainLayout>
-                    </ProtectedRoute>
-                } 
-            />
-
-            <Route path='/price-trends' 
-                element={
-                    <ProtectedRoute>
-                        <MainLayout>
-                            <PriceTrendsPage />
                         </MainLayout>
                     </ProtectedRoute>
                 } 

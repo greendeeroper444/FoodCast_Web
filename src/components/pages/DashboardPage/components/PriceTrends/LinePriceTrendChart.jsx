@@ -85,14 +85,23 @@ function LinePriceTrendChart({priceTrendData, selectedSupply, year, month}) {
 
     const chartOptions = {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
-            legend: {display: true},
+            legend: {
+                labels: {
+                    font: {
+                        size: window.innerWidth < 600 ? 10 : 14, //smaller font on mobile
+                    },
+                },
+            },
             zoom: {
                 zoom: {
                     wheel: {enabled: false}, 
                     pinch: {enabled: true}, 
-                    mode: 'x' 
+                    mode: 'x',
+                    limits: {
+                        x: {min: 'original', max: 'original'},
+                    },
                 },
                 pan: {enabled: true, mode: 'x'},
             },
@@ -125,17 +134,19 @@ function LinePriceTrendChart({priceTrendData, selectedSupply, year, month}) {
     };
 
   return (
-   <div>
-        <h4>
+   <div style={{ width: '100%', maxWidth: '1000px', margin: 'auto' }}>
+        <h1>
             Price Trends for{' '}
             <span className={styles.selectedSupply}>{selectedSupply || 'All Supplies'}</span>
-        </h4>
+        </h1>
 
-        <Line 
-            ref={chartRef}
-            data={chartData} 
-            options={chartOptions} 
-        />
+        <div style={{ position: 'relative', height: '65vh', minHeight: '300px' }}>
+            <Line 
+                ref={chartRef}
+                data={chartData} 
+                options={chartOptions} 
+            />
+        </div>
 
         <ZoomControl
             panChart={panChart}

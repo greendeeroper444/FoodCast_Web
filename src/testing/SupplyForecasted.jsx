@@ -8,7 +8,7 @@ function SupplyForecasted() {
 
     const fetchForecasts = async () => {
         try {
-            const response = await api.get("/supplyDemandForecasted/getAllCollectedDemandsPrediction");
+            const response = await api.get("/api/supplyDemandForecasted/getAllCollectedDemandsPrediction");
             setForecasts(response.data);
         } catch (error) {
             console.error("Error fetching supply predictions:", error);
@@ -22,7 +22,7 @@ function SupplyForecasted() {
     const handleRefresh = async () => {
         setLoading(true);
         try {
-            const response = await api.post("/supplyDemandForecasted/runDemandPrediction");
+            const response = await api.post("/api/supplyDemandForecasted/runDemandPrediction");
             setForecasts(response.data);
         } catch (error) {
             console.error("Error running prediction:", error);

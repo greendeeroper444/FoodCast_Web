@@ -46,7 +46,7 @@ function VendorComponent() {
     //display all vendors
     const fetchVendors = async () => {
         try {
-            const response = await api.get('/adminVendor/getVendor');
+            const response = await api.get('/api/adminVendor/getVendor');
             //alphabetical order
             const sortedVendors = response.data.vendors.sort((a, b) => 
             a.fullName.localeCompare(b.fullName));
@@ -71,7 +71,7 @@ function VendorComponent() {
     // const fetchVendorDetails = async (vendorId) => {
     //     try {
     //         const response = await api.get(
-    //             `/adminVendor/getVendorDetails?vendorId=${vendorId}&supplyType=${supplyType}`
+    //             `/api/adminVendor/getVendorDetails?vendorId=${vendorId}&supplyType=${supplyType}`
     //         );
     //         const supplies = response.data.collectedSupplies;
     
@@ -128,7 +128,7 @@ function VendorComponent() {
     const fetchVendorDetails = async (vendorId) => {
         try {
             const response = await api.get(
-                `/adminVendor/getVendorDetails?vendorId=${vendorId}&supplyType=${supplyType}`
+                `/api/adminVendor/getVendorDetails?vendorId=${vendorId}&supplyType=${supplyType}`
             );
     
             //ensure the supplies data is correctly extracted from the response
@@ -301,8 +301,8 @@ function VendorComponent() {
                                                         </select>
                                                     </div>
                                                 {
-                                                    view === 'GRAPH' ? (
-                                                        <VendorBarChart
+                                                    view === 'TABLE' ? (
+                                                        <VendorTable
                                                             data={chartData}
                                                             legend={legend}
                                                             interval={interval}
@@ -310,7 +310,7 @@ function VendorComponent() {
                                                             selectedSupply={selectedSupply}
                                                         />
                                                     ) : (
-                                                        <VendorTable
+                                                        <VendorBarChart
                                                             data={chartData}
                                                             legend={legend}
                                                             interval={interval}

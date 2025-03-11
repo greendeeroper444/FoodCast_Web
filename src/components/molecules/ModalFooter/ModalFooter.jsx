@@ -16,7 +16,10 @@ const ModalFooter = ({
 }) => {
   return (
     <div className={styles.modalFooter}>
-
+        <div>
+            {cancelLabel && <Button onClick={onCancel} className={cancelClassName}>{cancelLabel}</Button>}
+            {saveLabel && <Button onClick={onSave} className={saveClassName}>{saveLabel}</Button>}
+        </div>
         <div>
             {
                 unHideApproveButton && approveLabel && (
@@ -25,10 +28,7 @@ const ModalFooter = ({
             }
         </div>
 
-        <div>
-            {cancelLabel && <Button onClick={onCancel} className={cancelClassName}>{cancelLabel}</Button>}
-            {saveLabel && <Button onClick={onSave} className={saveClassName}>{saveLabel}</Button>}
-        </div>
+        
         
     </div>
   )

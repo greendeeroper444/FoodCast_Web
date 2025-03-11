@@ -21,7 +21,7 @@ function ManageUserComponent({setHasNotification}) {
 
     const fetchUsers = async () => {
         try {
-            const {data} = await api.get(`/adminUser/getUsers`);
+            const {data} = await api.get(`/api/adminUser/getUsers`);
             setApprovedUsers(
                 data.approvedUsers.filter(user => positionFilter === 'All' || user.position === positionFilter)
             );
@@ -39,7 +39,7 @@ function ManageUserComponent({setHasNotification}) {
     const onApprove = async (userId) => {
         const loadingToast = toast.loading('Approving user...');
         try {
-            const response = await api.post(`/adminUser/approvePendingUser/${userId}`);
+            const response = await api.post(`/api/adminUser/approvePendingUser/${userId}`);
             toast.update(loadingToast, {
                 render: response.data.message,
                 type: 'success',
@@ -64,37 +64,12 @@ function ManageUserComponent({setHasNotification}) {
         }
     };
 
-    //decline pending user
-    const onDecline = async (userId) => {
-        const loadingToast = toast.loading('Declining user...');
-        try {
-            const response = await api.delete(`/adminUser/deletePendingUser/${userId}`);
-            toast.update(loadingToast, {
-                render: response.data.message,
-                type: 'success',
-                isLoading: false,
-                autoClose: 5000
-            });
-
-            setPendingUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
-            fetchUsers() //refresh declined users
-        } catch (error) {
-            console.error('Error declining user:', error);
-            toast.update(loadingToast, {
-                render: 'Failed to decline user.',
-                type: 'error',
-                isLoading: false,
-                autoClose: 5000
-            });
-        }
-    };
-
     const onViewUpdateApprovedUser = async (updatedUserData) => {
 
         const toastId = toast.loading('Updating user...');
         
         try {
-            const response = await api.put(`/adminUser/viewAndUpdateApprovedUser/${selectedUser._id}`, updatedUserData);
+            const response = await api.put(`/api/adminUser/viewAndUpdateApprovedUser/${selectedUser._id}`, updatedUserData);
             console.log(response.data.message);
             setIsModalOpen(false);
 
@@ -123,7 +98,7 @@ function ManageUserComponent({setHasNotification}) {
         const toastId = toast.loading('Updating user...');
         
         try {
-            const response = await api.put(`/adminUser/viewAndUpdatePendingUser/${selectedUser._id}`, updatedUserData);
+            const response = await api.put(`/api/adminUser/viewAndUpdatePendingUser/${selectedUser._id}`, updatedUserData);
             console.log(response.data.message);
             setIsModalOpen(false);
 
@@ -185,13 +160,14 @@ function ManageUserComponent({setHasNotification}) {
                     activeTab === 'request' && 
                     <RequestTableComponent 
                         users={pendingUsers} 
-                        onApprove={onApprove} 
-                        onDecline={onDecline}
+                        setUsers={setPendingUsers} 
+                        onApprove={onApprove}
                         onViewUpdate={onViewUpdatePendingUser}
                         setSelectedUser={setSelectedUser}
                         selectedUser={selectedUser}
                         setIsModalOpen={setIsModalOpen}
                         isModalOpen={isModalOpen}
+                        fetchUsers={fetchUsers}
 
                     />
                 }

@@ -15,7 +15,7 @@ function CollectorComponent() {
     const [selectedSupply, setSelectedSupply] = useState('');
     const [legend, setLegend] = useState([]);
     const [interval, setInterval] = useState('daily'); 
-    const [view, setView] = useState('GRAPH');
+    const [view, setView] = useState('TABLE');
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredCollectors, setFilteredCollectors] = useState([]);
 
@@ -46,7 +46,7 @@ function CollectorComponent() {
     //display all collectors
     const fetchCollectors = async () => {
         try {
-            const response = await api.get('/adminCollector/getCollector');
+            const response = await api.get('/api/adminCollector/getCollector');
             //alphabetical order
             const sortedCollectors = response.data.collectors.sort((a, b) => 
             a.fullName.localeCompare(b.fullName));
@@ -71,7 +71,7 @@ function CollectorComponent() {
     const fetchCollectorDetails = async (collectorId) => {
         try {
             const response = await api.get(
-                `/adminCollector/getCollectorDetails?collectorId=${collectorId}&supplyType=${supplyType}`
+                `/api/adminCollector/getCollectorDetails?collectorId=${collectorId}&supplyType=${supplyType}`
             );
             const supplies = response.data.collectedSupplies;
     
@@ -247,8 +247,8 @@ function CollectorComponent() {
 
                                                 </div>
                                                 {
-                                                    view === 'GRAPH' ? (
-                                                        <CollectorBarChart
+                                                    view === 'TABLE' ? (
+                                                        <CollectorTable
                                                             data={chartData}
                                                             legend={legend}
                                                             interval={interval}
@@ -256,7 +256,7 @@ function CollectorComponent() {
                                                             selectedSupply={selectedSupply}
                                                         />
                                                     ) : (
-                                                        <CollectorTable
+                                                        <CollectorBarChart
                                                             data={chartData}
                                                             legend={legend}
                                                             interval={interval}

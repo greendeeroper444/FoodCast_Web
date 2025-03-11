@@ -16,7 +16,7 @@ export const fetchCollectorDetailsFailure = createAction(FETCH_COLLECTOR_DETAILS
 //fetch collectors
 export const fetchCollectors = () => async (dispatch) => {
     try {
-        const response = await api.get('/adminCollector/getCollectorsAdmin');
+        const response = await api.get('/api/adminCollector/getCollectorsAdmin');
         dispatch(fetchCollectorsSuccess(response.data.collectors || [])); //ensure it's an array
     } catch (error) {
         dispatch(fetchCollectorsFailure(error.response?.data?.error || 'Failed to fetch collectors'));
@@ -26,8 +26,7 @@ export const fetchCollectors = () => async (dispatch) => {
 //fetch collector details
 export const fetchCollectorDetails = (collectorId) => async (dispatch) => {
     try {
-        const response = await api.get(`/adminCollector/getCollectorsDetailsAdmin/${collectorId}`);
-        console.log('debugging', response.data)
+        const response = await api.get(`/api/adminCollector/getCollectorsDetailsAdmin/${collectorId}`);
         dispatch(fetchCollectorDetailsSuccess(response.data));
     } catch (error) {
         dispatch(fetchCollectorDetailsFailure(error.response?.data?.error || 'Failed to fetch collector details'));

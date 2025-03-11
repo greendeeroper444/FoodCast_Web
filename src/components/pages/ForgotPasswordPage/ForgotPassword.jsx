@@ -34,7 +34,7 @@ function ForgotPassword() {
 
         try {
             setIsSubmitting(true);
-            const response = await api.post('/admin/resetPassword', {emailAddress});
+            const response = await api.post('/api/admin/resetPassword', {emailAddress});
 
             toast.update(toastId, {
                 render: response.data.message,

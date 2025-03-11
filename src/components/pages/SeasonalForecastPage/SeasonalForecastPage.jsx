@@ -21,7 +21,7 @@ function SeasonalForecastPage() {
 
     const fetchForecasts = async () => {
         try {
-            const response = await api.get('/supplyDemandForecasted/getAllCollectedDemandsPrediction');
+            const response = await api.get('/api/supplyDemandForecasted/getAllCollectedDemandsPrediction');
             setForecasts(response.data);
         } catch (error) {
             console.error('Error fetching supply predictions:', error);
@@ -35,7 +35,7 @@ function SeasonalForecastPage() {
     const handleRefresh = async () => {
         setLoading(true);
         try {
-            const response = await api.post('/supplyDemandForecasted/runDemandPrediction');
+            const response = await api.post('/api/supplyDemandForecasted/runDemandPrediction');
             setForecasts(response.data);
             window.location.reload();
         } catch (error) {
@@ -49,7 +49,7 @@ function SeasonalForecastPage() {
     const fetchSupplyData = async () => {
         try {
             const response = await api.get(
-                `/supplySeasonalForecasted/getSupplySeasonalForecasted?season=${encodeURIComponent(viewSeason)}&year=${year}`
+                `/api/supplySeasonalForecasted/getSupplySeasonalForecasted?season=${encodeURIComponent(viewSeason)}&year=${year}`
             );
     
             console.log('API Response:', response.data);

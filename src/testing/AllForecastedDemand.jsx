@@ -5,7 +5,7 @@ function AllForecastedDemand() {
   const [forecastData, setForecastData] = useState([]);
 
   useEffect(() => {
-    api.get('/supplyDemandForecasted/getSupplyDemandForecasted') // Update this URL to match your backend route
+    api.get('/api/supplyDemandForecasted/getSupplyDemandForecasted') // Update this URL to match your backend route
       .then(response => {
         setForecastData(response.data.next_daily_demand_data || []);
       })

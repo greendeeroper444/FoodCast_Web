@@ -1,6 +1,8 @@
 .mainLayout{
-    display: flex;
-    /* height: 100vh; */
+    padding: 0;
+    flex-grow: 1;
+    width: 100%;
+    box-sizing: border-box;
 }
   
 .mainContent{
@@ -15,7 +17,7 @@
 .pageContent{
     padding: 1rem;
     flex-grow: 1;
-    max-width: 1200px;
+    /* max-width: 1200px; */
     width: 100%;
     box-sizing: border-box;
 }

@@ -69,7 +69,7 @@
 
 
 
-.supplyListComponent{
+.supplyListComponent {
     position: relative;
     margin: auto;
     padding: 20px;
@@ -86,17 +86,57 @@
     margin-bottom: 24px;
     padding: 20px;
 }
-.recordList div ul {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    /* list-style: none; */
-    padding: 0;
-    margin: 0;
+
+/* Table Styles */
+.supplyTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.recordList div ul li{
-    font-size: 14px;
+.supplyTable th,
+.supplyTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.supplyTable th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+}
+
+.supplyTable tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.supplyTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Action buttons */
+.actionsCell {
+    display: flex;
+    gap: 8px;
+}
+
+.editButton {
+    background-color: #f8f5d7;
+    color: orange;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.deleteButton {
+    background-color: #f8d7da;
+    color: red;
+    padding: 5px 10px;    
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
   
 .supplyListComponent h3 {
@@ -128,7 +168,6 @@
     border: 1px solid var(--border-color);
 }
 
-
 .buttons {
     display: flex;
     justify-content: flex-end;
@@ -153,12 +192,12 @@
     cursor: pointer;
 }
 
-.cancelButton:hover {
-    /* background: #b3b3b3; */
-}
-
 .addButton:hover {
     background: var(--primary-hover-color);
+}
+
+.cancelButton:hover {
+    background-color: #adb5bd;
 }
 
 .error {
@@ -166,9 +205,6 @@
     font-size: 14px;
     margin-top: 8px;
 }
-
-
-
 
 @media (max-width: 768px) {
     .sidebar {
@@ -178,13 +214,24 @@
     .sidebarOpen {
         transform: translateX(0);
     }
-    .recordList div ul {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        /* list-style: none; */
-        padding: 0;
-        margin: 0;
+    
+    .supplyTable {
+        font-size: 14px;
     }
     
+    .supplyTable th,
+    .supplyTable td {
+        padding: 8px 10px;
+    }
+    
+    .editButton, 
+    .deleteButton {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+    
+    .actionsCell {
+        flex-direction: column;
+        gap: 4px;
+    }
 }

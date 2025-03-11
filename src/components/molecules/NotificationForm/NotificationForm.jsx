@@ -12,24 +12,24 @@ function NotificationForm() {
 
     useEffect(() => {
         //fetch initial notifications
-        api.get('/adminNotification/getNotifications')
+        api.get('/api/adminNotification/getNotifications')
             .then((response) => setNotifications(response.data))
             .catch((error) => console.error('Error fetching notifications:', error));
     
         //listen for real-time notifications
-        socket.on('newSupplyNotification', (notifications) => {
+        socket.on('newNotification', (notifications) => {
             // setNotifications((prev) => [notifications, ...prev]); //prepend new notification
             setNotifications(notifications); //prepend new notification
         });
     
         return () => {
-            socket.off('newSupplyNotification');
+            socket.off('newNotification');
         };
     }, []);
     
 
     const handleNotificationClick = (notificationId, notification) => {
-        api.put(`/adminNotification/markNotificationAsRead/${notificationId}`)
+        api.put(`/api/adminNotification/markNotificationAsRead/${notificationId}`)
             .then((response) => {
                 const updatedNotification = response.data;
                 

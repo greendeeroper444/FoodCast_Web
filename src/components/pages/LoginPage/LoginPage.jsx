@@ -10,19 +10,25 @@ function LoginPage() {
 
     useEffect(() => {
         //check if the modal should be hidden based on the timestamp in localStorage
-        const agreedTimestamp = localStorage.getItem('termsAcceptedAt');
-        if (agreedTimestamp) {
-            const now = new Date().getTime();
-            const elapsed = now - parseInt(agreedTimestamp, 10);
-            const twentyFourHours = 24 * 60 * 60 * 1000; //24 hours in milliseconds
+        // const agreedTimestamp = localStorage.getItem('termsAcceptedAt');
+        // if (agreedTimestamp) {
+        //     const now = new Date().getTime();
+        //     const elapsed = now - parseInt(agreedTimestamp, 10);
+        //     const twentyFourHours = 24 * 60 * 60 * 1000; //24 hours in milliseconds
 
-            if (elapsed < twentyFourHours) {
-                setShowModal(false);
-            } else {
-                //remove expired timestamp
-                localStorage.removeItem('termsAcceptedAt');
-                setShowModal(true);
-            }
+        //     if (elapsed < twentyFourHours) {
+        //         setShowModal(false);
+        //     } else {
+        //         //remove expired timestamp
+        //         localStorage.removeItem('termsAcceptedAt');
+        //         setShowModal(true);
+        //     }
+        // } else {
+        //     setShowModal(true);
+        // }
+        const agreed = localStorage.getItem('termsAcceptedAt');
+        if (agreed) {
+            setShowModal(false);
         } else {
             setShowModal(true);
         }

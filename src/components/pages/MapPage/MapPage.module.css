@@ -5,115 +5,428 @@
     overflow: hidden;
 }
 
-.mainContainer {
-    display: flex;
-    height: 80vh;
-    position: relative;
-    gap: 20px;
-    overflow: hidden;
-}
-
 .mapContainer {
     position: relative;
     flex: 1;
     overflow: hidden;
-    height: 100%;
+    height: calc(100% - 120px);
 }
 
 .map {
     height: 100%;
     width: 100%;
-    border-radius: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* filter controls */
+.filterControls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 16px;
+    background-color: #fff;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 12px;
+}
 
+.filterButton {
+    padding: 8px 16px;
+    background-color: #f0f2f5;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filterButton:hover {
+    background-color: #e4e6eb;
+}
+
+.activeFilter {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* loading and error states */
+.loadingContainer, .errorContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #65676b;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spin {
+    to { 
+        transform: rotate(360deg); 
+    }
+}
+
+/* tooltips and Popups */
+.tooltipContent {
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 4px 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.popupContent {
+    min-width: 280px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0 8px;
+}
+
+.popupTitle {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: #1c1e21;
+    border-bottom: 1px solid #e4e6eb;
+    padding-bottom: 8px;
+}
+
+.popupAddress {
+    font-size: 13px;
+    color: #65676b;
+    margin-bottom: 12px;
+}
+
+.supplierList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.supplierCard {
+    background-color: #f0f2f5;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.supplierCard:hover {
+    background-color: #e4e6eb;
+    transform: translateY(-2px);
+}
+
+.supplierName {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #1c1e21;
+}
+
+.supplierInfo {
+    font-size: 13px;
+    color: #65676b;
+    margin-bottom: 8px;
+}
+
+.viewDetailsBtn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s ease;
+}
+
+.viewDetailsBtn:hover {
+    background-color: var(--primary-hover-color);
+}
+
+/* modal styles */
 .modalOverlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 5000;
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: fadeIn 0.2s ease-out;
 }
 
 .modalContent {
     background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    max-width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
     width: 90%;
-    animation: fadeIn 0.3s ease-in-out;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s ease-out;
     position: relative;
+    overflow: hidden;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e4e6eb;
+}
+
+.modalTitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: #1c1e21;
 }
 
 .closeButton {
     background: none;
     border: none;
     font-size: 24px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
     cursor: pointer;
+    color: #65676b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
 }
 
+.closeButton:hover {
+    background-color: #f0f2f5;
+}
 
-/* popup */
-.popupContent {
-    max-height: 150px;
-    width: 150px;
+.modalBody {
+    padding: 20px;
     overflow-y: auto;
+    flex: 1;
 }
 
-.popupContent::-webkit-scrollbar {
-    width: 6px;
+.modalBody::-webkit-scrollbar {
+    width: 8px;
 }
 
-.popupContent::-webkit-scrollbar-thumb {
-    background-color: #f0f0f0;
+.modalBody::-webkit-scrollbar-thumb {
+    background-color: #c1c5cd;
     border-radius: 10px;
 }
 
-.popupContent::-webkit-scrollbar-thumb:hover {
-    background-color: #f0f0f0;
+.modalBody::-webkit-scrollbar-thumb:hover {
+    background-color: #a8acb5;
 }
 
-.supplierName ul li {
-    /* background-color: #f0f0f0; */
-    cursor: pointer;
-}
-
-/* modal */
-.modalContent {
-    position: relative;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.modalContent::-webkit-scrollbar {
-    width: 6px;
-}
-
-.modalContent::-webkit-scrollbar-thumb {
-    background-color: #888;
+.modalBody::-webkit-scrollbar-track {
+    background-color: #f0f2f5;
     border-radius: 10px;
 }
 
-.modalContent::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
+.supplierDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.locationDetails {
+    background-color: #f0f2f5;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 12px;
+}
+
+.locationDetails p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #65676b;
+}
+
+.supplyStats {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.statItem {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f2f5;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.statValue {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+}
+
+.statLabel {
+    font-size: 14px;
+    color: #65676b;
+}
+
+.suppliesHeading {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e4e6eb;
+}
+
+.suppliesList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.supplyItem {
+    background-color: #f0f2f5;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.supplyHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.supplyName {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.supplyQuantity {
+    font-size: 14px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.supplyPrice {
+    font-size: 14px;
+    color: #65676b;
+}
+
+.supplyTag {
+    display: inline-block;
+    background-color: #e4e6eb;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #050505;
+    align-self: flex-start;
+}
+
+.supplyDate {
+    font-size: 12px;
+    color: #65676b;
+    margin-top: 4px;
+}
+
+.modalActions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.contactBtn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    flex: 1;
+    transition: background-color 0.2s ease;
+}
+
+.contactBtn:hover {
+    background-color: var(--primary-hover-color);
+}
+
+.closeModalBtn {
+    background-color: #e4e6eb;
+    color: #050505;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.closeModalBtn:hover {
+    background-color: #d8dadf;
+}
+
+.noSupplies {
+    color: #65676b;
+    font-style: italic;
+    text-align: center;
+    padding: 16px;
 }
 
 @keyframes fadeIn {
-    from {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
         opacity: 0;
-        transform: scale(0.9);
+        transform: translateY(20px);
     }
-    to {
+    to { 
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .modalContent {
+        width: 95%;
+        max-height: 80vh;
+    }
+    
+    .statItem {
+        padding: 12px 8px;
+    }
+    
+    .statValue {
+        font-size: 20px;
     }
 }

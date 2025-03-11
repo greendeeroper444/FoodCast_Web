@@ -21,7 +21,7 @@ export const fetchCollectedSupplyDemandFailure = createAction(FETCH_COLLECTED_SU
 //fetch collected supply
 // export const fetchCollectedSupply = () => async (dispatch) => {
 //     try {
-//         const response = await api.get('/collectedSupply/getCollectedSupply');
+//         const response = await api.get('/api/collectedSupply/getCollectedSupply');
 //         dispatch(fetchCollectedSupplySuccess(response.data.collectedSupplies || [])); //ensure it's an array
 //     } catch (error) {
 //         dispatch(fetchCollectedSupplyFailure(error.response?.data?.error || 'Failed to fetch collected supplies'));
@@ -30,7 +30,7 @@ export const fetchCollectedSupplyDemandFailure = createAction(FETCH_COLLECTED_SU
 export const fetchCollectedSupply = (page = 1, supplyType = 'VEGETABLE') => async (dispatch) => {
     dispatch(fetchCollectedSupplyRequest());
     try {
-        const response = await api.get(`/collectedSupply/getCollectedSupply?page=${page}&supplyType=${supplyType}`);
+        const response = await api.get(`/api/collectedSupply/getCollectedSupply?page=${page}&supplyType=${supplyType}`);
         const {collectedSupplies, hasPreviousPage} = response.data;
 
         setTimeout(() => {
@@ -49,7 +49,7 @@ export const fetchCollectedSupply = (page = 1, supplyType = 'VEGETABLE') => asyn
 
 // export const fetchCollectedSupplyDemand = () => async (dispatch) => {
 //     try {
-//         const response = await api.get('/collectedSupply/getCollectedSupplyDemand');
+//         const response = await api.get('/api/collectedSupply/getCollectedSupplyDemand');
 //         dispatch(fetchCollectedSupplyDemandSuccess(response.data.collectedSuppliesDemand || [])); //ensure it's an array
 //     } catch (error) {
 //         dispatch(fetchCollectedSupplyDemandFailure(error.response?.data?.error || 'Failed to fetch collected supplies'));
@@ -58,7 +58,7 @@ export const fetchCollectedSupply = (page = 1, supplyType = 'VEGETABLE') => asyn
 export const fetchCollectedSupplyDemand = (page = 1, supplyType = 'VEGETABLE') => async (dispatch) => {
     dispatch(fetchCollectedSupplyRequest());
     try {
-        const response = await api.get(`/collectedSupply/getCollectedSupplyDemand?page=${page}&supplyType=${supplyType}`);
+        const response = await api.get(`/api/collectedSupply/getCollectedSupplyDemand?page=${page}&supplyType=${supplyType}`);
         const {collectedSupplyDemands, hasPreviousPage} = response.data;
 
         setTimeout(() => {

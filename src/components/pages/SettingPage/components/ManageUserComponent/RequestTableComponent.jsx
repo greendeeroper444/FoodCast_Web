@@ -6,18 +6,24 @@ import api from '../../../../../api/api';
 import Modal from '../../../../organisms/Modal/Modal';
 import InputField from '../../../../atoms/InputField/InputField';
 import UserDetailsForm from '../../../../molecules/UserDetailsForm/UserDetailsForm';
+import ModalConfirmation from '../../../../organisms/ModalConfirmation/ModalConfirmation';
+import { toast } from 'react-toastify';
 
 
 function RequestTableComponent({
     users, 
-    onApprove, 
-    onDecline, 
+    setUsers,
+    onApprove,
     onViewUpdate,
     setSelectedUser, 
     selectedUser,
     setIsModalOpen,
-    isModalOpen
+    isModalOpen,
+    fetchUsers
 }) {
+    const [showDeclineConfirmation, setShowDeclineConfirmation] = useState(false);
+    const [userToDecline, setUserToDecline] = useState(null);
+
     const handleOpenModal = (user) => {
         setSelectedUser(user);
         setIsModalOpen(true);
@@ -28,12 +34,51 @@ function RequestTableComponent({
         setSelectedUser(null);
     };
 
+    const handleDeclineClick = (user) => {
+        setUserToDecline(user);
+        setShowDeclineConfirmation(true);
+    };
+
+    const handleCloseDeclineConfirmation = () => {
+        setShowDeclineConfirmation(false);
+        setUserToDecline(null);
+    };
+
     const handleApproveUser = () => {
         if (selectedUser) {
             onApprove(selectedUser._id);
             handleCloseModal();
         }
     };
+
+    //decline pending user
+    const handleDecline = async (userId) => {
+        const loadingToast = toast.loading('Declining user...');
+        try {
+            const response = await api.delete(`/api/adminUser/deletePendingUser/${userId}`);
+            toast.update(loadingToast, {
+                render: response.data.message,
+                type: 'success',
+                isLoading: false,
+                autoClose: 5000
+            });
+
+            setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
+            fetchUsers() //refresh declined users
+        } catch (error) {
+            console.error('Error declining user:', error);
+            toast.update(loadingToast, {
+                render: 'Failed to decline user.',
+                type: 'error',
+                isLoading: false,
+                autoClose: 5000
+            });
+        }
+
+        setShowDeclineConfirmation(false);
+        setUserToDecline(null);
+    };
+    
 
   return (
     <div className={styles.tableContainer}>
@@ -64,7 +109,7 @@ function RequestTableComponent({
                                         Approve
                                     </button>
                                     {' '}
-                                    <button className={styles.declineButton} onClick={() => onDecline(user._id)}>
+                                    <button className={styles.declineButton} onClick={() => handleDeclineClick(user)}>
                                         Decline
                                     </button>
                                 </td>
@@ -87,6 +132,16 @@ function RequestTableComponent({
                 >
                     <UserDetailsForm user={selectedUser} setUser={setSelectedUser} verified/>
                 </Modal>
+            )
+        }
+
+        {
+            showDeclineConfirmation && userToDecline && (
+                <ModalConfirmation
+                    title={`decline ${userToDecline.fullName} as ${userToDecline.position}`}
+                    onClose={handleCloseDeclineConfirmation}
+                    onClick={() => handleDecline(userToDecline._id)}
+                />
             )
         }
         

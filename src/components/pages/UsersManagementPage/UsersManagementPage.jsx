@@ -4,7 +4,6 @@ import HeaderForm from '../../../components/molecules/HeaderForm/HeaderForm';
 import usersManagementIcon from '../../../assets/icons/partners-management-light.svg';
 import SearchBar from '../../atoms/SearchBar/SearchBar';
 import CollectorDetailsComponent from './components/CollectorDetailsComponent';
-import VendorDetailsComponent from './components/VendorDetailsComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCollectorDetails, fetchCollectors } from '../../../redux/actions/AdminActions/AdminCollectorAction';
 

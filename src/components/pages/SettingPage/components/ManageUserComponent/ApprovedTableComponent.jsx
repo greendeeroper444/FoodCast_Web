@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './ManageUserComponent.module.css';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
@@ -6,6 +6,7 @@ import api from '../../../../../api/api';
 import Modal from '../../../../organisms/Modal/Modal';
 import InputField from '../../../../atoms/InputField/InputField';
 import UserDetailsForm from '../../../../molecules/UserDetailsForm/UserDetailsForm';
+import ModalConfirmation from '../../../../organisms/ModalConfirmation/ModalConfirmation';
 
 function ApprovedTableComponent({
     users, 
@@ -16,6 +17,9 @@ function ApprovedTableComponent({
     setIsModalOpen,
     isModalOpen
 }) {
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+    const [userToDelete, setUserToDelete] = useState(null);
+
 
     const handleViewUser = (user) => {
         setSelectedUser(user);
@@ -25,6 +29,16 @@ function ApprovedTableComponent({
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setSelectedUser(null);
+    };
+
+    const handleDeleteClick = (user) => {
+        setUserToDelete(user);
+        setShowDeleteConfirmation(true);
+    };
+
+    const handleCloseDeleteConfirmation = () => {
+        setShowDeleteConfirmation(false);
+        setUserToDelete(null);
     };
 
     const handleDelete = async (userId) => {
@@ -49,6 +63,9 @@ function ApprovedTableComponent({
                 autoClose: 3000 
             });
         }
+        
+        setShowDeleteConfirmation(false);
+        setUserToDelete(null);
     };
 
   return (
@@ -87,7 +104,7 @@ function ApprovedTableComponent({
                                <td>
                                     <button className={styles.editButton} onClick={() => handleViewUser(user)}>View</button>
                                     {' '}
-                                    <button className={styles.deleteButton} onClick={() => handleDelete(user._id)}>Delete</button>
+                                    <button className={styles.deleteButton} onClick={() => handleDeleteClick(user)}>Delete</button>
                                 </td>
                             </tr>
                         ))
@@ -105,6 +122,15 @@ function ApprovedTableComponent({
                     >
                     <UserDetailsForm user={selectedUser} setUser={setSelectedUser} />
                 </Modal>
+            )
+        }
+        {
+            showDeleteConfirmation && userToDelete && (
+                <ModalConfirmation
+                    title={`delete ${userToDelete.fullName}`}
+                    onClose={handleCloseDeleteConfirmation}
+                    onClick={() => handleDelete(userToDelete._id)}
+                />
             )
         }
     </div>

@@ -32,8 +32,8 @@
   
 .active {
     font-weight: bold;
-    color: green;
-    border-bottom: 3px solid green;
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
 }
   
 .filterContainer {
@@ -140,7 +140,7 @@
   
 .approveButton {
     background-color: #d4edda;
-    color: green;
+    color: var(--primary-color);
     padding: 5px 10px;
     border: none;
     border-radius: 4px;

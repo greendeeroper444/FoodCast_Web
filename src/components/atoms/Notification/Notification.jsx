@@ -14,7 +14,7 @@ function Notification({ onClick }) {
         //fetch initial unread count
         const fetchUnreadCount = async () => {
             try {
-                const response = await api.get('/adminNotification/getUnreadCount');
+                const response = await api.get('/api/adminNotification/getUnreadCount');
                 setUnreadCount(response.data.unreadCount);
             } catch (error) {
                 console.error('Error fetching unread count:', error);
@@ -24,7 +24,7 @@ function Notification({ onClick }) {
         fetchUnreadCount();
 
         //listen for real-time notifications
-        socket.on('newSupplyNotification', () => {
+        socket.on('newNotification', () => {
             //play notification sound
             const audio = new Audio(bellSound);
             audio.play();
@@ -34,7 +34,7 @@ function Notification({ onClick }) {
         });
 
         return () => {
-            socket.off('newSupplyNotification');
+            socket.off('newNotification');
         };
     }, []);
 

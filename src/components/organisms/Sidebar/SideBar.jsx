@@ -127,8 +127,10 @@ function Sidebar() {
         </div>
         {
             isModalOpen && <ModalConfirmation
-            onClose={() => dispatch(closeLogoutModal())} 
-            onLogout={handleLogout} />
+                onClose={() => dispatch(closeLogoutModal())} 
+                onClick={handleLogout} 
+                title='logout'
+            />
         }
     </>
   )

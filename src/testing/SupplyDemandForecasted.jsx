@@ -11,7 +11,7 @@ function SupplyDemandForecasted() {
     // Fetch supply names whenever supply type changes
     useEffect(() => {
         if (supplyType) {
-            api.get('/supplyDemandForecasted/getSupplyDemandNames', { params: { supplyType } })
+            api.get('/api/supplyDemandForecasted/getSupplyDemandNames', { params: { supplyType } })
                 .then((response) => setSupplyNames(response.data))
                 .catch((error) => console.error('Error fetching supply names:', error));
         }
@@ -20,7 +20,7 @@ function SupplyDemandForecasted() {
     // Handle forecast retrieval from the backend
     const handleForecast = async () => {
         try {
-            const response = await api.get('/supplyDemandForecasted/getSupplyDemandForecasted', {
+            const response = await api.get('/api/supplyDemandForecasted/getSupplyDemandForecasted', {
                 params: { supplyType, supplyName },
             });
             const data = response.data;

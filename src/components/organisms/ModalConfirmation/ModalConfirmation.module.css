@@ -39,29 +39,34 @@
 }
 
 .yesButton{
-    background-color: #fff;  
+    /* background-color: #fff;  
     color: #333;
-    border: 1px solid #333;
+    border: 1px solid #333; */
     font-size: 14px !important;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    background-color: #FF5252;
+    border: 1px solid #FF5252;
+    color: #fff;
+    transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
 .yesButton:hover{
-    background-color: #e74c3c;
-    border: 1px solid #e74c3c;
-    color: #fff;
+    box-shadow: 0 0 2px 2px rgb(245, 26, 26, 0.5);
+    border-color: 1px solid #FF5252;
 }
-  
+/* cancelButton: {
+    backgroundColor: '#f2f2f2',
+},
+confirmButton: {
+    backgroundColor: '#FF5252',
+}, */
 .noButton{
-    background-color: #e74c3c;
-    border: 1px solid #e74c3c;
-    color: #fff;
+    background-color: #f2f2f2;
+    color: #333;
     font-size: 14px !important;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
 .noButton:hover{
-    background-color: #fff;  
-    color: #333;
-    border: 1px solid #333;
+    background-color: #f2f2f2;
+    box-shadow: 0 0 0 1px rgba(46, 46, 46, 0.5);
 }
