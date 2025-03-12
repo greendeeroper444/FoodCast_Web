@@ -104,14 +104,14 @@ function ApprovedTableComponent({
                                <button 
                                     className={styles.editButton} 
                                     onClick={() => handleViewUser(user)} 
-                                    disabled={user.position === 'Developer'}
-                                    style={user.position === 'Developer' ? {opacity: 0.5, cursor: 'not-allowed'} : {}}
+                                    disabled={user.position === 'Programmer'}
+                                    style={user.position === 'Programmer' ? {opacity: 0.5, cursor: 'not-allowed'} : {}}
                                 >View</button>
                                 <button 
                                     className={styles.deleteButton} 
                                     onClick={() => handleDeleteClick(user)}
-                                    disabled={user.position === 'Developer'}
-                                    style={user.position === 'Developer' ? {opacity: 0.5, cursor: 'not-allowed'} : {}}
+                                    disabled={user.position === 'Programmer'}
+                                    style={user.position === 'Programmer' ? {opacity: 0.5, cursor: 'not-allowed'} : {}}
                                 >Delete</button>
                                 </td>
                             </tr>
