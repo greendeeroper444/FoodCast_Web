@@ -44,7 +44,7 @@ function ApprovedTableComponent({
         const toastId = toast.loading('Deleting user...');
     
         try {
-            await api.delete(`/adminUser/deleteUser/${userId}`);
+            await api.delete(`/api/adminUser/deleteUser/${userId}`);
             setUsers(users.filter(user => user._id !== userId));
     
             toast.update(toastId, { 
@@ -101,8 +101,18 @@ function ApprovedTableComponent({
                                     <button className={styles.viewButton}>View</button>
                                 </td> */}
                                <td className={styles.actionsCell}>
-                                    <button className={styles.editButton} onClick={() => handleViewUser(user)}>View</button>
-                                    <button className={styles.deleteButton} onClick={() => handleDeleteClick(user)}>Delete</button>
+                               <button 
+                                    className={styles.editButton} 
+                                    onClick={() => handleViewUser(user)} 
+                                    disabled={user.position === 'Developer'}
+                                    style={user.position === 'Developer' ? {opacity: 0.5, cursor: 'not-allowed'} : {}}
+                                >View</button>
+                                <button 
+                                    className={styles.deleteButton} 
+                                    onClick={() => handleDeleteClick(user)}
+                                    disabled={user.position === 'Developer'}
+                                    style={user.position === 'Developer' ? {opacity: 0.5, cursor: 'not-allowed'} : {}}
+                                >Delete</button>
                                 </td>
                             </tr>
                         ))
