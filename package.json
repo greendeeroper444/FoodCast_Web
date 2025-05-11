@@ -44,6 +44,7 @@
     "react-select": "^5.8.0",
     "react-select-places": "^1.1.8",
     "react-toastify": "^10.0.5",
+    "react-virtualized-auto-sizer": "^1.0.26",
     "react-window": "^1.8.11",
     "redux": "^5.0.1",
     "redux-batched-actions": "^0.5.0",

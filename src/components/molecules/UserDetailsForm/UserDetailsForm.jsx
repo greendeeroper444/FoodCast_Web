@@ -9,7 +9,7 @@ function UserDetailsForm({user, setUser, verified = false}) {
   return (
     <div>
         {
-            !!verified && (
+            !!verified && user.position !== 'Admin' && (
                 <h1 style={{ textAlign: 'center' }}>
                     {user.isVerified ? "✅ This user is verified!" : "❌ This user is not verified"}
                 </h1>
