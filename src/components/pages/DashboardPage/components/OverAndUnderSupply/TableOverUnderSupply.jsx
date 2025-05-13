@@ -142,7 +142,16 @@ function TableOverUnderSupply({
             return (
                 <tr key={`${isFutureData ? 'future-' : 'current-'}${rowKey}-${index}`} className={rowClass}>
                     <td className={styles.dateCell}>
-                        {active === 'Weekly' ? (item.week_label || '-') : formatDate(item.date || '-')}
+                        {
+                            active === 'Weekly' ? (
+                                item.week_label || '-'
+                                ) : active === 'Daily' ? (
+                                item.date ? formatDate(item.date) : '-'
+                                ) : (
+                                item.date || '-'
+                            )
+                        }
+
                     </td>
                     <td className={styles.valueCell}>
                         {isFutureData

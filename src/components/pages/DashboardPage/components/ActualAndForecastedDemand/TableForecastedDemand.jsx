@@ -45,8 +45,8 @@ function TableForecastedDemand({
         
         return [...data].sort((a, b) => {
             try {
-                const dateA = new Date(a.month);
-                const dateB = new Date(b.month);
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
                 return dateB - dateA;
             } catch (error) {
                 console.error('Error sorting monthly data:', error);
@@ -89,7 +89,7 @@ function TableForecastedDemand({
                             sortedDailyData.future.map((item, index) => (
                                 <tr key={`future-daily-${index}`}>
                                     <td>{formatDate(item.date)}</td>
-                                    <td>{item.actual_demand_quantity !== null ? formatNumber(item.actual_demand_quantity) : 'null'}</td>
+                                    <td>{item.actual_demand_quantity !== null ? formatNumber(item.actual_demand_quantity) : ''}</td>
                                     <td className={styles.forecasted}>
                                         {item.forecasted_demand_quantity !== null ? formatNumber(item.forecasted_demand_quantity) : ''}
                                     </td>
@@ -131,7 +131,7 @@ function TableForecastedDemand({
                             sortedWeeklyData.future.map((item, index) => (
                                 <tr key={`future-weekly-${index}`}>
                                     <td>{item.week_label}</td>
-                                    <td>null</td>
+                                    <td></td>
                                     <td className={styles.forecasted}>
                                         {item.forecasted_demand_quantity !== null ? formatNumber(item.forecasted_demand_quantity) : ''}
                                     </td>
@@ -172,8 +172,8 @@ function TableForecastedDemand({
                         {
                             sortedMonthlyData.future.map((item, index) => (
                                 <tr key={`future-monthly-${index}`}>
-                                    <td>{item.month}</td>
-                                    <td>null</td>
+                                    <td>{item.date}</td>
+                                    <td></td>
                                     <td className={styles.forecasted}>
                                         {item.forecasted_demand_quantity !== null ? formatNumber(item.forecasted_demand_quantity) : ''}
                                     </td>
@@ -183,7 +183,7 @@ function TableForecastedDemand({
                         {
                             sortedMonthlyData.historical.map((item, index) => (
                                 <tr key={`historical-monthly-${index}`}>
-                                    <td>{item.month}</td>
+                                    <td>{item.date}</td>
                                     <td>{formatNumber(item.actual_demand_quantity || '')}</td>
                                     <td className={styles.forecasted}>
                                         {formatNumber(item.forecasted_demand_quantity || '')}
