@@ -117,7 +117,7 @@ function NotificationForm() {
                             <strong>{notification.fullName}</strong> {notification.message}
                         </div>
                         <div className={styles.notificationTimestamp}>
-                            {formatRelativeTime(notification.updatedAt)}
+                            {formatRelativeTime(notification.createdAt)}
                         </div>
                     </div>
                 </div>
