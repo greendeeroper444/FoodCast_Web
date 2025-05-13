@@ -1,196 +1,218 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import styles from './ActualAndForecastedDemand.module.css';
 import { formatDate } from '../../../../../utils/dateUtils';
 import { formatNumber } from '../../../../../utils/numberUtils';
 
 function TableForecastedDemand({
-  dailyDemandData,
-  weeklyDemandData,
-  monthlyDemandData,
-  nextDailyDemandData,
-  nextWeeklyDemandData,
-  nextMonthlyDemandData,
-  active,
+    dailyDemandData = [],
+    weeklyDemandData = [],
+    monthlyDemandData = [],
+    nextDailyDemandData = [],
+    nextWeeklyDemandData = [],
+    nextMonthlyDemandData = [],
+    active,
 }) {
     //sort functions
     const sortDataByDate = (data) => {
+        if (!Array.isArray(data)) return [];
         return [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
     };
 
     const sortWeeklyDemandDataByDate = (data) => {
-        if (!Array.isArray(data)) {
-            return [];
-        }
-    
+        if (!Array.isArray(data)) return [];
+        
         return [...data].sort((a, b) => {
-            if (a.week_label && b.week_label) {
-                const dateA = new Date(a.week_label.match(/\b\w+ \d{2}, \d{4}/)[0]);
-                const dateB = new Date(b.week_label.match(/\b\w+ \d{2}, \d{4}/)[0]);
-                return dateB - dateA;
+            try {
+                if (a.week_label && b.week_label) {
+                    const matchA = a.week_label.match(/\b\w+ \d{2}, \d{4}/);
+                    const matchB = b.week_label.match(/\b\w+ \d{2}, \d{4}/);
+                    
+                    if (matchA && matchB) {
+                        const dateA = new Date(matchA[0]);
+                        const dateB = new Date(matchB[0]);
+                        return dateB - dateA;
+                    }
+                }
+            } catch (error) {
+                console.error('Error sorting weekly data:', error);
             }
             return 0;
         });
     };
     
-    
     const sortMonthlyDemandDataByDate = (data) => {
+        if (!Array.isArray(data)) return [];
+        
         return [...data].sort((a, b) => {
-            const dateA = new Date(a.month);
-            const dateB = new Date(b.month);
-            return dateB - dateA;
+            try {
+                const dateA = new Date(a.month);
+                const dateB = new Date(b.month);
+                return dateB - dateA;
+            } catch (error) {
+                console.error('Error sorting monthly data:', error);
+                return 0;
+            }
         });
     };
-  
 
-  //render daily data
-  const renderDaily = () => {
-    const sortedDailyDemandData = sortDataByDate(dailyDemandData);
-    const sortedDailyFutureData = sortDataByDate(nextDailyDemandData);
-    return (
-      <div>
-            <h3>Daily Table</h3>
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                    <th>Date</th>
-                    <th>Actual Demand</th>
-                    <th>Forecasted Demand</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        sortedDailyFutureData.map(({ date, actual_demand_quantity, forecasted_demand_quantity }, index) => (
-                            <tr key={index}>
-                            <td>{formatDate(date)}</td>
-                            <td>{formatNumber(actual_demand_quantity !== null ? actual_demand_quantity : '')}</td>
-                            <td className={styles.forecasted}>
-                                {formatNumber(forecasted_demand_quantity !== null ? forecasted_demand_quantity : '')}
-                            </td>
-                            </tr>
-                        ))
-                    }
-                    {
-                        sortedDailyDemandData.map(({ date, actual_demand_quantity, forecasted_demand_quantity }) => (
-                        <tr key={date}>
-                            <td>{formatDate(date)}</td>
-                            <td>{formatNumber(actual_demand_quantity)}</td>
-                            <td className={styles.forecasted}>
-                                {formatNumber(forecasted_demand_quantity)}
-                            </td>
+    //memoize sorted data to prevent unnecessary recalculations
+    const sortedDailyData = useMemo(() => ({
+        historical: sortDataByDate(dailyDemandData),
+        future: sortDataByDate(nextDailyDemandData)
+    }), [dailyDemandData, nextDailyDemandData]);
+
+    const sortedWeeklyData = useMemo(() => ({
+        historical: sortWeeklyDemandDataByDate(weeklyDemandData),
+        future: sortWeeklyDemandDataByDate(nextWeeklyDemandData)
+    }), [weeklyDemandData, nextWeeklyDemandData]);
+
+    const sortedMonthlyData = useMemo(() => ({
+        historical: sortMonthlyDemandDataByDate(monthlyDemandData),
+        future: sortMonthlyDemandDataByDate(nextMonthlyDemandData)
+    }), [monthlyDemandData, nextMonthlyDemandData]);
+
+    //render daily data
+    const renderDaily = () => {
+        return (
+            <div>
+                <h3>Daily Table</h3>
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Actual Demand</th>
+                            <th>Forecasted Demand</th>
                         </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-      </div>
-    )
-  };
+                    </thead>
+                    <tbody>
+                        {
+                            sortedDailyData.future.map((item, index) => (
+                                <tr key={`future-daily-${index}`}>
+                                    <td>{formatDate(item.date)}</td>
+                                    <td>{item.actual_demand_quantity !== null ? formatNumber(item.actual_demand_quantity) : 'null'}</td>
+                                    <td className={styles.forecasted}>
+                                        {item.forecasted_demand_quantity !== null ? formatNumber(item.forecasted_demand_quantity) : ''}
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                        {
+                            sortedDailyData.historical.map((item, index) => (
+                                <tr key={`historical-daily-${index}`}>
+                                    <td>{formatDate(item.date)}</td>
+                                    <td>{formatNumber(item.actual_demand_quantity)}</td>
+                                    <td className={styles.forecasted}>
+                                        {formatNumber(item.forecasted_demand_quantity)}
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+        );
+    };
 
-  //render weekly data
-  const renderWeekly = () => {
-    const sortedWeeklyDemandData = sortWeeklyDemandDataByDate(weeklyDemandData);
-    const sortedWeeklyFutureData = sortWeeklyDemandDataByDate(nextWeeklyDemandData);
-    return (
-      <div>
-            <h3>Weekly Table</h3>
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                    <th>Week</th>
-                    <th>Actual Demand</th>
-                    <th>Forecasted Demand</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        sortedWeeklyFutureData.map(({ week_label, actual_demand_quantity, forecasted_demand_quantity }, index) => (
-                            <tr key={index}>
-                            <td>{week_label}</td>
-                            <td>null</td>
-                            <td className={styles.forecasted}>
-                                {formatNumber(forecasted_demand_quantity !== null ? forecasted_demand_quantity : '')}
-                            </td>
-                            </tr>
-                        ))
-                    }
-                    {
-                        sortedWeeklyDemandData.map(({ week_label, actual_demand_quantity, forecasted_demand_quantity }) => (
-                        <tr key={week_label}>
-                            <td>{week_label}</td>
-                            <td>{formatNumber(actual_demand_quantity !== null ? actual_demand_quantity : '')}</td>
-                            <td className={styles.forecasted}>
-                                {formatNumber(forecasted_demand_quantity !== null ? forecasted_demand_quantity : '')}
-                            </td>
+    //render weekly data
+    const renderWeekly = () => {
+        return (
+            <div>
+                <h3>Weekly Table</h3>
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Actual Demand</th>
+                            <th>Forecasted Demand</th>
                         </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-      </div>
-    )
-  }
-  
+                    </thead>
+                    <tbody>
+                        {
+                            sortedWeeklyData.future.map((item, index) => (
+                                <tr key={`future-weekly-${index}`}>
+                                    <td>{item.week_label}</td>
+                                    <td>null</td>
+                                    <td className={styles.forecasted}>
+                                        {item.forecasted_demand_quantity !== null ? formatNumber(item.forecasted_demand_quantity) : ''}
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                        {
+                            sortedWeeklyData.historical.map((item, index) => (
+                                <tr key={`historical-weekly-${index}`}>
+                                    <td>{item.week_label}</td>
+                                    <td>{item.actual_demand_quantity !== null ? formatNumber(item.actual_demand_quantity) : ''}</td>
+                                    <td className={styles.forecasted}>
+                                        {item.forecasted_demand_quantity !== null ? formatNumber(item.forecasted_demand_quantity) : ''}
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+        );
+    };
 
-  //render monthly data
-  const renderMonthly = () => {
-    const sortedMonthlyDemandData = sortMonthlyDemandDataByDate(monthlyDemandData);
-    const sortedMonthlyFutureData = sortMonthlyDemandDataByDate(nextMonthlyDemandData);
-    return (
-        <div>
-            <h3>Monthly Table</h3>
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                    <th>Month</th>
-                    <th>Actual Demand</th>
-                    <th>Forecasted Demand</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        sortedMonthlyFutureData.map(({ month, actual_demand_quantity, forecasted_demand_quantity }, index) => (
-                            <tr key={index}>
-                            <td>{month}</td>
-                            <td>null</td>
-                            <td className={styles.forecasted}>
-                                {formatNumber(forecasted_demand_quantity !== null ? forecasted_demand_quantity : '')}
-                            </td>
-                            </tr>
-                        ))
-                    }
-                    {
-                        sortedMonthlyDemandData.map(({ month, actual_demand_quantity, forecasted_demand_quantity }) => (
-                            <tr key={month}>
-                                <td>{month}</td>
-                                <td>{formatNumber(actual_demand_quantity || '')}</td>
-                                <td className={styles.forecasted}>
-                                    {formatNumber(forecasted_demand_quantity || '')}
-                                </td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-        </div>
-    )
-  }
+    //render monthly data
+    const renderMonthly = () => {
+        return (
+            <div>
+                <h3>Monthly Table</h3>
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Actual Demand</th>
+                            <th>Forecasted Demand</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            sortedMonthlyData.future.map((item, index) => (
+                                <tr key={`future-monthly-${index}`}>
+                                    <td>{item.month}</td>
+                                    <td>null</td>
+                                    <td className={styles.forecasted}>
+                                        {item.forecasted_demand_quantity !== null ? formatNumber(item.forecasted_demand_quantity) : ''}
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                        {
+                            sortedMonthlyData.historical.map((item, index) => (
+                                <tr key={`historical-monthly-${index}`}>
+                                    <td>{item.month}</td>
+                                    <td>{formatNumber(item.actual_demand_quantity || '')}</td>
+                                    <td className={styles.forecasted}>
+                                        {formatNumber(item.forecasted_demand_quantity || '')}
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+        );
+    };
 
-    //render content based on the active tab (Daily, Weekly, or Monthly)
+    //render content based on the active tab
     const renderContent = () => {
-        if (active === 'Daily') {
-            return renderDaily();
-        } else if (active === 'Weekly') {
-            return renderWeekly();
-        } else if (active === 'Monthly') {
-            return renderMonthly();
-        } else {
-            return <p>No data to display</p>;
+        switch (active) {
+            case 'Daily':
+                return renderDaily();
+            case 'Weekly':
+                return renderWeekly();
+            case 'Monthly':
+                return renderMonthly();
+            default:
+                return <p>No data to display</p>;
         }
     };
 
     useEffect(() => {
-        console.log('Active Tab:', active);
-    }, [active]);
+    }, [active, dailyDemandData, weeklyDemandData, monthlyDemandData]);
 
   return (
     <div className={styles.tableContainer}>

@@ -130,3 +130,13 @@
     color: orange;
     font-weight: bold;
 }
+
+/* loading and error states */
+.loadingContainer, .errorContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #65676b;
+}

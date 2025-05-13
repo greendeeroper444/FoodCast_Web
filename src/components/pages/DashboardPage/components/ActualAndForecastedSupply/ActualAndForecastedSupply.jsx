@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import styles from './ActualAndForecastedSupply.module.css';
 import api from '../../../../../api/api';
 import LineChartForecastedSupply from './LineChartForecastedSupply';
 import TableForecastedSupply from './TableForecastedSupply';
 import Selection from '../../../../organisms/Selection/Selection';
+import Spinner from '../../../../atoms/Spinner/Spinner';
 
 function ActualAndForecastedSupply() {
     const [supplyType, setSupplyType] = useState('VEGETABLE');
@@ -17,11 +18,26 @@ function ActualAndForecastedSupply() {
     const [nextMonthlyFutureData, setNextMonthlyFutureData] = useState([]);
     const [active, setActive] = useState('Monthly');
     const [viewMode, setViewMode] = useState('GRAPH');
+    const [modalOpen, setModalOpen] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSetActive = (newActive) => {
-        setActive(newActive);
-        setModalOpen(true);
-    };
+    //clear all data states
+    const clearAllData = useCallback(() => {
+        setDailyData([]);
+        setWeeklyData([]);
+        setMonthlyData([]);
+        setNextDailyFutureData([]);
+        setNextWeeklyFutureData([]);
+        setNextMonthlyFutureData([]);
+    }, []);
+
+    const handleSetActive = useCallback((newActive) => {
+        //only update if the active tab is actually changing
+        if (newActive !== active) {
+            setActive(newActive);
+            setModalOpen(true);
+        }
+    }, [active]);
 
     //fetch supply names whenever supply type changes
     useEffect(() => {
@@ -38,17 +54,21 @@ function ActualAndForecastedSupply() {
     //auto-fetch forecast when supplyType or supplyName changes
     useEffect(() => {
         if (supplyType && supplyName) {
+            //clear data before fetching new data
+            clearAllData();
             fetchForecastData(supplyType, supplyName);
         }
-    }, [supplyType, supplyName]);
+    }, [supplyType, supplyName, clearAllData]);
 
     const fetchForecastData = async (supplyType, supplyName) => {
         try {
+            setIsLoading(true);
             const response = await api.get('/api/supplyForecasted/getSupplyForecasted', {
                 params: { supplyType, supplyName },
             });
             const data = response.data;
 
+            //update all data at once to avoid partial updates
             setDailyData(data.daily_data || []);
             setWeeklyData(data.weekly_data || []);
             setMonthlyData(data.monthly_data || []);
@@ -57,6 +77,10 @@ function ActualAndForecastedSupply() {
             setNextMonthlyFutureData(data.next_monthly_future_data || []);
         } catch (error) {
             console.error('Error fetching forecast:', error);
+            //clear data on error
+            clearAllData();
+        } finally {
+            setIsLoading(false);
         }
     };
     
@@ -76,10 +100,14 @@ function ActualAndForecastedSupply() {
             handleSetActive={handleSetActive}
         />
         
-
         <div className={styles.linechartTable}>
             {
-                viewMode === 'GRAPH' ? (
+                isLoading ? (
+                    <div className={styles.loadingContainer}>
+                        <Spinner />
+                        <p>Loading data...</p>
+                    </div>
+                ) : viewMode === 'GRAPH' ? (
                     <LineChartForecastedSupply
                         dailyData={dailyData}
                         weeklyData={weeklyData}

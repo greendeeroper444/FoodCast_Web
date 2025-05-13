@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import styles from './OverAndUnderSupply.module.css'
+import { formatDate } from '../../../../../utils/dateUtils';
 
 function TableOverUnderSupply({
     dailyData = [],
@@ -10,8 +11,76 @@ function TableOverUnderSupply({
     nextMonthlyData = [],
     active
 }) {
+    const [showFutureData, setShowFutureData] = useState(false);
+    
+    // Sort functions
+    const sortDataByDate = (data) => {
+        if (!Array.isArray(data)) return [];
+        return [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
+    };
+
+    const sortWeeklyDataByDate = (data) => {
+        if (!Array.isArray(data)) return [];
+        
+        return [...data].sort((a, b) => {
+            try {
+                if (a.week_label && b.week_label) {
+                    const splitA = a.week_label.split(' - ');
+                    const splitB = b.week_label.split(' - ');
+                    
+                    if (splitA.length > 0 && splitB.length > 0) {
+                        const dateA = new Date(splitA[0]);
+                        const dateB = new Date(splitB[0]);
+                        return dateB - dateA;
+                    }
+                }
+            } catch (error) {
+                console.error('Error sorting weekly data:', error);
+            }
+            return 0;
+        });
+    };
+    
+    const sortMonthlyDataByDate = (data) => {
+        if (!Array.isArray(data)) return [];
+        
+        return [...data].sort((a, b) => {
+            try {
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
+                return dateB - dateA;
+            } catch (error) {
+                console.error('Error sorting monthly data:', error);
+                return 0;
+            }
+        });
+    };
+
+    // Memoize sorted data to prevent unnecessary recalculations
+    const sortedDailyData = useMemo(() => ({
+        current: sortDataByDate(dailyData),
+        future: sortDataByDate(nextDailyData)
+    }), [dailyData, nextDailyData]);
+
+    const sortedWeeklyData = useMemo(() => ({
+        current: sortWeeklyDataByDate(weeklyData),
+        future: sortWeeklyDataByDate(nextWeeklyData)
+    }), [weeklyData, nextWeeklyData]);
+
+    const sortedMonthlyData = useMemo(() => ({
+        current: sortMonthlyDataByDate(monthlyData),
+        future: sortMonthlyDataByDate(nextMonthlyData)
+    }), [monthlyData, nextMonthlyData]);
+
     const formatStatusCell = (status, supply, demand) => {
-        if (!status || supply === null || demand === null) return '-';
+        if (!status || supply === null || supply === undefined || 
+            demand === null || demand === undefined) {
+            return <div className={styles.statusCell}>-</div>;
+        }
+        
+        // Ensure values are numbers
+        const supplyNum = Number(supply) || 0;
+        const demandNum = Number(demand) || 0;
         
         const difference = status.type === 'OVER' 
             ? status.amount 
@@ -39,11 +108,11 @@ function TableOverUnderSupply({
                 <div className={styles.statusDetails}>
                     <div className={styles.detailRow}>
                         <span className={styles.detailLabel}>Supply:</span> 
-                        <span className={styles.detailValue}>{supply.toFixed(2)}</span>
+                        <span className={styles.detailValue}>{supplyNum.toFixed(2)}</span>
                     </div>
                     <div className={styles.detailRow}>
                         <span className={styles.detailLabel}>Demand:</span> 
-                        <span className={styles.detailValue}>{demand.toFixed(2)}</span>
+                        <span className={styles.detailValue}>{demandNum.toFixed(2)}</span>
                     </div>
                 </div>
                 <div className={`${styles.statusDifference} ${statusColor}`}>
@@ -57,25 +126,33 @@ function TableOverUnderSupply({
         );
     };
     
+    const formatValue = (value) => {
+        if (value === null || value === undefined) return '-';
+        const numValue = Number(value);
+        return isNaN(numValue) ? '-' : numValue.toFixed(2);
+    };
+    
     const renderTableRows = (data, isFutureData = false) => {
+        if (!Array.isArray(data) || data.length === 0) return null;
+        
         return data.map((item, index) => {
             const rowKey = item.date || item.week_label || index;
             const rowClass = isFutureData ? styles.futureRow : styles.dataRow;
             
             return (
-                <tr key={`${isFutureData ? 'future-' : ''}${rowKey}`} className={rowClass}>
+                <tr key={`${isFutureData ? 'future-' : 'current-'}${rowKey}-${index}`} className={rowClass}>
                     <td className={styles.dateCell}>
-                        {active === 'Weekly' ? item.week_label : item.date}
+                        {active === 'Weekly' ? (item.week_label || '-') : formatDate(item.date || '-')}
                     </td>
                     <td className={styles.valueCell}>
                         {isFutureData
-                            ? (item.forecasted_supply?.toFixed(2) || '-')
-                            : (item.actual_supply?.toFixed(2) || '-')}
+                            ? formatValue(item.forecasted_supply)
+                            : formatValue(item.actual_supply)}
                     </td>
                     <td className={styles.valueCell}>
                         {isFutureData
-                            ? (item.forecasted_demand?.toFixed(2) || '-')
-                            : (item.actual_demand?.toFixed(2) || '-')}
+                            ? formatValue(item.forecasted_demand)
+                            : formatValue(item.actual_demand)}
                     </td>
                     <td className={styles.statusCellContainer}>
                         {
@@ -94,22 +171,102 @@ function TableOverUnderSupply({
     const getCurrentData = () => {
         switch (active) {
             case 'Daily':
-                return { current: dailyData, future: nextDailyData };
+                return { 
+                    current: sortedDailyData.current, 
+                    future: sortedDailyData.future 
+                };
             case 'Weekly':
-                return { current: weeklyData, future: nextWeeklyData };
+                return { 
+                    current: sortedWeeklyData.current, 
+                    future: sortedWeeklyData.future 
+                };
             case 'Monthly':
-                return { current: monthlyData, future: nextMonthlyData };
+                return { 
+                    current: sortedMonthlyData.current, 
+                    future: sortedMonthlyData.future 
+                };
             default:
-                return { current: monthlyData, future: nextMonthlyData };
+                return { 
+                    current: sortedMonthlyData.current, 
+                    future: sortedMonthlyData.future 
+                };
         }
     };
     
     const {current, future} = getCurrentData();
     
+    // Get the table title based on active prop
+    const getTableTitle = () => {
+        switch (active) {
+            case 'Daily':
+                return 'Daily Table';
+            case 'Weekly':
+                return 'Weekly Table';
+            case 'Monthly':
+                return 'Monthly Table';
+            default:
+                return 'Table';
+        }
+    };
+    
   return (
-    <div className={styles.tableWrapper}>
-        <div className={styles.tableContainer}>
-            <table className={styles.supplyDemandTable}>
+    <div className={styles.tableContainer}>
+        <div className={styles.tableHeader}>
+            <h3>{getTableTitle()}</h3>
+        </div>
+        
+        {
+            future.length > 0 && showFutureData && (
+                <div className={styles.futureDataSection}>
+                    <div className={styles.sectionHeader}>
+                        <h4>Future Data (Forecast)</h4>
+                        {
+                            future.length > 0 && (
+                                <button 
+                                    className={styles.toggleButton}
+                                    onClick={() => setShowFutureData(!showFutureData)}
+                                    aria-label={showFutureData ? "Hide future data" : "Show future data"}
+                                >
+                                    {showFutureData ? '↑ Hide Future Data' : '↓ Show Future Data'}
+                                </button>
+                            )
+                        }
+                        <span className={styles.futureIndicator}>Predictions</span>
+                    </div>
+                    <table className={styles.table}>
+                        <thead>
+                            <tr className={styles.tableHeader}>
+                                <th className={styles.headerCell}>{active === 'Weekly' ? 'Week' : 'Date'}</th>
+                                <th className={styles.headerCell}>Supply</th>
+                                <th className={styles.headerCell}>Demand</th>
+                                <th className={styles.headerCell}>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {renderTableRows(future, true)}
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
+        
+        <div className={`${styles.currentDataSection} ${showFutureData ? styles.withSeparator : ''}`}>
+            <div className={styles.sectionHeader}>
+                <h4>Current Data (Historical)</h4>
+                 {
+                        future.length > 0 && (
+                            <button 
+                                className={styles.toggleButton}
+                                onClick={() => setShowFutureData(!showFutureData)}
+                                aria-label={showFutureData ? "Hide future data" : "Show future data"}
+                            >
+                                {showFutureData ? '↑ Hide Future Data' : '↓ Show Future Data'}
+                            </button>
+                        )
+                    }
+                <span className={styles.currentIndicator}>Actual</span>
+            </div>
+            <table className={styles.table}>
                 <thead>
                     <tr className={styles.tableHeader}>
                         <th className={styles.headerCell}>{active === 'Weekly' ? 'Week' : 'Date'}</th>
@@ -127,24 +284,7 @@ function TableOverUnderSupply({
                                 </td>
                             </tr>
                         ) : (
-                            renderTableRows(current)
-                        )
-                    }
-                    
-                    {
-                        future.length > 0 && (
-                            <>
-                                <tr className={styles.dividerRow}>
-                                    <td colSpan="4">
-                                        <div className={styles.dividerContent}>
-                                            <div className={styles.dividerLine}></div>
-                                            <div className={styles.dividerLabel}><h1>Future Data</h1></div>
-                                            <div className={styles.dividerLine}></div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                {renderTableRows(future, true)}
-                            </>
+                            renderTableRows(current, false)
                         )
                     }
                 </tbody>
