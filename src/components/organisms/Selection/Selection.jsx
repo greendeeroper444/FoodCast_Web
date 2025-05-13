@@ -13,6 +13,7 @@ function Selection({
     setViewMode,
     active,
     handleSetActive,
+    hideViewMode = false,
 }) {
   return (
     <div className={styles.selection}>
@@ -45,14 +46,18 @@ function Selection({
                 />
             </div>
 
-            <div className={`${styles.formGroup} ${styles.viewModeSelect}`}>
-                <SelectCustomize
-                    value={viewMode}
-                    onChange={setViewMode}
-                    options={['GRAPH', 'TABLE']}
-                    placeholder='Select View Mode'
-                />
-            </div>
+            {
+                !hideViewMode && (
+                    <div className={`${styles.formGroup} ${styles.viewModeSelect}`}>
+                        <SelectCustomize
+                            value={viewMode}
+                            onChange={setViewMode}
+                            options={['GRAPH', 'TABLE']}
+                            placeholder='Select View Mode'
+                        />
+                    </div>
+                )
+            }
         </div>
 
         <div className={styles.selectionRight}>

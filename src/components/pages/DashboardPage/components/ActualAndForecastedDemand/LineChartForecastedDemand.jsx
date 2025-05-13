@@ -331,7 +331,7 @@ function LineChartForecastedDemand({
             } else if (labelType === 'Week') {
                 labels.push(`Week ${weekCounter++}`); //use sequential week labels
             } else if (labelType === 'Month') {
-                labels.push(`${item.month || ''}`);
+                labels.push(`${item.date || ''}`);
             }
     
             actualData.push(item.actual_demand_quantity);
@@ -349,7 +349,7 @@ function LineChartForecastedDemand({
             } else if (labelType === 'Day') {
                 labels.push(`${formatDate(item.date)}`);
             } else if (labelType === 'Month') {
-                labels.push(`${item.month || ''}`);
+                labels.push(`${item.date || ''}`);
             }
     
             if (index === 0) {

@@ -20,6 +20,14 @@
 }
 
 /* filter controls */
+.filterControlsContainer {
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    z-index: 1000;
+    margin-top: 30px;
+}
+
 .filterControls {
     display: flex;
     flex-wrap: wrap;
