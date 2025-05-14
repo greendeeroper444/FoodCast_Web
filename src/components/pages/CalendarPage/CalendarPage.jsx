@@ -458,14 +458,34 @@ const CalendarPage = () => {
         fetchForecasts();
     }, []);
 
+    // const handleRefresh = async () => {
+    //     setLoading(true);
+    //     try {
+    //         const response = await api.post('/api/supplyDemandForecasted/runDemandPrediction');
+    //         setForecasts(response.data);
+    //         window.location.reload();
+    //     } catch (error) {
+    //         console.error('Error running prediction:', error);
+    //     }
+    //     setLoading(false);
+    // };
     const handleRefresh = async () => {
         setLoading(true);
         try {
-            const response = await api.post('/api/supplyDemandForecasted/runDemandPrediction');
+            //first API call to run demand prediction
+            await api.post('/api/supplyDemandForecasted/runDemandPrediction');
+            
+            //second API call to run supply prediction
+            await api.post('/api/supplyForecasted/runPrediction');
+            
+            //fetch updated forecasts
+            const response = await api.get('/api/supplyDemandForecasted/getAllCollectedDemandsPrediction');
             setForecasts(response.data);
+            
+            //reload the page to reflect all changes
             window.location.reload();
         } catch (error) {
-            console.error('Error running prediction:', error);
+            console.error('Error running predictions:', error);
         }
         setLoading(false);
     };
