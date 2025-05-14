@@ -125,7 +125,8 @@
 }
 
 .notificationItem.unread {
-    background-color: rgba(245, 245, 245, 0.7);
+    background-color: rgba(188, 226, 214, 0.7);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
 .notificationTypeIndicator {
