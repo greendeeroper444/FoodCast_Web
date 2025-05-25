@@ -269,46 +269,46 @@ function LineChartForecastedDemand({
                         pointBackgroundColor: 'orange',
                         tension: 0.2,
                     },
-                    // {
-                    //     label: 'Actual Max Demand',
-                    //     data: [],
-                    //     borderColor: 'red',
-                    //     backgroundColor: 'red',
-                    //     borderWidth: 2,
-                    //     pointBorderColor: 'red',
-                    //     pointBackgroundColor: 'red',
-                    //     tension: 0.2,
-                    // },
-                    // {
-                    //     label: 'Actual Min Demand',
-                    //     data: [],
-                    //     borderColor: 'orange',
-                    //     backgroundColor: 'orange',
-                    //     borderWidth: 2,
-                    //     pointBorderColor: 'orange',
-                    //     pointBackgroundColor: 'orange',
-                    //     tension: 0.2,
-                    // },
-                    // {
-                    //     label: 'Forecasted Max Demand',
-                    //     data: [],
-                    //     borderColor: 'red',
-                    //     backgroundColor: 'red',
-                    //     borderWidth: 2,
-                    //     pointBorderColor: 'red',
-                    //     pointBackgroundColor: 'red',
-                    //     tension: 0.2,
-                    // },
-                    // {
-                    //     label: 'Forecasted Min Demand',
-                    //     data: [],
-                    //     borderColor: 'teal',
-                    //     backgroundColor: 'teal',
-                    //     borderWidth: 2,
-                    //     pointBorderColor: 'teal',
-                    //     pointBackgroundColor: 'teal',
-                    //     tension: 0.2,
-                    // },
+                    {
+                        label: 'Actual Max Demand',
+                        data: [],
+                        borderColor: 'red',
+                        backgroundColor: 'red',
+                        borderWidth: 2,
+                        pointBorderColor: 'red',
+                        pointBackgroundColor: 'red',
+                        tension: 0.2,
+                    },
+                    {
+                        label: 'Actual Min Demand',
+                        data: [],
+                        borderColor: 'orange',
+                        backgroundColor: 'orange',
+                        borderWidth: 2,
+                        pointBorderColor: 'orange',
+                        pointBackgroundColor: 'orange',
+                        tension: 0.2,
+                    },
+                    {
+                        label: 'Forecasted Max Demand',
+                        data: [],
+                        borderColor: 'red',
+                        backgroundColor: 'red',
+                        borderWidth: 2,
+                        pointBorderColor: 'red',
+                        pointBackgroundColor: 'red',
+                        tension: 0.2,
+                    },
+                    {
+                        label: 'Forecasted Min Demand',
+                        data: [],
+                        borderColor: 'teal',
+                        backgroundColor: 'teal',
+                        borderWidth: 2,
+                        pointBorderColor: 'teal',
+                        pointBackgroundColor: 'teal',
+                        tension: 0.2,
+                    },
                 ],
     
             };
@@ -317,10 +317,10 @@ function LineChartForecastedDemand({
         const labels = [];
         const actualData = [];
         const forecastedData = [];
-        // const actualMaxData = [];
-        // const actualMinData = [];
-        // const forecastedMaxData = [];
-        // const forecastedMinData = [];
+        const actualMaxData = [];
+        const actualMinData = [];
+        const forecastedMaxData = [];
+        const forecastedMinData = [];
     
         let weekCounter = 1; //counter for generating week labels
     
@@ -335,11 +335,11 @@ function LineChartForecastedDemand({
             }
     
             actualData.push(item.actual_demand_quantity);
-            // actualMaxData.push(item.actual_maxDemand_quantity);
-            // actualMinData.push(item.actual_minDemand_quantity);
+            actualMaxData.push(item.actual_maxDemand_quantity);
+            actualMinData.push(item.actual_minDemand_quantity);
             forecastedData.push(null); //no forecasted data for actual points
-            // forecastedMaxData.push(null); //no forecasted data for actual points
-            // forecastedMinData.push(null); //no forecasted data for actual points
+            forecastedMaxData.push(null); //no forecasted data for actual points
+            forecastedMinData.push(null); //no forecasted data for actual points
         });
     
         //add all forecasted data points
@@ -357,20 +357,20 @@ function LineChartForecastedDemand({
             } else {
                 actualData.push(null); //no actual data beyond the transition point
             }
-            // if (index === 0) {
-            //     actualMaxData.push(item.forecasted_maxDemand_quantity); //ensure blue line reaches the orange point
-            // } else {
-            //     actualMaxData.push(null); //no actual data beyond the transition point
-            // }
-            // if (index === 0) {
-            //     actualMinData.push(item.forecasted_minDemand_quantity); //ensure blue line reaches the orange point
-            // } else {
-            //     actualMinData.push(null); //no actual data beyond the transition point
-            // }
+            if (index === 0) {
+                actualMaxData.push(item.forecasted_maxDemand_quantity); //ensure blue line reaches the orange point
+            } else {
+                actualMaxData.push(null); //no actual data beyond the transition point
+            }
+            if (index === 0) {
+                actualMinData.push(item.forecasted_minDemand_quantity); //ensure blue line reaches the orange point
+            } else {
+                actualMinData.push(null); //no actual data beyond the transition point
+            }
             
             forecastedData.push(item.forecasted_demand_quantity); //add forecasted data points
-            // forecastedMaxData.push(item.forecasted_maxDemand_quantity);
-            // forecastedMinData.push(item.forecasted_minDemand_quantity);
+            forecastedMaxData.push(item.forecasted_maxDemand_quantity);
+            forecastedMinData.push(item.forecasted_minDemand_quantity);
         });
     
         return {
@@ -404,64 +404,64 @@ function LineChartForecastedDemand({
                     tension: 0.2,
                     spanGaps: true, //seamless connection
                 },
-                // {
-                //     label: 'Actual Max Demand',
-                //     data: actualMaxData,
-                //     borderColor: 'red',
-                //     backgroundColor: 'red',
-                //     borderWidth: 2,
-                //     pointBorderColor: (ctx) => {
-                //         const index = ctx.dataIndex;
-                //         return index === data.length ? 'red' : 'red'; //transition point is red
-                //     },
-                //     pointBackgroundColor: (ctx) => {
-                //         const index = ctx.dataIndex;
-                //         return index === data.length ? 'red' : 'red'; //transition point is red
-                //     },
-                //     tension: 0.2,
-                //     spanGaps: true, //seamless connection
-                // },
-                // {
-                //     label: 'Forecasted Max Demand',
-                //     data: forecastedMaxData,
-                //     borderColor: 'red',
-                //     backgroundColor: 'red',
-                //     borderWidth: 3, //make the red line stand out
-                //     pointBorderColor: 'red',
-                //     pointBackgroundColor: 'red',
-                //     borderDash: [5, 5],
-                //     tension: 0.2,
-                //     spanGaps: true, //seamless connection
-                // },
-                // {
-                //     label: 'Actual Min Demand',
-                //     data: actualMinData,
-                //     borderColor: 'orange',
-                //     backgroundColor: 'orange',
-                //     borderWidth: 2,
-                //     pointBorderColor: (ctx) => {
-                //         const index = ctx.dataIndex;
-                //         return index === data.length ? 'orange' : 'orange'; //transition point is orange
-                //     },
-                //     pointBackgroundColor: (ctx) => {
-                //         const index = ctx.dataIndex;
-                //         return index === data.length ? 'orange' : 'orange'; //transition point is orange
-                //     },
-                //     tension: 0.2,
-                //     spanGaps: true, //seamless connection
-                // },
-                // {
-                //     label: 'Forecasted Min Demand',
-                //     data: forecastedMinData,
-                //     borderColor: 'orange',
-                //     backgroundColor: 'orange',
-                //     borderWidth: 3, //make the orange line stand out
-                //     pointBorderColor: 'orange',
-                //     pointBackgroundColor: 'orange',
-                //     borderDash: [5, 5],
-                //     tension: 0.2,
-                //     spanGaps: true, //seamless connection
-                // },
+                {
+                    label: 'Actual Max Demand',
+                    data: actualMaxData,
+                    borderColor: 'red',
+                    backgroundColor: 'red',
+                    borderWidth: 2,
+                    pointBorderColor: (ctx) => {
+                        const index = ctx.dataIndex;
+                        return index === data.length ? 'red' : 'red'; //transition point is red
+                    },
+                    pointBackgroundColor: (ctx) => {
+                        const index = ctx.dataIndex;
+                        return index === data.length ? 'red' : 'red'; //transition point is red
+                    },
+                    tension: 0.2,
+                    spanGaps: true, //seamless connection
+                },
+                {
+                    label: 'Forecasted Max Demand',
+                    data: forecastedMaxData,
+                    borderColor: 'red',
+                    backgroundColor: 'red',
+                    borderWidth: 3, //make the red line stand out
+                    pointBorderColor: 'red',
+                    pointBackgroundColor: 'red',
+                    borderDash: [5, 5],
+                    tension: 0.2,
+                    spanGaps: true, //seamless connection
+                },
+                {
+                    label: 'Actual Min Demand',
+                    data: actualMinData,
+                    borderColor: 'orange',
+                    backgroundColor: 'orange',
+                    borderWidth: 2,
+                    pointBorderColor: (ctx) => {
+                        const index = ctx.dataIndex;
+                        return index === data.length ? 'orange' : 'orange'; //transition point is orange
+                    },
+                    pointBackgroundColor: (ctx) => {
+                        const index = ctx.dataIndex;
+                        return index === data.length ? 'orange' : 'orange'; //transition point is orange
+                    },
+                    tension: 0.2,
+                    spanGaps: true, //seamless connection
+                },
+                {
+                    label: 'Forecasted Min Demand',
+                    data: forecastedMinData,
+                    borderColor: 'orange',
+                    backgroundColor: 'orange',
+                    borderWidth: 3, //make the orange line stand out
+                    pointBorderColor: 'orange',
+                    pointBackgroundColor: 'orange',
+                    borderDash: [5, 5],
+                    tension: 0.2,
+                    spanGaps: true, //seamless connection
+                },
             ],
         };
     };
