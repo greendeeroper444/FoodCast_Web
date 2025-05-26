@@ -171,19 +171,88 @@ function OverAndUnderSupply() {
         }
     };
     
-    // Enhanced week label matching function
+    //enhanced week label matching function
+    // const matchWeekLabels = (supplyLabel, demandLabel) => {
+    //     if (!supplyLabel || !demandLabel) return false;
+        
+    //     //normalize labels by removing extra spaces and converting to lowercase
+    //     const normalizeLabel = (label) => label.replace(/\s+/g, ' ').trim().toLowerCase();
+    //     const normalizedSupply = normalizeLabel(supplyLabel);
+    //     const normalizedDemand = normalizeLabel(demandLabel);
+        
+    //     //direct match
+    //     if (normalizedSupply === normalizedDemand) return true;
+        
+    //     // extract week identifiers (e.g., "Week 1", "Week 2", etc.)
+    //     const extractWeekNumber = (label) => {
+    //         const match = label.match(/week\s*(\d+)/i);
+    //         return match ? match[1] : null;
+    //     };
+        
+    //     const supplyWeek = extractWeekNumber(normalizedSupply);
+    //     const demandWeek = extractWeekNumber(normalizedDemand);
+        
+    //     if (supplyWeek && demandWeek && supplyWeek === demandWeek) return true;
+        
+    //     //check if one label contains the other's week identifier
+    //     if (supplyWeek && normalizedDemand.includes(`week ${supplyWeek}`)) return true;
+    //     if (demandWeek && normalizedSupply.includes(`week ${demandWeek}`)) return true;
+        
+    //     //extract date ranges if present
+    //     const extractDateRange = (label) => {
+    //         const match = label.match(/(\d{4}-\d{2}-\d{2})\s*-\s*(\d{4}-\d{2}-\d{2})/);
+    //         return match ? `${match[1]}_${match[2]}` : null;
+    //     };
+        
+    //     const supplyRange = extractDateRange(supplyLabel);
+    //     const demandRange = extractDateRange(demandLabel);
+        
+    //     if (supplyRange && demandRange && supplyRange === demandRange) return true;
+        
+    //     return false;
+    // };
     const matchWeekLabels = (supplyLabel, demandLabel) => {
         if (!supplyLabel || !demandLabel) return false;
         
-        // Normalize labels by removing extra spaces and converting to lowercase
-        const normalizeLabel = (label) => label.replace(/\s+/g, ' ').trim().toLowerCase();
+        //normalize labels by removing extra spaces, converting to lowercase, and standardizing separators
+        const normalizeLabel = (label) => {
+            return label
+                .replace(/\s+/g, ' ')           // Replace multiple spaces with single space
+                .trim()                         // Remove leading/trailing spaces
+                .toLowerCase()                  // Convert to lowercase
+                .replace(/\s*-\s*/g, ' to ')    // Convert " - " to " to "
+                .replace(/\s*–\s*/g, ' to ')    // Convert " – " (em dash) to " to "
+                .replace(/\s*—\s*/g, ' to ');   // Convert " — " (em dash) to " to "
+        };
+        
         const normalizedSupply = normalizeLabel(supplyLabel);
         const normalizedDemand = normalizeLabel(demandLabel);
         
-        // Direct match
+        // Direct match after normalization
         if (normalizedSupply === normalizedDemand) return true;
         
-        // Extract week identifiers (e.g., "Week 1", "Week 2", etc.)
+        //extract dates from both labels and compare them
+        const extractDates = (label) => {
+            //match date patterns like "january 01, 2024" or "2024-01-01"
+            const datePattern = /(\w+\s+\d{1,2},\s+\d{4}|\d{4}-\d{2}-\d{2})/gi;
+            const matches = label.match(datePattern);
+            return matches ? matches.map(date => date.toLowerCase().replace(/\s+/g, ' ')) : [];
+        };
+        
+        const supplyDates = extractDates(normalizedSupply);
+        const demandDates = extractDates(normalizedDemand);
+        
+        // if both have exactly 2 dates (start and end), compare them
+        if (supplyDates.length === 2 && demandDates.length === 2) {
+            const supplyStart = supplyDates[0];
+            const supplyEnd = supplyDates[1];
+            const demandStart = demandDates[0];
+            const demandEnd = demandDates[1];
+            
+            return supplyStart === demandStart && supplyEnd === demandEnd;
+        }
+        
+        //fallback: extract week identifiers (e.g., "Week 1", "Week 2", etc.)
         const extractWeekNumber = (label) => {
             const match = label.match(/week\s*(\d+)/i);
             return match ? match[1] : null;
@@ -193,21 +262,6 @@ function OverAndUnderSupply() {
         const demandWeek = extractWeekNumber(normalizedDemand);
         
         if (supplyWeek && demandWeek && supplyWeek === demandWeek) return true;
-        
-        // Check if one label contains the other's week identifier
-        if (supplyWeek && normalizedDemand.includes(`week ${supplyWeek}`)) return true;
-        if (demandWeek && normalizedSupply.includes(`week ${demandWeek}`)) return true;
-        
-        // Extract date ranges if present
-        const extractDateRange = (label) => {
-            const match = label.match(/(\d{4}-\d{2}-\d{2})\s*-\s*(\d{4}-\d{2}-\d{2})/);
-            return match ? `${match[1]}_${match[2]}` : null;
-        };
-        
-        const supplyRange = extractDateRange(supplyLabel);
-        const demandRange = extractDateRange(demandLabel);
-        
-        if (supplyRange && demandRange && supplyRange === demandRange) return true;
         
         return false;
     };
@@ -384,10 +438,39 @@ function OverAndUnderSupply() {
     };
     
     //combine next weekly data (future)
+    // const combineNextWeeklyData = (supplyData = [], demandData = []) => {
+    //     const combined = supplyData.map(supply => {
+    //         const demand = demandData.find(d => matchWeekLabels(supply.week_label, d.week_label));
+    //         if (!demand) return null;
+            
+    //         const forecastedSupply = supply.forecasted_quantity || 0;
+            
+    //         const forecastedStatus = calculateOverUnderSupply(
+    //             forecastedSupply,
+    //             demand.forecasted_minDemand_quantity,
+    //             demand.forecasted_maxDemand_quantity
+    //         );
+            
+    //         return {
+    //             week_label: supply.week_label,
+    //             forecasted_supply: forecastedSupply,
+    //             forecasted_demand: demand.forecasted_demand_quantity,
+    //             forecasted_minDemand: demand.forecasted_minDemand_quantity,
+    //             forecasted_maxDemand: demand.forecasted_maxDemand_quantity,
+    //             forecasted_status: forecastedStatus
+    //         };
+    //     }).filter(item => item !== null);
+        
+    //     setNextCombinedWeeklyData(combined);
+    // };
+    //combine next weekly data (future) - FIXED VERSION
     const combineNextWeeklyData = (supplyData = [], demandData = []) => {
         const combined = supplyData.map(supply => {
             const demand = demandData.find(d => matchWeekLabels(supply.week_label, d.week_label));
-            if (!demand) return null;
+            if (!demand) {
+                console.log('❌ NO MATCHING FUTURE DEMAND FOUND for:', supply.week_label);
+                return null;
+            }
             
             const forecastedSupply = supply.forecasted_quantity || 0;
             
@@ -407,9 +490,10 @@ function OverAndUnderSupply() {
             };
         }).filter(item => item !== null);
         
+        
         setNextCombinedWeeklyData(combined);
     };
-    
+
     //combine next monthly data (future)
     const combineNextMonthlyData = (supplyData = [], demandData = []) => {
         const combined = supplyData.map(supply => {

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react'
 import styles from './OverAndUnderSupply.module.css'
 import { formatDate } from '../../../../../utils/dateUtils';
 
@@ -13,7 +13,7 @@ function TableOverUnderSupply({
 }) {
     const [showFutureData, setShowFutureData] = useState(false);
     
-    // Sort functions
+    //sort functions
     const sortDataByDate = (data) => {
         if (!Array.isArray(data)) return [];
         return [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -56,7 +56,7 @@ function TableOverUnderSupply({
         });
     };
 
-    // Memoize sorted data to prevent unnecessary recalculations
+    //memoize sorted data to prevent unnecessary recalculations
     const sortedDailyData = useMemo(() => ({
         current: sortDataByDate(dailyData),
         future: sortDataByDate(nextDailyData)
@@ -72,15 +72,19 @@ function TableOverUnderSupply({
         future: sortMonthlyDataByDate(nextMonthlyData)
     }), [monthlyData, nextMonthlyData]);
 
-    const formatStatusCell = (status, supply, demand) => {
+    const formatStatusCell = (status, supply, demand, minDemand, maxDemand) => {
         if (!status || supply === null || supply === undefined || 
-            demand === null || demand === undefined) {
+            demand === null || demand === undefined ||
+            minDemand === null || minDemand === undefined ||
+            maxDemand === null || maxDemand === undefined) {
             return <div className={styles.statusCell}>-</div>;
         }
         
-        // Ensure values are numbers
+        //ensure values are numbers
         const supplyNum = Number(supply) || 0;
         const demandNum = Number(demand) || 0;
+        const minDemandNum = Number(minDemand) || 0;
+        const maxDemandNum = Number(maxDemand) || 0;
         
         const difference = status.type === 'OVER' 
             ? status.amount 
@@ -100,6 +104,19 @@ function TableOverUnderSupply({
             ? 'Under Supply' 
             : 'Balanced';
         
+        //updated difference label based on status type
+        const getDifferenceLabel = () => {
+            switch (status.type) {
+                case 'OVER':
+                    return 'Oversupply:';
+                case 'UNDER':
+                    return 'Undersupply:';
+                case 'BALANCED':
+                default:
+                    return 'Balanced: Within demand range';
+            }
+        };
+        
         return (
             <div className={styles.statusCell}>
                 <div className={`${styles.statusBadge} ${statusColor}`}>
@@ -114,13 +131,25 @@ function TableOverUnderSupply({
                         <span className={styles.detailLabel}>Demand:</span> 
                         <span className={styles.detailValue}>{demandNum.toFixed(2)}</span>
                     </div>
+                    <div className={styles.detailRow}>
+                        <span className={styles.detailLabel}>Min Demand:</span> 
+                        <span className={styles.detailValue}>{minDemandNum.toFixed(2)}</span>
+                    </div>
+                    <div className={styles.detailRow}>
+                        <span className={styles.detailLabel}>Max Demand:</span> 
+                        <span className={styles.detailValue}>{maxDemandNum.toFixed(2)}</span>
+                    </div>
                 </div>
                 <div className={`${styles.statusDifference} ${statusColor}`}>
-                    <span className={styles.differenceLabel}>Difference:</span> 
-                    <span className={styles.differenceValue}>
-                        {difference > 0 ? '+' : ''}{difference.toFixed(2)}
-                        {status.type !== 'BALANCED' && ` (${status.percentage}%)`}
-                    </span>
+                    <span className={styles.differenceLabel}>{getDifferenceLabel()}</span> 
+                    {
+                        status.type !== 'BALANCED' && (
+                            <span className={styles.differenceValue}>
+                                {difference > 0 ? '+' : ''}{difference.toFixed(2)}
+                                {` (${status.percentage}%)`}
+                            </span>
+                        )
+                    }
                 </div>
             </div>
         );
@@ -151,7 +180,6 @@ function TableOverUnderSupply({
                                 item.date || '-'
                             )
                         }
-
                     </td>
                     <td className={styles.valueCell}>
                         {isFutureData
@@ -163,12 +191,24 @@ function TableOverUnderSupply({
                             ? formatValue(item.forecasted_demand)
                             : formatValue(item.actual_demand)}
                     </td>
+                    {/* <td className={styles.valueCell}>
+                        {isFutureData
+                            ? formatValue(item.forecasted_minDemand)
+                            : formatValue(item.actual_minDemand)}
+                    </td>
+                    <td className={styles.valueCell}>
+                        {isFutureData
+                            ? formatValue(item.forecasted_maxDemand)
+                            : formatValue(item.actual_maxDemand)}
+                    </td> */}
                     <td className={styles.statusCellContainer}>
                         {
                             formatStatusCell(
                                 isFutureData ? item.forecasted_status : item.actual_status,
                                 isFutureData ? item.forecasted_supply : item.actual_supply,
-                                isFutureData ? item.forecasted_demand : item.actual_demand
+                                isFutureData ? item.forecasted_demand : item.actual_demand,
+                                isFutureData ? item.forecasted_minDemand : item.actual_minDemand,
+                                isFutureData ? item.forecasted_maxDemand : item.actual_maxDemand
                             )
                         }
                     </td>
@@ -204,7 +244,7 @@ function TableOverUnderSupply({
     
     const {current, future} = getCurrentData();
     
-    // Get the table title based on active prop
+    //get the table title based on active prop
     const getTableTitle = () => {
         switch (active) {
             case 'Daily':
@@ -248,6 +288,8 @@ function TableOverUnderSupply({
                                 <th className={styles.headerCell}>{active === 'Weekly' ? 'Week' : 'Date'}</th>
                                 <th className={styles.headerCell}>Supply</th>
                                 <th className={styles.headerCell}>Demand</th>
+                                {/* <th className={styles.headerCell}>Min Demand</th>
+                                <th className={styles.headerCell}>Max Demand</th> */}
                                 <th className={styles.headerCell}>Status</th>
                             </tr>
                         </thead>
@@ -281,6 +323,8 @@ function TableOverUnderSupply({
                         <th className={styles.headerCell}>{active === 'Weekly' ? 'Week' : 'Date'}</th>
                         <th className={styles.headerCell}>Supply</th>
                         <th className={styles.headerCell}>Demand</th>
+                        {/* <th className={styles.headerCell}>Min Demand</th>
+                        <th className={styles.headerCell}>Max Demand</th> */}
                         <th className={styles.headerCell}>Status</th>
                     </tr>
                 </thead>
@@ -288,7 +332,7 @@ function TableOverUnderSupply({
                     {
                         current.length === 0 ? (
                             <tr className={styles.emptyRow}>
-                                <td colSpan="4" className={styles.emptyMessage}>
+                                <td colSpan="6" className={styles.emptyMessage}>
                                     No historical data available
                                 </td>
                             </tr>
